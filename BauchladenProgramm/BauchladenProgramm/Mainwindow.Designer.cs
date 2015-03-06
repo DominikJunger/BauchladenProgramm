@@ -1,6 +1,6 @@
 ﻿namespace BauchladenProgramm
 {
-    partial class Form1
+    partial class Mainwindow
     {
         /// <summary>
         /// Erforderliche Designervariable.

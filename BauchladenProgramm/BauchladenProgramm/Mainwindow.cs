@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BauchladenProgramm
 {
-    public partial class Form1 : Form
+    public partial class Mainwindow : Form
     {
-        public Form1()
+        public Mainwindow()
         {
             InitializeComponent();
         }

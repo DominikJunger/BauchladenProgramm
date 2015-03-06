@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgramm", "BauchladenProgramm\BauchladenProgramm.csproj", "{4535E68A-6DD9-44D0-9729-445728711A6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgrammUnitTests", "BauchladenProgrammUnitTests\BauchladenProgrammUnitTests.csproj", "{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{4535E68A-6DD9-44D0-9729-445728711A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4535E68A-6DD9-44D0-9729-445728711A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4535E68A-6DD9-44D0-9729-445728711A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
