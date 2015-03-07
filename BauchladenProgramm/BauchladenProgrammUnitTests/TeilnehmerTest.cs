@@ -7,7 +7,7 @@ namespace BauchladenProgrammUnitTests
     [TestClass]
     public class TeilnehmerTest
     {
-        Teilnehmer test=null;
+        Teilnehmer test = null;
         Teilnehmer test1 = null;
         string vornamen = "Karl";
         string nachname = "Heinz";

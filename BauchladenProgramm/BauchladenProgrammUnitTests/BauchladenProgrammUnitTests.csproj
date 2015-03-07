@@ -53,6 +53,8 @@
     <Compile Include="KontoTest.cs" />
     <Compile Include="TeilnehmerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EinkaufTest.cs" />
+    <Compile Include="ProduktTest.cs" />
     <Compile Include="_DoubleTest.cs" />
   </ItemGroup>
   <ItemGroup>
