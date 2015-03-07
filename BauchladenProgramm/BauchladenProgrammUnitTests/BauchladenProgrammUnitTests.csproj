@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="KontoTest.cs" />
     <Compile Include="TeilnehmerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_DoubleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BauchladenProgramm\BauchladenProgramm.csproj">

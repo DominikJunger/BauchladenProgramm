@@ -16,7 +16,7 @@ namespace BauchladenProgramm
 
         public Konto()
         {
-           // this.kontostand = new _Double();
+            this.kontostand = new _Double(0.0);
         }
     }
 }
