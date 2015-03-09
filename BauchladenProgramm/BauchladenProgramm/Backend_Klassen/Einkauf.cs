@@ -14,7 +14,8 @@ namespace BauchladenProgramm
 //Konstruktoren---------------------------------------
         public Einkauf(DateTime datum)
         {
-            this.Datum = datum;
+            this.gesamtPreis= new _Double(0.0);
+            this.datum = datum;
             produkte = new List<Produkt>();
         }
 
@@ -22,13 +23,11 @@ namespace BauchladenProgramm
         public _Double GesamtPreis
         {
             get { return gesamtPreis; }
-            set { gesamtPreis = value; }
         }
 
         public DateTime Datum
         {
             get { return datum; }
-            set { datum = value; }
         }
 
         public List<Produkt> Produkte
