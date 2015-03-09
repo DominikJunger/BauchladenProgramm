@@ -9,14 +9,19 @@ namespace BauchladenProgramm
     {
         private _Double kontostand;
 
+        //Konstruktoren---------------------------------------
+        public Konto()
+        {
+            this.kontostand = new _Double(0.0);
+        }
+
+        //Setter / Getter-------------------------------------
         public _Double Kontostand
         {
             get { return kontostand; }
         }
 
-        public Konto()
-        {
-            this.kontostand = new _Double(0.0);
-        }
+        //Ander Methoden-------------------------------------
     }
 }
+
