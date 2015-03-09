@@ -14,15 +14,14 @@ namespace BauchladenProgrammUnitTests
             test = new Einkauf(new _Double(230.50), new DateTime(2015, 3, 3));
         }
         [TestMethod]
-        public void KonstruktorTest()
+        public void Einkauf_KonstruktorTest()
         {
-           
             Assert.AreEqual(230.50, test.GesamtPreis.Zahl);
             Assert.AreEqual(new DateTime(2015, 3, 3), test.Datum);
         }
 
         [TestMethod]
-        public void ProduktTest()
+        public void Einkauf_ProduktTest()
         {
             Assert.IsNotNull(test.Produkte);
         }

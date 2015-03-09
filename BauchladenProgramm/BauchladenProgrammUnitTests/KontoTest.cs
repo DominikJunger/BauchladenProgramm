@@ -15,7 +15,7 @@ namespace BauchladenProgrammUnitTests
         }
 
         [TestMethod]
-        public void KontostandInitialisiert()
+        public void Konto_KontostandInitialisiert()
         {
             Assert.AreEqual(new _Double(0.0), test.Kontostand);
         }

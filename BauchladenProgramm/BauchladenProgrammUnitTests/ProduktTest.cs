@@ -8,7 +8,7 @@ namespace BauchladenProgrammUnitTests
     public class ProduktTest
     {
         [TestMethod]
-        public void Konstruktor3ArgumenteTest()
+        public void Produkt_Konstruktor3ArgumenteTest()
         {
             Produkt test = new Produkt("Apfel", "Sieht gut aus, ist aber gesund.", new _Double(1.00));
             Assert.AreEqual("Apfel",test.Name);
@@ -17,7 +17,7 @@ namespace BauchladenProgrammUnitTests
         }
 
         [TestMethod]
-        public void Konstruktor2ArgumenteTest()
+        public void Produkt_Konstruktor2ArgumenteTest()
         {
             Produkt test = new Produkt("Twix", new _Double(0.50));
             Assert.AreEqual("Twix", test.Name);           

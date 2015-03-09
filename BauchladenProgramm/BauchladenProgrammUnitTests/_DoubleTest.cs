@@ -14,14 +14,14 @@ namespace BauchladenProgrammUnitTests
         }
 
         [TestMethod]
-        public void DefaultKonstruktorTest()
+        public void Double_DefaultKonstruktorTest()
         {
             _Double test = new _Double();
             Assert.AreEqual(0.00, test.Zahl);
         }
 
         [TestMethod]
-        public void KonstruktorTest()
+        public void Double_KonstruktorTest()
         {
             _Double test = new _Double(1.1);
             Assert.AreEqual(1.1, test.Zahl);
@@ -31,7 +31,7 @@ namespace BauchladenProgrammUnitTests
 
         [TestMethod]
         [ExpectedException(typeof(Exception), "Zahl mit zu vielen Nachkommastellen")]
-        public void AusnahmeTest()
+        public void Double_AusnahmeTest()
         {
             _Double test = new _Double(3.222);
         }

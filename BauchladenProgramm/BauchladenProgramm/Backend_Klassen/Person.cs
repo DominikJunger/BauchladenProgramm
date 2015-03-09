@@ -12,7 +12,7 @@ namespace BauchladenProgramm
         private string wohnort;
         private string vorname;
 
-      
+//Konstruktoren---------------------------------------      
         public Person(string vorname, string nachname, DateTime geburtsdatum, string wohnort)
         {
             this.vorname = vorname;
@@ -21,27 +21,26 @@ namespace BauchladenProgramm
             this.wohnort = wohnort;
         }
 
-
+//Setter / Getter-------------------------------------
         public string Vorname
         {
             get { return vorname; }
-            set { vorname = value; }
         }
         public string Nachname
         {
             get { return nachname; }
-            set { nachname = value; }
+            set { this.nachname = value; }
         }
         public DateTime Geburtsdatum
         {
             get { return geburtsdatum; }
-            set { geburtsdatum = value; }
         }
 
         public string Wohnort
         {
             get { return wohnort; }
-            set { wohnort = value; }
         }
+
+//Ander Methoden-------------------------------------
     }
 }

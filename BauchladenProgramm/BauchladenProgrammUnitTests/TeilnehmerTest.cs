@@ -22,7 +22,7 @@ namespace BauchladenProgrammUnitTests
         }
         
         [TestMethod]
-        public void IdTest()
+        public void Teilnehmer_IdTest()
         {
             Assert.AreEqual(1, test.Id);
             Assert.AreEqual(2, test1.Id);
@@ -30,7 +30,7 @@ namespace BauchladenProgrammUnitTests
         }
 
         [TestMethod]
-        public void KonstruktorTest()
+        public void Teilnehmer_KonstruktorTest()
         {
             Assert.AreEqual("Karl",test.Vorname);
             Assert.AreEqual("Heinz", test.Nachname);
@@ -39,7 +39,7 @@ namespace BauchladenProgrammUnitTests
         }
 
         [TestMethod]
-        public void KontoTest()
+        public void Teilnehmer_KontoTest()
         {
             Assert.IsNotNull(test.Konto);
             Assert.IsNotNull(test1.Konto);

@@ -11,17 +11,17 @@ namespace BauchladenProgramm
         private int id;
         private Konto konto;
 
-       
-
         private static int naechsteId = 1;
 
+//Konstruktoren--------------------------------------- 
         public Teilnehmer(string vorname, string nachname, DateTime geburtsdatum, string wohnort):base (vorname, nachname,geburtsdatum, wohnort)
         {
             this.id = naechsteId;
             naechsteId++;
             konto = new Konto();           
         }
-
+        
+//Setter / Getter-------------------------------------   
         public int Id
         {
             get { return id; }
@@ -32,6 +32,7 @@ namespace BauchladenProgramm
             get { return konto; }
         }
 
+//Ander Methoden-------------------------------------
         public override bool Equals(object obj)
         {
             if(!(obj.GetType() == typeof (Teilnehmer)))
