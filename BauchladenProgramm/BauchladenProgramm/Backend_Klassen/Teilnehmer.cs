@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BauchladenProgramm;
 
 namespace BauchladenProgramm
 {
@@ -27,12 +23,12 @@ namespace BauchladenProgramm
             get { return id; }
         }
 
-        public Konto Konto
+        public double Kontostand
         {
-            get { return konto; }
+            get { return konto.Kontostand.Zahl; }
         }
 
-//Ander Methoden-------------------------------------
+//Andere Methoden-------------------------------------
         public override bool Equals(object obj)
         {
             if(!(obj.GetType() == typeof (Teilnehmer)))

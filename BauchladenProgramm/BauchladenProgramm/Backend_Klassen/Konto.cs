@@ -12,7 +12,7 @@ namespace BauchladenProgramm
         //Konstruktoren---------------------------------------
         public Konto()
         {
-            this.kontostand = new _Double(0.0);
+            this.kontostand = new _Double();
         }
 
         //Setter / Getter-------------------------------------

@@ -8,22 +8,23 @@ namespace BauchladenProgramm
 {
     public class Produkt
     {
-        string name;
-        string beschreibung;
-        _Double preis;
+        private string name;
+        private string beschreibung;
+        private _Double preis;
+        private int id;
+        private static int naechsteId = 1;
         
 //Konstruktoren--------------------------------------- 
-        public Produkt(string name, string beschreibung, _Double preis) 
+        public Produkt(string name, double preis)
         {
             this.name = name;
-            this.Beschreibung = beschreibung;
-            this.Preis = preis;
+            this.Preis = new _Double(preis);
+            this.id = naechsteId;
+            naechsteId++;
         }
-
-        public Produkt(string name, _Double preis)
+        public Produkt(string name, string beschreibung, double preis): this(name, preis)
         {
-            this.name = name;          
-            this.Preis = preis;
+            this.Beschreibung = beschreibung;
         }
 
 //Setter / Getter-------------------------------------        
@@ -44,6 +45,6 @@ namespace BauchladenProgramm
             set { preis = value; }
         }
         
-//Ander Methoden-------------------------------------
+//Andere Methoden-------------------------------------
     }
 }

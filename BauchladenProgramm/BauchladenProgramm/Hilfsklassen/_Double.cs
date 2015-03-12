@@ -8,26 +8,9 @@ namespace BauchladenProgramm
     public class _Double
     {
 
-        private Double zahl;
+        private double zahl;
 
-        public Double Zahl
-        {
-            get { return zahl; }
-            set
-            {
-                this.zahl = value;
-                string zahlString=this.zahl.ToString();
-                if (zahlString.Contains(','))
-                {
-                    string s = zahlString.Substring(zahlString.IndexOf(',')+1);
-                    if (!((s.Length) <= 2))
-                    {
-                        throw new Exception("Zahl mit zu vielen Nachkommastellen");
-                    }
-                }
-            }
-        }
-
+//Konstruktoren--------------------------------------- 
         public _Double(double zahl)
         {
             this.Zahl = zahl;
@@ -38,6 +21,26 @@ namespace BauchladenProgramm
             this.Zahl = 0.00;
         }
 
+//Setter / Getter-------------------------------------   
+        public double Zahl
+        {
+            get { return zahl; }
+            set
+            {
+                this.zahl = value;
+                string zahlString = this.zahl.ToString();
+                if (zahlString.Contains(','))
+                {
+                    string s = zahlString.Substring(zahlString.IndexOf(',') + 1);
+                    if (!((s.Length) <= 2))
+                    {
+                        throw new Exception("Zahl mit zu vielen Nachkommastellen");
+                    }
+                }
+            }
+        }
+
+//Andere Methoden-------------------------------------
         public override bool Equals(object obj)
         {
             if (!(obj.GetType() == typeof(_Double)))

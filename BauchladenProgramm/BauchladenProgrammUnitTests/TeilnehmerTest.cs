@@ -41,8 +41,8 @@ namespace BauchladenProgrammUnitTests
         [TestMethod]
         public void Teilnehmer_KontoTest()
         {
-            Assert.IsNotNull(test.Konto);
-            Assert.IsNotNull(test1.Konto);
+            Assert.AreEqual(0.0,test.Kontostand);
+            Assert.AreEqual(0.0,test1.Kontostand);
         }
     }
 }
