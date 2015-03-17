@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgramm", "Bauch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgrammUnitTests", "BauchladenProgrammUnitTests\BauchladenProgrammUnitTests.csproj", "{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A47483E-7332-4862-AC91-EA6511F4FA59}"
+	ProjectSection(SolutionItems) = preProject
+		inBenutzung.txt = inBenutzung.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
