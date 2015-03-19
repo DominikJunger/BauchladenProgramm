@@ -64,9 +64,6 @@
   <ItemGroup>
     <Compile Include="Backend_Klassen\Einkauf.cs" />
     <Compile Include="Backend_Klassen\Konto.cs" />
-    <Compile Include="Hilfsklassen\Quicksort.cs" />
-    <Compile Include="Hilfsklassen\SearchBinary.cs" />
-    <Compile Include="Hilfsklassen\SearchLinear.cs" />
     <Compile Include="Mainwindow.cs">
       <SubType>Form</SubType>
     </Compile>
