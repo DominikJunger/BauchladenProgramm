@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 
 
-namespace INF3.Connector
+namespace BauchladenProgramm.Connector
 {
     public class Receiver
     {

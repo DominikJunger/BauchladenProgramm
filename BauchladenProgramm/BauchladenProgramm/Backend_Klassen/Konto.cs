@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace BauchladenProgramm
+namespace BauchladenProgramm.Backend_Klassen
 {
     public class Konto
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics.Contracts;
 using System.Net.Sockets;
 
-namespace INF3.Connector
+namespace BauchladenProgramm.Connector
 {
     class Sender        // the class to send data via network to the server
     {

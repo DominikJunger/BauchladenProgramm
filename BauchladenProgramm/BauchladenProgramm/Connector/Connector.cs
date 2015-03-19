@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace INF3.Connector
+namespace BauchladenProgramm.Connector
 {
 
     //class to apply sender and receiver

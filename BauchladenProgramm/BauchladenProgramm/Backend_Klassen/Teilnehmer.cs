@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BauchladenProgramm
+namespace BauchladenProgramm.Backend_Klassen
 {
     public class Teilnehmer: Person
     {

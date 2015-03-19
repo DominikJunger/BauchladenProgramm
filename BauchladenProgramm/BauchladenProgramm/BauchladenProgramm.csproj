@@ -64,9 +64,14 @@
   <ItemGroup>
     <Compile Include="Backend_Klassen\Einkauf.cs" />
     <Compile Include="Backend_Klassen\Konto.cs" />
+    <Compile Include="Backend_Klassen\Manager.cs" />
+    <Compile Include="Connector\Buffer.cs" />
     <Compile Include="Connector\Connector.cs" />
+    <Compile Include="Connector\Parser.cs" />
     <Compile Include="Connector\Receiver.cs" />
+    <Compile Include="Connector\Ringbuffer.cs" />
     <Compile Include="Connector\Sender.cs" />
+    <Compile Include="Connector\Syntax.cs" />
     <Compile Include="Mainwindow.cs">
       <SubType>Form</SubType>
     </Compile>
