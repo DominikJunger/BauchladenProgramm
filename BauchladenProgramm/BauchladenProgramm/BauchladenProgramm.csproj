@@ -64,6 +64,9 @@
   <ItemGroup>
     <Compile Include="Backend_Klassen\Einkauf.cs" />
     <Compile Include="Backend_Klassen\Konto.cs" />
+    <Compile Include="Connector\Connector.cs" />
+    <Compile Include="Connector\Receiver.cs" />
+    <Compile Include="Connector\Sender.cs" />
     <Compile Include="Mainwindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +118,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
