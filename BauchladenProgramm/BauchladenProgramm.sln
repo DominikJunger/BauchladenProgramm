@@ -1,14 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgramm", "BauchladenProgramm\BauchladenProgramm.csproj", "{4535E68A-6DD9-44D0-9729-445728711A6D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BauchladenProgrammUnitTests", "BauchladenProgrammUnitTests\BauchladenProgrammUnitTests.csproj", "{B7D5FB22-D708-4077-98C7-5A2F04AB0E27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7A47483E-7332-4862-AC91-EA6511F4FA59}"
 	ProjectSection(SolutionItems) = preProject
+		Beispiel_Server_zu_Client.txt = Beispiel_Server_zu_Client.txt
 		inBenutzung.txt = inBenutzung.txt
 	EndProjectSection
 EndProject

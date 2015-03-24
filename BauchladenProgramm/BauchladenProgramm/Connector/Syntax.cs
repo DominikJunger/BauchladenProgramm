@@ -33,9 +33,10 @@ namespace BauchladenProgramm.Connector
         // -> Keys
         public static readonly String BEGIN = "begin",
                                    END = "end",
-                                   PRODUCT_LIST= "prl",
+                                   PRODUCT_LIST= "prlist",
                                    STATUS="status",
-                                   MEMBER="member"
+                                   MEMBER="member",
+                                   PRODUKT="pr"
                                    ;
 
         // -> Values 
@@ -48,8 +49,11 @@ namespace BauchladenProgramm.Connector
                                    FIRST_NAME="fName",
                                    LAST_NAME="lName",
                                    ID="id",
-                                   BANK_BALANCE="bankB"
+                                   BANK_BALANCE="bankB",
 
+                                   //Produkt
+                                   PRODUKT_NAME="produktN",
+                                   PRODUKT_PRICE="produktP"
                                    ;
 
 
