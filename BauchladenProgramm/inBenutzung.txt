@@ -1,0 +1,1 @@
+Bauchladen Server - GUI-Gestaltung / SQL-Klasse
