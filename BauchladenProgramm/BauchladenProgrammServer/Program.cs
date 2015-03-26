@@ -16,7 +16,7 @@ namespace BauchladenProgrammServer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ServerMain());
+            Application.Run(new Mainwindow());
         }
     }
 }

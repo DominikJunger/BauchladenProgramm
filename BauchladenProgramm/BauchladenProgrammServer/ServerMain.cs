@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BauchladenProgrammServer.Klassen;
 
 namespace BauchladenProgrammServer
 {
-    public partial class ServerMain : Form
+    public partial class Mainwindow : Form
     {
-        public ServerMain()
+        public Mainwindow()
         {
             InitializeComponent();
         }
