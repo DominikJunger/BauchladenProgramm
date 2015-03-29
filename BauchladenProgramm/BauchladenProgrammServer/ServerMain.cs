@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BauchladenProgramm.Backend_Klassen;
 using BauchladenProgrammServer.Klassen;
 
 namespace BauchladenProgrammServer
@@ -35,17 +36,20 @@ namespace BauchladenProgrammServer
         private void Mainwindow_Load(object sender, EventArgs e)
         {
             con = new SQL_Connector();
-            this.textBox1.Text = con.DataSource.Substring(con.DataSource.IndexOf('=') + 1);
-            this.textBox2.Text = con.InitialCatalog.Substring(con.InitialCatalog.IndexOf('=') + 1);
-            this.textBox3.Text = con.UserID.Substring(con.UserID.IndexOf('=') + 1);
-            this.textBox4.Text = con.Password.Substring(con.Password.IndexOf('=') + 1);
 
-            con.openConnection();
+
+            if (con.openConnection() == ConnectionState.Open)
+                pictureBox1.BackColor = Color.Green;
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             con.closeConnection();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            con.getTeilnehmer();
         }
     }
 }

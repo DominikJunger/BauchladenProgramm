@@ -7,6 +7,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using BauchladenProgramm.Backend_Klassen;
 using System.Threading.Tasks;
 
 namespace BauchladenProgrammServer.Klassen
@@ -19,22 +20,19 @@ namespace BauchladenProgrammServer.Klassen
         private string userID;       
         private string password;       
         private string asynchProcessing;
+   
 
         private SqlConnection con;
-        private Form x;
-        Label l1;
+    
 
-        public SQL_Connector(string dataSource = @"Data Source=QUAK-ENTE\SQLEXPRESS;", string initialCatalog = "Initial Catalog=DBTest;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=DBLoginTest;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
+        public SQL_Connector(string dataSource = @"Data Source=.\SQLEXPRESS;", string initialCatalog = "Initial Catalog=DBTest;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
         {
-            this.x = new Form();
-            l1 = new Label();
-            x.Controls.Add(l1);
             this.DataSource = dataSource;
             this.InitialCatalog = initialCatalog;
             this.PersistSecurity = persistSecurity;
             this.UserID = userID;
             this.Password = password;
-            this.AsynchProcessing = asynchProcessing;   
+            this.AsynchProcessing = asynchProcessing;         
         }
 
         public ConnectionState openConnection()
@@ -43,13 +41,21 @@ namespace BauchladenProgrammServer.Klassen
             con.Open();
 
             return con.State;
-       }
+        }
+
+        public void addTeilnehmer(List<Teilnehmer> teilnehmer)
+        {
+          
+        }
+
+
 
         public void closeConnection()
         {
             con.Close();
         }
 
+        
         public string DataSource
         {
             get { return dataSource; }
