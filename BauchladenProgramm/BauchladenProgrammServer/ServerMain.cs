@@ -36,20 +36,12 @@ namespace BauchladenProgrammServer
         private void Mainwindow_Load(object sender, EventArgs e)
         {
             con = new SQL_Connector();
-
-
-            if (con.openConnection() == ConnectionState.Open)
-                pictureBox1.BackColor = Color.Green;
+            con.openConnection();
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             con.closeConnection();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            con.getTeilnehmer();
         }
     }
 }
