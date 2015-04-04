@@ -15,6 +15,7 @@ namespace BauchladenProgrammServer
     public partial class Mainwindow : Form
     {
         private SQL_Connector con;
+        private List<Teilnehmer> teilnehmer;
       
         public Mainwindow()
         {
@@ -34,14 +35,31 @@ namespace BauchladenProgrammServer
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
+        {            
+                     
+        }
+
+        private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!con.isClosed())
+                con.closeConnection();
+        }
+        private void openSQLConnection()
         {
             con = new SQL_Connector();
             con.openConnection();
         }
 
-        private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            con.closeConnection();
+        private void ReadCSV(string filename)
+        {           
+            teilnehmer = new CSV_Reader().ReadCSV(filename);
+
+            foreach (Teilnehmer t in teilnehmer)
+            {
+                string tmpTeilnehmer;
+                tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
+              // Hier dann einer Tabelle hinzufügen oder andere Anzeigevariante
+            }                  
         }
     }
 }

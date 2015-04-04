@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Klassen\CSVReader.cs" />
     <Compile Include="Klassen\SQL_Connector.cs" />
     <Compile Include="ServerMain.cs">
       <SubType>Form</SubType>

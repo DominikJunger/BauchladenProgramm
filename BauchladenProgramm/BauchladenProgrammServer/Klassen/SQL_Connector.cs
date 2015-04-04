@@ -15,9 +15,10 @@ namespace BauchladenProgrammServer.Klassen
     {
         
         //-------- Teilnehmer abrufen -------------------------------------
-        private const string SELECT_TEILNEHMER_BY_ID = "SELECT * FROM ... WHERE ID LIKE @ID";
-        private const string SELECT_TEILNEHMER_BY_FIRSTNAME = "SELECT * FROM ... WHERE Vorname LIKE @Vorname";
-        private const string SELECT_TEILNEHMER_BY_LASTNAME = "SELECT * FROM ... WHERE Nachname LIKE @Nachname";
+        private const string SELECT_TEILNEHMER_BY_ID = "SELECT * FROM ... WHERE ID LIKE @ID;";
+        private const string SELECT_TEILNEHMER_BY_FIRSTNAME = "SELECT * FROM ... WHERE Vorname LIKE @Vorname;";
+        private const string SELECT_TEILNEHMER_BY_LASTNAME = "SELECT * FROM ... WHERE Nachname LIKE @Nachname;";
+        private const string INSERT_ALL_TEILNEHMER = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
 
         //-------- Produkte abrufen -------------------------------------
         private const string SELECT_PRODUKT_ALL = "SELECT FROM ...";
@@ -56,9 +57,29 @@ namespace BauchladenProgrammServer.Klassen
             return con.State;
         }
 
+        public bool isClosed()
+        {
+            return con.State == ConnectionState.Closed ? true : false;
+        }
+
         public void addTeilnehmer(List<Teilnehmer> teilnehmer)
         {
+            int id = 1;
+            int x=0;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = INSERT_ALL_TEILNEHMER;
+            cmd.CommandType = CommandType.Text;
           
+            cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
+            cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));
+            foreach (Teilnehmer t in teilnehmer)
+            {              
+                cmd.Parameters["@Vorname"].Value = t.Vorname;
+                cmd.Parameters["@Nachname"].Value = t.Nachname;
+                id++;
+                x=cmd.ExecuteNonQuery();
+            }
+            MessageBox.Show(x.ToString());
         }
 
         public Teilnehmer selectTeilnehmerByID(int id)
