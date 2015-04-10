@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,9 +15,10 @@ namespace BauchladenProgrammServer
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            new Server(new IPEndPoint(IPAddress.Any,3000));
+            /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mainwindow());
+            Application.Run(new Mainwindow());*/
         }
     }
 }

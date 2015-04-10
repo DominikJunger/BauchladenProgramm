@@ -14,9 +14,10 @@ namespace BauchladenProgramm
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
+            new Connector.Connector("127.0.0.1", 3000);            
+            /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mainwindow());
+            Application.Run(new Mainwindow());*/
         }
     }
 }
