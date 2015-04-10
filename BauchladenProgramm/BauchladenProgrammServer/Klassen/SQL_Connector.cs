@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BauchladenProgramm.Backend_Klassen;
 
@@ -49,11 +50,24 @@ namespace BauchladenProgrammServer.Klassen
             this.AsynchProcessing = asynchProcessing;         
         }
 
-        public ConnectionState openConnection()
+        public async Task<ConnectionState> openConnection()
         {
             con = new SqlConnection(DataSource + InitialCatalog + PersistSecurity + UserID + Password + AsynchProcessing);
-            con.Open();
-
+            try
+            {
+                await con.OpenAsync();                
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Fehler bei dem Versuch eine Verbindung mit dem SQL-Server herzustellen:\n\n" + ex.Message + "\n\nBitte Server starten oder Administrator benachrichtigen.", "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (TaskCanceledException ex)
+            {
+                // bis jz nur aufgetreten, wenn das Hauptprogramm mit dem X rechts oben geschlossen wurde.
+                // Während des Ausführung dieser Methode. Da damit aber das Programm geschlossen wird, 
+                // ka was hier noch behandelt werden soll
+            }
+                     
             return con.State;
         }
 
@@ -62,10 +76,8 @@ namespace BauchladenProgrammServer.Klassen
             return con.State == ConnectionState.Closed ? true : false;
         }
 
-        public void addTeilnehmer(List<Teilnehmer> teilnehmer)
+        public async void addTeilnehmer(List<Teilnehmer> teilnehmer)
         {
-            int id = 1;
-            int x=0;
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = INSERT_ALL_TEILNEHMER;
             cmd.CommandType = CommandType.Text;
@@ -74,12 +86,18 @@ namespace BauchladenProgrammServer.Klassen
             cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));
             foreach (Teilnehmer t in teilnehmer)
             {              
-                cmd.Parameters["@Vorname"].Value = t.Vorname;
-                cmd.Parameters["@Nachname"].Value = t.Nachname;
-                id++;
-                x=cmd.ExecuteNonQuery();
-            }
-            MessageBox.Show(x.ToString());
+                cmd.Parameters["@Vorname"].Value = "Test";
+                cmd.Parameters["@Nachname"].Value = "Test1";
+                try
+                {
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                }
+                
+            }           
         }
 
         public Teilnehmer selectTeilnehmerByID(int id)
@@ -156,8 +174,28 @@ namespace BauchladenProgrammServer.Klassen
             }
 
             reader.Close();
+            
 
             return t;
+        }
+
+        public async Task<bool> CheckDbConnection()
+        {
+           
+            try
+            {
+                using (var connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=DBTest;Persist Security Info=True;User ID=sa;Password=12345;Asynchronous Processing=True;Connection Timeout=2"))
+                {
+                   
+                    await connection.OpenAsync();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Verbindung zu Datenbank abgebrochen!");
+                return false; // any error is considered as db connection error for now
+            }
         }
 
         public void closeConnection()
