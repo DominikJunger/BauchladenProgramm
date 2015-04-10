@@ -35,8 +35,8 @@ namespace BauchladenProgrammServer
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
-        {            
-                     
+        {
+            openSQLConnection();
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,15 +44,19 @@ namespace BauchladenProgrammServer
             if(!con.isClosed())
                 con.closeConnection();
         }
-        private void openSQLConnection()
+        private async void openSQLConnection()
         {
             con = new SQL_Connector();
-            con.openConnection();
+            ConnectionState conState = await con.openConnection();
+
+            if (conState == ConnectionState.Open)
+                pictureBox1.BackColor = Color.Green;
+            
         }
 
-        private void ReadCSV(string filename)
+        private void ReadCSV(string filename, char separator)
         {           
-            teilnehmer = new CSV_Reader().ReadCSV(filename);
+            teilnehmer = new CSV_Reader().ReadCSV(filename, separator);
 
             foreach (Teilnehmer t in teilnehmer)
             {

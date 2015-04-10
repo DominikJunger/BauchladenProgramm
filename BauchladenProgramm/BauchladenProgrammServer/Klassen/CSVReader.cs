@@ -10,7 +10,7 @@ namespace BauchladenProgrammServer.Klassen
 {
     class CSV_Reader
     {
-        public List<Teilnehmer> ReadCSV(string filename)
+        public List<Teilnehmer> ReadCSV(string filename, char separator)
         {
             List<Teilnehmer> teilnehmer = new List<Teilnehmer>();
             StreamReader fs = new StreamReader(new FileStream(filename,FileMode.Open));
@@ -21,9 +21,9 @@ namespace BauchladenProgrammServer.Klassen
             while (!fs.EndOfStream)
             {
                 strLine = fs.ReadLine();
-                strArray = strLine.Split(',');
-                if ((strArray[1]!="") || (strArray[2]!=""))
-                    teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2], new DateTime(new DateTime().Day,new DateTime().Month,new DateTime().Year).Date, strArray[4]));
+                strArray = strLine.Split(separator);
+                if ((strArray[1] != "") || (strArray[2] != "")) { }
+                   // teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2], new DateTime(new DateTime().Day,new DateTime().Month,new DateTime().Year).Date, strArray[4]));
             }
             
             return teilnehmer;

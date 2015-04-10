@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -33,11 +34,7 @@ namespace BauchladenProgrammServer.Klassen
         private string userID;       
         private string password;       
         private string asynchProcessing;
-   
-
-        private SqlConnection con;
-
-        
+        private SqlConnection con;        
 
         public SQL_Connector(string dataSource = @"Data Source=.\SQLEXPRESS;", string initialCatalog = "Initial Catalog=DBTest;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
         {
@@ -49,12 +46,22 @@ namespace BauchladenProgrammServer.Klassen
             this.AsynchProcessing = asynchProcessing;         
         }
 
-        public ConnectionState openConnection()
+        public async Task<ConnectionState> openConnection()
         {
+            ConnectionState state = ConnectionState.Connecting;
             con = new SqlConnection(DataSource + InitialCatalog + PersistSecurity + UserID + Password + AsynchProcessing);
-            con.Open();
+            try
+            {               
+                await con.OpenAsync();
+                state = con.State;              
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SQL-Error:\n"+ex.ToString(),"SQL-Error",MessageBoxButtons.OK,MessageBoxIcon.Error);               
+            }
+            
 
-            return con.State;
+            return state;
         }
 
         public bool isClosed()
