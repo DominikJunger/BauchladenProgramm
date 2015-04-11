@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,6 +20,8 @@ namespace BauchladenProgramm
             c.sendMessageToServer("begin:1");
             c.sendMessageToServer("Hallo");
             c.sendMessageToServer("end:1");
+            Thread.Sleep(2000);
+            c.closeConnection();
             /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainwindow());*/

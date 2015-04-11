@@ -124,7 +124,6 @@ namespace BauchladenProgramm.Connector
                 Console.WriteLine(e.Message);
             }
         }
-
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {
