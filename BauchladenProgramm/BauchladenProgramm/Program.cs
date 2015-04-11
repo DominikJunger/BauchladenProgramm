@@ -13,7 +13,7 @@ namespace BauchladenProgramm
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main() 
         {
             Connector.Connector c = new Connector.Connector("192.168.178.33", 3000);
             c.connectToServer();
