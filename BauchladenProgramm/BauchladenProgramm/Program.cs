@@ -14,7 +14,11 @@ namespace BauchladenProgramm
         [STAThread]
         static void Main()
         {
-            new Connector.Connector("192.168.178.33", 3000);            
+            Connector.Connector c = new Connector.Connector("192.168.178.33", 3000);
+            c.connectToServer();
+            c.sendMessageToServer("begin:1");
+            c.sendMessageToServer("Hallo");
+            c.sendMessageToServer("end:1");
             /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainwindow());*/
