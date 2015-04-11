@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BauchladenProgrammServer
 {
-    class Server
+    public class Server
     {
         private TcpListener tcpListener;
         private Thread listenThread;
@@ -17,6 +17,7 @@ namespace BauchladenProgrammServer
 
         public Server(IPEndPoint ipE)
         {
+            this.clientList = new List<Connector.Connector>();
             this.tcpListener = new TcpListener(ipE);
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
@@ -40,7 +41,7 @@ namespace BauchladenProgrammServer
 
         private void HandleClientComm(object client)
         {
-            clientList.Add(new Connector.Connector((TcpClient)client));
+            clientList.Add(new Connector.Connector((TcpClient)client,this));
         }
     }
 }
