@@ -44,22 +44,10 @@ namespace BauchladenProgrammServer.Connector
             return this.receiver.getBufferRef();
         }
 
-        public void closeConnection()
+        public bool isConnected()
         {
-            //closing the Stream from Server and break off the Client-connection
-                try
-                {
-                    this.receiveThread.Abort();
-                    client.GetStream().Close(); // close the stream
-                    client.Close();  // closes the server-connection
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+            return this.client.Connected;
         }
-
 
         public void sendMessageToClient(String s)
         {
