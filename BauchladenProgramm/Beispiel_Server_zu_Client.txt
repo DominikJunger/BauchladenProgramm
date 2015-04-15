@@ -1,7 +1,6 @@
 
 
 begin:1
-
 begin:prlist
 
 begin:pr:1
@@ -14,7 +13,9 @@ produktN: Snicker Klein
 produktP: 0.30
 end:pr:2
 
-end:pelist
+end:prlist
+end:1
+
 
 begin:member
 
@@ -25,7 +26,6 @@ bankB:	20.01
 
 end:member
 
-end:1
 
 
 

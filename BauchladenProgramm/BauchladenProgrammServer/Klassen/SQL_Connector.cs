@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BauchladenProgramm.Backend_Klassen;
 
 namespace BauchladenProgrammServer.Klassen
 {

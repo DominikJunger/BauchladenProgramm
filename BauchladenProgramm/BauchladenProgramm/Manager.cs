@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BauchladenProgramm.Backend_Klassen
+namespace BauchladenProgramm
 {
     public class Manager
     {

@@ -49,6 +49,12 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>6EF011B4F683B69695A73ACE2F771AD55BDC9254</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>BauchladenProgramm_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,9 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend_Klassen\Einkauf.cs" />
-    <Compile Include="Backend_Klassen\Konto.cs" />
-    <Compile Include="Backend_Klassen\Manager.cs" />
     <Compile Include="Connector\Buffer.cs" />
     <Compile Include="Connector\Connector.cs" />
     <Compile Include="Connector\Parser.cs" />
@@ -78,12 +81,9 @@
     <Compile Include="Mainwindow.Designer.cs">
       <DependentUpon>Mainwindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Backend_Klassen\Person.cs" />
-    <Compile Include="Backend_Klassen\Produkt.cs" />
+    <Compile Include="Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Backend_Klassen\Teilnehmer.cs" />
-    <Compile Include="Hilfsklassen\_Double.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -93,6 +93,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="BauchladenProgramm_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
