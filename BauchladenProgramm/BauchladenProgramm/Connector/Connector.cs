@@ -124,21 +124,6 @@ namespace BauchladenProgramm.Connector
                 Console.WriteLine(e.Message);
             }
         }
-
-        public void send(String msg)
-        {
-            try
-            {
-                if (msg!=null)
-                {
-                    this.sender.sendMessage(msg);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
         [ContractInvariantMethod]
         private void ObjectInvariant()
         {

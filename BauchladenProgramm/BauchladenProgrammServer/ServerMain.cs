@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BauchladenProgramm.Backend_Klassen;
@@ -35,8 +36,9 @@ namespace BauchladenProgrammServer
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
-        {            
-                     
+        {         
+           
+          
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -44,10 +46,15 @@ namespace BauchladenProgrammServer
             if(!con.isClosed())
                 con.closeConnection();
         }
-        private void openSQLConnection()
+        private async void openSQLConnection()
         {
+            ConnectionState conState;
+
             con = new SQL_Connector();
-            con.openConnection();
+            conState = await con.openConnection();
+
+            if(conState == ConnectionState.Open)
+                sqlState.BackColor=Color.Green;
         }
 
         private void ReadCSV(string filename)
@@ -60,6 +67,27 @@ namespace BauchladenProgrammServer
                 tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
               // Hier dann einer Tabelle hinzufügen oder andere Anzeigevariante
             }                  
+        }      
+
+        private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bool x = true;
+            while (true)
+            {
+                if (!backgroundWorker1.CancellationPending)
+                {
+                    Thread.Sleep(2000);
+
+                    x = await con.CheckDbConnection();
+
+                    if (!x)
+                    {
+                        sqlState.BackColor = Color.Red;
+                        backgroundWorker1.CancelAsync();
+                        break;
+                    }                    
+                }
+            }           
         }
     }
 }

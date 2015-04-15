@@ -15,7 +15,8 @@ namespace BauchladenProgrammServer
         [STAThread]
         static void Main()
         {
-            new Server(new IPEndPoint(IPAddress.Any,3000));
+            new Server(new IPEndPoint(IPAddress.Any,3000)); // Startet den Serverprozess und wartet auf Anfragen
+            
             /*Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainwindow());*/

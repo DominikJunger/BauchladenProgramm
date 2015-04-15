@@ -18,18 +18,25 @@ namespace BauchladenProgrammServer.Connector
         private Receiver receiver;
         private TcpClient client;
         private Thread receiveThread;
+        private Parser parser;
 
 
-        public Connector(TcpClient client)
+        public Connector(TcpClient client, Server backend)
         {
             if (client == null)
                 throw new Exception("Serververbidung hat keinen gültigen Client");
-    
+            this.client = client;
+
             receiver = new Receiver(this.client);
             sender = new Sender(this.client);
 
+            if (backend == null)
+                throw new Exception("Kein Parsen von Daten möglich");
+            this.parser = new Parser(receiver.getBufferRef(), backend);
+
             this.receiveThread = new Thread(new ThreadStart(receive));
             this.receiveThread.Name = "Receive";
+            this.receiveThread.Start();
         }
 
         public Buffer getBufferRef()
@@ -37,22 +44,10 @@ namespace BauchladenProgrammServer.Connector
             return this.receiver.getBufferRef();
         }
 
-        public void closeConnection()
+        public bool isConnected()
         {
-            //closing the Stream from Server and break off the Client-connection
-                try
-                {
-                    this.receiveThread.Abort();
-                    client.GetStream().Close(); // close the stream
-                    client.Close();  // closes the server-connection
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+            return this.client.Connected;
         }
-
 
         public void sendMessageToClient(String s)
         {
@@ -76,21 +71,6 @@ namespace BauchladenProgrammServer.Connector
             try
             {
                 this.receiver.receive();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public void send(String msg)
-        {
-            try
-            {
-                if (msg!=null)
-                {
-                    this.sender.sendMessage(msg);
-                }
             }
             catch (Exception e)
             {
