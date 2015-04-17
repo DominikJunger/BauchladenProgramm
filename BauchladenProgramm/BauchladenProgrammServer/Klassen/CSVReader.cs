@@ -22,8 +22,11 @@ namespace BauchladenProgrammServer.Klassen
             {
                 strLine = fs.ReadLine();
                 strArray = strLine.Split(',');
-                if ((strArray[1]!="") || (strArray[2]!=""))
-                    teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2], new DateTime(new DateTime().Day,new DateTime().Month,new DateTime().Year).Date, strArray[4]));
+                if ((strArray[1] != "") || (strArray[2] != ""))
+                {
+                    //  teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2],strArray[4]));
+                }
+                 
             }
             
             return teilnehmer;

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BauchladenProgrammServer.Backend_Klassen;
 
 namespace BauchladenProgrammServer.Klassen
 {
@@ -113,7 +114,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                   t = new Teilnehmer(reader.GetString(1),reader.GetString(2),new DateTime(),"TestHausen");
+                   t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
                 }
             }
             else
@@ -139,7 +140,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    t = new Teilnehmer(reader.GetString(1), reader.GetString(2), new DateTime(), "TestHausen");
+                    t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
                 }
             }
             else
@@ -164,7 +165,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    t = new Teilnehmer(reader.GetString(1), reader.GetString(2), new DateTime(), "TestHausen");
+                    t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
                 }
             }
             else
