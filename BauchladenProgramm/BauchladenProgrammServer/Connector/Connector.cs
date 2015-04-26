@@ -49,7 +49,7 @@ namespace BauchladenProgrammServer.Connector
             return this.client.Connected;
         }
 
-        public void sendMessageToClient(String s)
+        private void sendMessageToClient(String s)
         {
             //here send a message to the Client with the Sender-class (sender.sendMessage(String))
             Contract.Requires(s!=null);
@@ -76,6 +76,12 @@ namespace BauchladenProgrammServer.Connector
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        // Methoden zum Senden
+        public void sendProductList()
+        {
+            
         }
     }
 

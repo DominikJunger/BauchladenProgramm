@@ -80,15 +80,39 @@ namespace BauchladenProgrammServer.Connector
             {
                 try
                 {
-                    if(true){
-
+                    if (Regex.Match(dataFromBuffer,Syntax.GET + Syntax.COLON_CHAR).Success)
+                    {
+                        Regex.Replace(dataFromBuffer, Syntax.GET + Syntax.COLON_CHAR, "");
+                        if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST).Success)
+                        {
+                            // hier kommt der methodenaufruf zum verschicken der produkte
+                        }
+                        else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
+                        {
+                            Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");
+                            // hier kommt der sql befehlt zum suchen
+                        }
+                        else
+                        {
+                            throw new Exception("Fehler: GET Befehl vom Client nicht Parsbar");
+                        }
                     }
-                    else if(true){
-
+                    else if (Regex.Match(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR).Success)
+                    {
+                        Regex.Replace(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR, "");
+                        if (Regex.Match(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR).Success)
+                        {
+                            Regex.Replace(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR, "");
+                            // hier kommt der sql befehlt zum setzen eines einkaufs
+                        }
+                        else
+                        {
+                            throw new Exception("Fehler: SET Befehl vom Client nicht Parsbar");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("Fehler: Befehl vom Server nicht Parsbar");
+                        throw new Exception("Fehler: Befehl vom Client nicht Parsbar");
                     }
                 }
                 catch (Exception e)

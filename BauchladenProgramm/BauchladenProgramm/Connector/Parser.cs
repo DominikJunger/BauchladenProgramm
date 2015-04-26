@@ -12,10 +12,10 @@ namespace BauchladenProgramm.Connector
     public class Parser
     {
         private Buffer buffer;
-        private Manager backend;
+        private Connector backend;
         private Thread parsThread;
 
-        public Parser(Buffer buffer, Manager backend)
+        public Parser(Buffer buffer, Connector backend)
         {
             Contract.Requires(buffer != null);
             Contract.Requires(backend != null);

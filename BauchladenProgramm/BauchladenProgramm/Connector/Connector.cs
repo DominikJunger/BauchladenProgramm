@@ -20,6 +20,7 @@ namespace BauchladenProgramm.Connector
         private TcpClient client;
         private IPEndPoint ipep;
         private Thread receiveThread;
+        private Parser parser;
 
 
         public Connector(String ip, Int32 port)
@@ -34,6 +35,8 @@ namespace BauchladenProgramm.Connector
             client = new TcpClient();
             receiver = new Receiver(this.client);
             sender = new Sender(this.client);
+
+            this.parser = new Parser(receiver.getBufferRef(), this);
 
             this.receiveThread = new Thread(new ThreadStart(receive));
             this.receiveThread.Name = "Receive";
@@ -65,7 +68,7 @@ namespace BauchladenProgramm.Connector
         }
 
 
-        public void sendMessageToServer(String s)
+        private void sendMessageToServer(String s)
         {
             //here send a message to the Server with the Sender-class (sender.sendMessage(String))
             Contract.Requires(s!=null);
@@ -124,11 +127,18 @@ namespace BauchladenProgramm.Connector
                 Console.WriteLine(e.Message);
             }
         }
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
+
+        // Methoden zum Senden
+        public void getProductList(){
+            this.sendMessageToServer("get:prlist");
+        }
+        public void getSearch(string value)
         {
-            Contract.Invariant(sender != null);
-            Contract.Invariant(receiver != null);
+            this.sendMessageToServer("get:search:"+ value);
+        }
+        public void setBuy(string userId,string productID)
+        {
+            this.sendMessageToServer("set:buy:" + userId + "," + productID);
         }
     }
 

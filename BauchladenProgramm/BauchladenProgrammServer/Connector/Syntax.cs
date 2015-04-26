@@ -31,31 +31,16 @@ namespace BauchladenProgrammServer.Connector
 
         // Strings
         // -> Keys
-        public static readonly String BEGIN = "begin",
-                                   END = "end",
-                                   PRODUCT_LIST= "prlist",
-                                   STATUS="status",
-                                   MEMBER="member",
-                                   PRODUKT="pr"
-                                   ;
+        public static readonly String
+                                   GET = "get",
+                                   SET = "set";
 
         // -> Values 
-        public static readonly String 
-                                   //Status
-                                   OKAY = "ok",
-                                   UNKNOWN = "unknown",
-                                   INVALID = "invalid",
-                                   //Member
-                                   FIRST_NAME="fName",
-                                   LAST_NAME="lName",
-                                   ID="id",
-                                   BANK_BALANCE="bankB",
-
-                                   //Produkt
-                                   PRODUKT_NAME="produktN",
-                                   PRODUKT_PRICE="produktP"
-                                   ;
-
-
+        public static readonly String
+                                   //Get
+                                   SEARCH = "search",
+                                   PRODUCT_LIST = "prlist",
+                                   //SET
+                                   BUY = "buy";
     }
 }
