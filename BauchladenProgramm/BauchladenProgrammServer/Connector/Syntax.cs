@@ -40,6 +40,7 @@ namespace BauchladenProgrammServer.Connector
                                    //Get
                                    SEARCH = "search",
                                    PRODUCT_LIST = "prlist",
+                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch", 
                                    //SET
                                    BUY = "buy";
     }

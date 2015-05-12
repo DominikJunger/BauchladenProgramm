@@ -132,6 +132,11 @@ namespace BauchladenProgramm.Connector
         public void getProductList(){
             this.sendMessageToServer("get:prlist");
         }
+
+        public void getProductListBuecherTisch()
+        {
+            this.sendMessageToServer("get:prlistBuecherTisch");
+        }
         public void getSearch(string value)
         {
             this.sendMessageToServer("get:search:"+ value);

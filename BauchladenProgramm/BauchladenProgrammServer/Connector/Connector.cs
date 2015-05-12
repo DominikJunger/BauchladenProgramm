@@ -32,16 +32,11 @@ namespace BauchladenProgrammServer.Connector
 
             if (backend == null)
                 throw new Exception("Kein Parsen von Daten möglich");
-            this.parser = new Parser(receiver.getBufferRef(), backend);
+            this.parser = new Parser(receiver.getBufferRef(), this);
 
             this.receiveThread = new Thread(new ThreadStart(receive));
             this.receiveThread.Name = "Receive";
             this.receiveThread.Start();
-        }
-
-        public Buffer getBufferRef()
-        {
-            return this.receiver.getBufferRef();
         }
 
         public bool isConnected()
@@ -81,7 +76,22 @@ namespace BauchladenProgrammServer.Connector
         // Methoden zum Senden
         public void sendProductList()
         {
-            
+            //Beispiel statisch aufgebaut zum Testen
+            this.sendMessageToClient("begin:1");
+            this.sendMessageToClient("begin:prlist");
+
+            this.sendMessageToClient("begin:pr:1");
+            this.sendMessageToClient("produktN: Snicker Groß");
+            this.sendMessageToClient("produktP: 0.50");
+            this.sendMessageToClient("end:pr:1");
+
+            this.sendMessageToClient("begin:pr:2");
+            this.sendMessageToClient("produktN: Mars");
+            this.sendMessageToClient("produktP: 0.30");
+            this.sendMessageToClient("end:pr:2");
+
+            this.sendMessageToClient("end:prlist");
+            this.sendMessageToClient("end:1");
         }
     }
 

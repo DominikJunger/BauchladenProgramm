@@ -80,11 +80,17 @@ namespace BauchladenProgramm.Connector
             {
                 try
                 {
-                    if(true){
-
-                    }
-                    else if(true){
-
+                    if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
+                    {
+                        Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
+                        Regex.Replace(dataFromBuffer, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
+                        
+                        MatchCollection pr = Parser.parsMatchCollection(dataFromBuffer);
+                        if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT).Success)
+                        {
+                            
+                            Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
+                        }
                     }
                     else
                     {

@@ -12,10 +12,10 @@ namespace BauchladenProgrammServer.Connector
     public class Parser
     {
         private Buffer buffer;
-        private Server backend;
+        private Connector backend;
         private Thread parsThread;
 
-        public Parser(Buffer buffer, Server backend)
+        public Parser(Buffer buffer, Connector backend)
         {
             Contract.Requires(buffer != null);
             Contract.Requires(backend != null);
@@ -86,7 +86,14 @@ namespace BauchladenProgrammServer.Connector
                         if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der produkte
+                            this.backend.sendProductList();
                         }
+
+                        if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
+                        {
+                            // hier kommt der methodenaufruf zum verschicken der produkte vom Bueschertisch
+                        }
+
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
                         {
                             Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");
