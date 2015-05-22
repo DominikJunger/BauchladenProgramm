@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(579, 464);
             this.Name = "Mainwindow";
             this.Text = "Bauchladenabrechung EJW BadUrach";
+            this.Load += new System.EventHandler(this.Mainwindow_Load);
             this.ResumeLayout(false);
 
         }

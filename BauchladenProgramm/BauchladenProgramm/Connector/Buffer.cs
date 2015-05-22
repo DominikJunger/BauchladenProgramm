@@ -136,8 +136,8 @@ namespace BauchladenProgramm.Connector
                                         {
                                             if (!buffer.isFull())
                                             {
-                                                message = Regex.Replace(message, Syntax.BEGIN +  Syntax.COLON_CHAR + Syntax.INTEGER + "\r\n", "");
-                                                message = Regex.Replace(message, Syntax.END + Syntax.COLON_CHAR + Syntax.INTEGER + "\r\n", "");
+                                                message = Regex.Replace(message, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.INTEGER + "\n", "");
+                                                message = Regex.Replace(message, Syntax.END + Syntax.COLON_CHAR + Syntax.INTEGER + "\n", "");
                                                 buffer.addMessage(message); //add the complete message to sortedBuffer
                                                 isFull = false;
                                             }

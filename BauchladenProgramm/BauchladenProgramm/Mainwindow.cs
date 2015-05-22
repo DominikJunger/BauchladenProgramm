@@ -12,12 +12,20 @@ namespace BauchladenProgramm
 {
     public partial class Mainwindow : Form
     {
+        Connector.Connector c;
+        string ipAdresse;
+
         public Mainwindow(string ipAdresse)
         {
             InitializeComponent();
+            this.ipAdresse = ipAdresse;
+        }
 
-            Connector.Connector c = new Connector.Connector(ipAdresse, 3000);
+        private void Mainwindow_Load(object sender, EventArgs e)
+        {
+            c = new Connector.Connector(ipAdresse, 3000);
             c.connectToServer();
+            c.getProductList();
         }
     }
 }

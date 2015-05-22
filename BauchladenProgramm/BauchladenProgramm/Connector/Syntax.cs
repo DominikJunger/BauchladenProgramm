@@ -13,7 +13,7 @@ namespace BauchladenProgramm.Connector
                                       INTEGER = @"-?(0|([1-9]\d{0,9}))",
                                       STRING = @"(?<=:).*",
                                       LONG = @"-?(0|([1-9]\d{0,18}))",
-                                      CUT = @".*\r\n";
+                                      CUT = @".*\n";
 
         // seperators 
         public static readonly String[] SEPERATORS = { "\r\n", "\0" };

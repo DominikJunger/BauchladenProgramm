@@ -78,18 +78,30 @@ namespace BauchladenProgramm.Connector
             Contract.Requires(dataFromBuffer != null);
             if (dataFromBuffer != null)
             {
+                Console.WriteLine(dataFromBuffer);
                 try
                 {
                     if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
                     {
-                        Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
-                        Regex.Replace(dataFromBuffer, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
+                        dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST+"\n", "");
+                        dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST + "\n", "");
                         
                         MatchCollection pr = Parser.parsMatchCollection(dataFromBuffer);
-                        if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT).Success)
+
+                        while(pr.Count > 0)
                         {
-                            
-                            Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST, "");
+                            int i = 0;
+                            if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT).Success)
+                            {
+                                while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT).Success))
+                                {
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Fehler beim Parsen");
+                            }
                         }
                     }
                     else
