@@ -62,6 +62,7 @@ namespace BauchladenProgrammServer.Connector
                     lock (uBuffer)
                     {
                         message = uBuffer.First();
+                        uBuffer.Remove(uBuffer.First());
                     }
                 }
             }

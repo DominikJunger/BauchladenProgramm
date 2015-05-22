@@ -36,7 +36,7 @@ namespace BauchladenProgrammServer
             //with connected client
             Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClientComm));
             clientThread.Start(client);
-
+            Console.WriteLine("Neuer Client vom Server aufgenommen");
           }
         }
 

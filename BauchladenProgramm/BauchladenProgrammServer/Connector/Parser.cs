@@ -75,6 +75,7 @@ namespace BauchladenProgrammServer.Connector
         
         private void determineParsMethod(String dataFromBuffer)
         {
+            Console.WriteLine(dataFromBuffer);
             Contract.Requires(dataFromBuffer != null);
             if (dataFromBuffer != null)
             {
@@ -89,7 +90,7 @@ namespace BauchladenProgrammServer.Connector
                             this.backend.sendProductList();
                         }
 
-                        if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
+                        else if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der produkte vom Bueschertisch
                         }

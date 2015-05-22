@@ -64,7 +64,7 @@ namespace BauchladenProgrammServer
             foreach (Teilnehmer t in teilnehmer)
             {
                 string tmpTeilnehmer;
-                tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
+                //tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
               // Hier dann einer Tabelle hinzufügen oder andere Anzeigevariante
             }                  
         }      
