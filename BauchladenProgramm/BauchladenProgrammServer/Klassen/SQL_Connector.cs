@@ -23,8 +23,6 @@ namespace BauchladenProgrammServer.Klassen
 
         //-------- Produkte abrufen -------------------------------------
         private const string SELECT_PRODUKT_ALL = "SELECT FROM ...";
-        
-        //TODO SQL Statements hinzufügen, anpassen
 
 
         //---------------------------------------------------------------

@@ -36,8 +36,7 @@ namespace BauchladenProgrammServer
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
-        {         
-           
+        {
           
         }
 
