@@ -82,12 +82,12 @@ namespace BauchladenProgrammServer.Connector
 
             this.sendMessageToClient("begin:pr:1");
             this.sendMessageToClient("produktN: Snicker Groß");
-            this.sendMessageToClient("produktP: 0.50");
+            this.sendMessageToClient("produktP: 1,50");
             this.sendMessageToClient("end:pr:1");
 
             this.sendMessageToClient("begin:pr:2");
             this.sendMessageToClient("produktN: Mars");
-            this.sendMessageToClient("produktP: 0.30");
+            this.sendMessageToClient("produktP: 0,30");
             this.sendMessageToClient("end:pr:2");
 
             this.sendMessageToClient("end:prlist");
