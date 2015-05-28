@@ -35,9 +35,10 @@ namespace BauchladenProgrammServer
             }
         }
 
-        private void Mainwindow_Load(object sender, EventArgs e)
+        private  void Mainwindow_Load(object sender, EventArgs e)
         {
-          
+        
+            
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -54,6 +55,7 @@ namespace BauchladenProgrammServer
 
             if(conState == ConnectionState.Open)
                 sqlState.BackColor=Color.Green;
+        
         }
 
         private void ReadCSV(string filename)
@@ -88,5 +90,6 @@ namespace BauchladenProgrammServer
                 }
             }           
         }
+
     }
 }

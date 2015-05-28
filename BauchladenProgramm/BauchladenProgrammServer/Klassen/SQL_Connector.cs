@@ -22,7 +22,7 @@ namespace BauchladenProgrammServer.Klassen
         private const string INSERT_ALL_TEILNEHMER = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
 
         //-------- Produkte abrufen -------------------------------------
-        private const string SELECT_PRODUKT_ALL = "SELECT FROM ...";
+        private const string SELECT_PRODUKT_ALL = "SELECT * FROM Produkt;";
 
 
         //---------------------------------------------------------------
@@ -38,7 +38,7 @@ namespace BauchladenProgrammServer.Klassen
 
         
 
-        public SQL_Connector(string dataSource = @"Data Source=.\SQLEXPRESS;", string initialCatalog = "Initial Catalog=DBTest;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
+        public SQL_Connector(string dataSource = @"Data Source=192.168.2.46\SQLEXPRESS;", string initialCatalog = "Initial Catalog=Jula;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
         {
             this.DataSource = dataSource;
             this.InitialCatalog = initialCatalog;
@@ -106,7 +106,6 @@ namespace BauchladenProgrammServer.Klassen
             cmd.CommandText = SELECT_TEILNEHMER_BY_ID;
             cmd.CommandType = CommandType.Text;
             cmd.Parameters.AddWithValue("ID", id);
-
             reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -176,6 +175,34 @@ namespace BauchladenProgrammServer.Klassen
 
             return t;
         }
+
+         public List<Produkt> selectProduktAll()
+         {
+            List<Produkt> tmpP = new List<Produkt>();
+
+            SqlDataReader reader;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = SELECT_PRODUKT_ALL;
+            cmd.CommandType = CommandType.Text;           
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    tmpP.Add(new Produkt(reader.GetInt32(0),reader.GetString(1),Convert.ToDouble(reader.GetDecimal(2))));
+                }
+            }
+            else
+            {
+                MessageBox.Show("No rows found.");
+            }
+
+            reader.Close();
+            
+
+            return tmpP;
+         }
 
         public async Task<bool> CheckDbConnection()
         {
