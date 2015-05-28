@@ -6,16 +6,17 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
+using BauchladenProgramm.Backend_Klassen;
 
 namespace BauchladenProgramm.Connector
 {
     public class Parser
     {
         private Buffer buffer;
-        private Connector backend;
+        private Mainwindow backend;
         private Thread parsThread;
 
-        public Parser(Buffer buffer, Connector backend)
+        public Parser(Buffer buffer, Mainwindow backend)
         {
             Contract.Requires(buffer != null);
             Contract.Requires(backend != null);
@@ -84,24 +85,44 @@ namespace BauchladenProgramm.Connector
                     if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
                     {
                         dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST+"\n", "");
-                        dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST + "\n", "");
-                        
-                        MatchCollection pr = Parser.parsMatchCollection(dataFromBuffer);
 
-                        while(pr.Count > 0)
+                        MatchCollection pr = parsMatchCollection(dataFromBuffer);
+
+                        Int32 messageNumber = 1;
+                        int i = 0;
+                        while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success))
                         {
-                            int i = 0;
-                            if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT).Success)
+                            if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                             {
-                                while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT).Success))
+                                int id = messageNumber;
+                                string name = null;
+                                double preis = 0;
+
+                                while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
                                 {
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_NAME).Success)
+                                    {
+                                        name = parsToString(pr[i].Value);
+                                    }
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_PRICE).Success)
+                                    {
+                                        String tmp=Regex.Replace(pr[i].Value, Syntax.PRODUKT_PRICE+ Syntax.COLON_CHAR, "");
+                                        preis = Double.Parse(tmp);
+                                    }
+                                    
                                     i++;
+                                }
+                                if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
+                                {
+                                    this.backend.addPr(new Produkt(id, name, preis));
                                 }
                             }
                             else
                             {
                                 throw new Exception("Fehler beim Parsen");
                             }
+                            i++;
+                            messageNumber++;
                         }
                     }
                     else

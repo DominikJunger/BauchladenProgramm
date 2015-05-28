@@ -11,6 +11,7 @@ namespace BauchladenProgramm.Connector
         //Primitiv Typen
         public static readonly String BOOLEAN = "(true|false)",
                                       INTEGER = @"-?(0|([1-9]\d{0,9}))",
+                                      DOUBLE = @"\d+(\.\d+)?",
                                       STRING = @"(?<=:).*",
                                       LONG = @"-?(0|([1-9]\d{0,18}))",
                                       CUT = @".*\n";

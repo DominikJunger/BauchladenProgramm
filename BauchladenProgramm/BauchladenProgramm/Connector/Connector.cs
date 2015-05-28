@@ -21,9 +21,10 @@ namespace BauchladenProgramm.Connector
         private IPEndPoint ipep;
         private Thread receiveThread;
         private Parser parser;
+        private Mainwindow mainwindow;
 
 
-        public Connector(String ip, Int32 port)
+        public Connector(String ip, Int32 port, Mainwindow mainwindow)
         {
             //the server needs an ip-adress and a port for the unique identification
             Contract.Requires(ip != null);
@@ -36,10 +37,11 @@ namespace BauchladenProgramm.Connector
             receiver = new Receiver(this.client);
             sender = new Sender(this.client);
 
-            this.parser = new Parser(receiver.getBufferRef(), this);
+            this.parser = new Parser(receiver.getBufferRef(),mainwindow);
 
             this.receiveThread = new Thread(new ThreadStart(receive));
             this.receiveThread.Name = "Receive";
+            this.mainwindow = mainwindow;
         }
 
         public Buffer getBufferRef()

@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend_Klassen\Produkt.cs" />
+    <Compile Include="Backend_Klassen\Teilnehmer.cs" />
     <Compile Include="ConnectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,7 +89,6 @@
     <Compile Include="Mainwindow.Designer.cs">
       <DependentUpon>Mainwindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ConnectionDialog.resx">

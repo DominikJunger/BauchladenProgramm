@@ -39,6 +39,7 @@
             this.ipAdresse.Name = "ipAdresse";
             this.ipAdresse.Size = new System.Drawing.Size(207, 20);
             this.ipAdresse.TabIndex = 0;
+            this.ipAdresse.Text = "192.168.178.32";
             // 
             // connect
             // 

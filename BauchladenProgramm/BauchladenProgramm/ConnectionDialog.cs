@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace BauchladenProgramm
 {
     public partial class ConnectionDialog : Form
@@ -28,7 +29,6 @@ namespace BauchladenProgramm
             {
                 this.ip = this.ipAdresse.Text;
                 this.mainwindow.Start();
-
                 this.Close();
             }
             catch (Exception exception)
