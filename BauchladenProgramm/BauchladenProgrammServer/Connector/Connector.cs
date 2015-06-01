@@ -81,18 +81,18 @@ namespace BauchladenProgrammServer.Connector
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR +"1");
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT +"1");
-            this.sendMessageToClient(Syntax.PRODUKT_NAME+"Snicker Groß");
-            this.sendMessageToClient(Syntax.PRODUKT_PRICE+"1,50");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT +"1");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
+            this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + "Snicker Groß");
+            this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + "1,50");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
 
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + "2");
-            this.sendMessageToClient(Syntax.PRODUKT_NAME + "Mars");
-            this.sendMessageToClient(Syntax.PRODUKT_PRICE + "0,30");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + "2");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
+            this.sendMessageToClient(Syntax.PRODUKT_NAME +Syntax.COLON_CHAR + "Mars");
+            this.sendMessageToClient(Syntax.PRODUKT_PRICE +Syntax.COLON_CHAR + "0,30");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
 
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
         }
     }
 
