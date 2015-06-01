@@ -82,6 +82,8 @@ namespace BauchladenProgramm.Connector
                 Console.WriteLine(dataFromBuffer);
                 try
                 {
+
+// ProduktListe-------------------
                     if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
                     {
                         dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST+"\n", "");
@@ -110,6 +112,51 @@ namespace BauchladenProgramm.Connector
                                         preis = Double.Parse(tmp);
                                     }
                                     
+                                    i++;
+                                }
+                                if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
+                                {
+                                    this.backend.addPr(new Produkt(id, name, preis));
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Fehler beim Parsen");
+                            }
+                            i++;
+                            messageNumber++;
+                        }
+                    }
+
+// ProduktListe Büchertisch-------------------
+                    if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
+                    {
+                        dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST_BUECHERTISCH + "\n", "");
+
+                        MatchCollection pr = parsMatchCollection(dataFromBuffer);
+
+                        Int32 messageNumber = 1;
+                        int i = 0;
+                        while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST_BUECHERTISCH).Success))
+                        {
+                            if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
+                            {
+                                int id = messageNumber;
+                                string name = null;
+                                double preis = 0;
+
+                                while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
+                                {
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_NAME).Success)
+                                    {
+                                        name = parsToString(pr[i].Value);
+                                    }
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_PRICE).Success)
+                                    {
+                                        String tmp = Regex.Replace(pr[i].Value, Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR, "");
+                                        preis = Double.Parse(tmp);
+                                    }
+
                                     i++;
                                 }
                                 if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)

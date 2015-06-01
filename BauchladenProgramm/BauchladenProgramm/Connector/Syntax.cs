@@ -35,6 +35,7 @@ namespace BauchladenProgramm.Connector
         public static readonly String BEGIN = "begin",
                                    END = "end",
                                    PRODUCT_LIST= "prlist",
+                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch", 
                                    STATUS="status",
                                    MEMBER="member",
                                    PRODUKT="pr"

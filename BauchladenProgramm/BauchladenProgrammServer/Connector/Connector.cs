@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BauchladenProgramm.Connector;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -77,21 +78,21 @@ namespace BauchladenProgrammServer.Connector
         public void sendProductList()
         {
             //Beispiel statisch aufgebaut zum Testen
-            this.sendMessageToClient("begin:1");
-            this.sendMessageToClient("begin:prlist");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR +"1");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
-            this.sendMessageToClient("begin:pr:1");
-            this.sendMessageToClient("produktN: Snicker Groß");
-            this.sendMessageToClient("produktP: 1,50");
-            this.sendMessageToClient("end:pr:1");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT +"1");
+            this.sendMessageToClient(Syntax.PRODUKT_NAME+"Snicker Groß");
+            this.sendMessageToClient(Syntax.PRODUKT_PRICE+"1,50");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT +"1");
 
-            this.sendMessageToClient("begin:pr:2");
-            this.sendMessageToClient("produktN: Mars");
-            this.sendMessageToClient("produktP: 0,30");
-            this.sendMessageToClient("end:pr:2");
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + "2");
+            this.sendMessageToClient(Syntax.PRODUKT_NAME + "Mars");
+            this.sendMessageToClient(Syntax.PRODUKT_PRICE + "0,30");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + "2");
 
-            this.sendMessageToClient("end:prlist");
-            this.sendMessageToClient("end:1");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
         }
     }
 

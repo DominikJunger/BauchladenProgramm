@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace BauchladenProgrammServer.Connector
+namespace BauchladenProgramm.Connector
 {
     sealed class Syntax
     {
         //Primitiv Typen
         public static readonly String BOOLEAN = "(true|false)",
                                       INTEGER = @"-?(0|([1-9]\d{0,9}))",
+                                      DOUBLE = @"\d+(\.\d+)?",
                                       STRING = @"(?<=:).*",
                                       LONG = @"-?(0|([1-9]\d{0,18}))",
-                                      CUT = @".*\r\n";
+                                      CUT = @".*\n";
 
         // seperators 
         public static readonly String[] SEPERATORS = { "\r\n", "\0" };
@@ -31,17 +32,32 @@ namespace BauchladenProgrammServer.Connector
 
         // Strings
         // -> Keys
-        public static readonly String
-                                   GET = "get",
-                                   SET = "set";
+        public static readonly String BEGIN = "begin",
+                                   END = "end",
+                                   PRODUCT_LIST = "prlist",
+                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch",
+                                   STATUS = "status",
+                                   MEMBER = "member",
+                                   PRODUKT = "pr"
+                                   ;
 
         // -> Values 
         public static readonly String
-                                   //Get
-                                   SEARCH = "search",
-                                   PRODUCT_LIST = "prlist",
-                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch", 
-                                   //SET
-                                   BUY = "buy";
+            //Status
+                                   OKAY = "ok",
+                                   UNKNOWN = "unknown",
+                                   INVALID = "invalid",
+            //Member
+                                   FIRST_NAME = "fName",
+                                   LAST_NAME = "lName",
+                                   ID = "id",
+                                   BANK_BALANCE = "bankB",
+
+                                   //Produkt
+                                   PRODUKT_NAME = "produktN",
+                                   PRODUKT_PRICE = "produktP"
+                                   ;
+
+
     }
 }
