@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace BauchladenProgramm.Connector
+namespace BauchladenProgrammServer.Connector
 {
     sealed class Syntax
     {
@@ -38,7 +38,11 @@ namespace BauchladenProgramm.Connector
                                    PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch",
                                    STATUS = "status",
                                    MEMBER = "member",
-                                   PRODUKT = "pr"
+                                   PRODUKT = "pr",
+                                   GET= "get",
+                                   SEARCH="search",
+                                   BUY="buy",
+                                   SET= "set"
                                    ;
 
         // -> Values 

@@ -65,7 +65,7 @@ namespace BauchladenProgrammServer.Connector
         {
             return Convert.ToInt64(Regex.Match(input, Syntax.LONG).Value);
         }
-
+  
         public static MatchCollection parsMatchCollection(String input)
         {
             return Regex.Matches(input, Syntax.CUT);
