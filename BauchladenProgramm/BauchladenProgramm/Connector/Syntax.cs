@@ -34,28 +34,32 @@ namespace BauchladenProgramm.Connector
         // -> Keys
         public static readonly String BEGIN = "begin",
                                    END = "end",
-                                   PRODUCT_LIST= "prlist",
-                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch", 
-                                   STATUS="status",
-                                   MEMBER="member",
-                                   PRODUKT="pr"
+                                   PRODUCT_LIST = "prlist",
+                                   PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch",
+                                   STATUS = "status",
+                                   MEMBER = "member",
+                                   PRODUKT = "pr",
+                                   GET = "get",
+                                   SEARCH = "search",
+                                   BUY = "buy",
+                                   SET = "set"
                                    ;
 
         // -> Values 
-        public static readonly String 
-                                   //Status
+        public static readonly String
+            //Status
                                    OKAY = "ok",
                                    UNKNOWN = "unknown",
                                    INVALID = "invalid",
-                                   //Member
-                                   FIRST_NAME="fName",
-                                   LAST_NAME="lName",
-                                   ID="id",
-                                   BANK_BALANCE="bankB",
+            //Member
+                                   FIRST_NAME = "fName",
+                                   LAST_NAME = "lName",
+                                   ID = "id",
+                                   BANK_BALANCE = "bankB",
 
                                    //Produkt
-                                   PRODUKT_NAME="produktN",
-                                   PRODUKT_PRICE="produktP"
+                                   PRODUKT_NAME = "produktN",
+                                   PRODUKT_PRICE = "produktP"
                                    ;
 
 

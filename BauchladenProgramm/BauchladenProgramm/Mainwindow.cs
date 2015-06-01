@@ -15,22 +15,27 @@ namespace BauchladenProgramm
     {
         private Connector.Connector c;
         private string ip;
-        private List<Produkt> pr;
-        private List<Teilnehmer> tn;
 
         public Mainwindow(string ip)
         {
             InitializeComponent();
             this.ip = ip;
-            this.pr = new List<Produkt>();
-            this.tn = new List<Teilnehmer>();
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
         {
-            c = new Connector.Connector(ip, 3000,this);
-            c.connectToServer();
-            c.getProductList();
+            try
+            {
+                c = new Connector.Connector(ip, 3000, this);
+                c.connectToServer();
+                c.getProductList();
+
+                this.dataGridView1.ContextMenuStrip = ProduktAlktionen;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);  
+            }
         }
 
         public void addPr(Produkt p)
@@ -46,6 +51,14 @@ namespace BauchladenProgramm
                     this.dataGridView1.Rows.Add(pr);
                 });
             }
+        }
+
+        public void leere_dataGridView1()
+        {
+            this.dataGridView1.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridView1.Rows.Clear();
+            });
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
