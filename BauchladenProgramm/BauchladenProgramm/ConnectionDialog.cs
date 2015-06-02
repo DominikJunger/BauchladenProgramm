@@ -20,6 +20,7 @@ namespace BauchladenProgramm
         public ConnectionDialog()
         {
             InitializeComponent();
+            this.ipAdresse.SelectedIndex = 0;
             this.mainwindow = new Thread(new ThreadStart(openMainwindow));
         }
 
@@ -38,8 +39,15 @@ namespace BauchladenProgramm
         }
 
         private void openMainwindow(){
-            Form Mainwindow = new Mainwindow(ip);
-            Mainwindow.ShowDialog();
+            try
+            {
+                Form mainwindow = new Mainwindow(ip);
+                mainwindow.ShowDialog();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Verbidungsfehler");
+            }
         }
     }
 }

@@ -29,19 +29,26 @@ namespace BauchladenProgramm.Connector
             //the server needs an ip-adress and a port for the unique identification
             Contract.Requires(ip != null);
             Contract.Requires(port != 0);
-            if (ip != null && port > 0)
+            try
             {
-                ipep = new IPEndPoint(IPAddress.Parse(ip), port);
+                if (ip != null && port > 0)
+                {
+                    ipep = new IPEndPoint(IPAddress.Parse(ip), port);
+                }
+                client = new TcpClient();
+                receiver = new Receiver(this.client);
+                sender = new Sender(this.client);
+
+                this.parser = new Parser(receiver.getBufferRef(), mainwindow);
+
+                this.receiveThread = new Thread(new ThreadStart(receive));
+                this.receiveThread.Name = "Receive";
+                this.mainwindow = mainwindow;
             }
-            client = new TcpClient();
-            receiver = new Receiver(this.client);
-            sender = new Sender(this.client);
-
-            this.parser = new Parser(receiver.getBufferRef(),mainwindow);
-
-            this.receiveThread = new Thread(new ThreadStart(receive));
-            this.receiveThread.Name = "Receive";
-            this.mainwindow = mainwindow;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public Buffer getBufferRef()
@@ -105,8 +112,7 @@ namespace BauchladenProgramm.Connector
                 catch (SocketException e)
                 {
                     this.connected = false;
-                    Console.WriteLine("Unable to connect to server.");
-                    Console.WriteLine(e.Message);
+                    throw e;
                 }
             }
         }

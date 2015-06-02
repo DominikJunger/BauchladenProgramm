@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BauchladenProgramm.Backend_Klassen;
+using System.Net.Sockets;
+using System.Threading;
 
 namespace BauchladenProgramm
 {
@@ -32,10 +34,24 @@ namespace BauchladenProgramm
 
                 this.dataGridView1.ContextMenuStrip = ProduktAlktionen;
             }
+            catch (SocketException sx)
+            {
+                this.Close();
+                MessageBox.Show(sx.Message);
+
+                Thread openConnectionD=new Thread(this.openConnectionDialog);
+                openConnectionD.Start();
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);  
+                MessageBox.Show(ex.Message);
             }
+        }
+
+        // Öffnet bei einem Verbindungsfehler das ConnectionDialog wieder
+        private void openConnectionDialog(){
+            Form cd = new ConnectionDialog();
+            cd.ShowDialog();
         }
 
         public void addPr(Produkt p)
