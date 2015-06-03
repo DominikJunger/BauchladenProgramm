@@ -35,6 +35,11 @@ namespace BauchladenProgramm.Connector
             this.parsThread.Start();
         }
 
+        public void stopParser()
+        {
+            this.parsThread.Abort();
+        }
+
         private void takeFromBuffer()
         {
             if (buffer!=null)

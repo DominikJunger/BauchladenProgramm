@@ -38,6 +38,11 @@ namespace BauchladenProgramm.Connector
             this.bufferThread.Start();
         }
 
+        public void stopBuffer()
+        {
+            this.bufferThread.Abort();
+        }
+
         public void append(String s)
         {
             //add a new message to the unsortedBuffer

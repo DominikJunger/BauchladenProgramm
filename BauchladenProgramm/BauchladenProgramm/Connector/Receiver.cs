@@ -31,6 +31,11 @@ namespace BauchladenProgramm.Connector
         {
             return this.buffer;
         }
+
+        public void stopBuffer()
+        {
+            this.buffer.stopBuffer();
+        }
         public void receive()      //to receive data via network
         {
             try{

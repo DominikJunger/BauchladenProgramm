@@ -49,5 +49,10 @@ namespace BauchladenProgramm
                 MessageBox.Show(e.Message, "Verbidungsfehler");
             }
         }
+
+        private void ConnectionDialog_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

@@ -96,5 +96,16 @@ namespace BauchladenProgramm
                 MessageBox.Show(sb.ToString(), "Selected Rows");
             }
         }
+
+        private void VerkaufButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Mainwindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.c.closeConnection();
+            Application.Exit();
+        }
     }
 }

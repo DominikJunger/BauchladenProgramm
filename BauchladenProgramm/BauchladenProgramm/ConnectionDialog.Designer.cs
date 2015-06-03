@@ -75,6 +75,7 @@
             this.MinimizeBox = false;
             this.Name = "ConnectionDialog";
             this.Text = "ConnectionDialog";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConnectionDialog_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -68,6 +68,9 @@ namespace BauchladenProgramm.Connector
                     client.Close();  // closes the server-connection
                     connected = false;
 
+                    this.parser.stopParser();
+                    this.receiver.stopBuffer();
+
                 }
                 catch (Exception e)
                 {
