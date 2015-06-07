@@ -1,0 +1,5 @@
+Hinweis wegem dem DataGridView und dem Produkt der der Einkaufsliste hinzufügen,
+es gibt ein Event des heißt "CellDoubleClick" tritt auf, wenn auf irgendeine Zelle doppelklick gemacht wurde.
+in der aufgerufene Methode kann dann mit dataGridView1.CurrentCell. ...
+der Wert, der da drin steht oder die Spaltennummer oder Zeilennummer oder so abgefragt werden kann.
+Vielleicht hilft des ja.
