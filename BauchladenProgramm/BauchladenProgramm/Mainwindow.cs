@@ -15,7 +15,7 @@ namespace BauchladenProgramm
 {
     public partial class Mainwindow : Form
     {
-        private Connector.Connector c;
+        //private Connector.Connector c;
         private string ip;
 
         public Mainwindow(string ip)
@@ -28,11 +28,11 @@ namespace BauchladenProgramm
         {
             try
             {
-                c = new Connector.Connector(ip, 3000, this);
-                c.connectToServer();
-                c.getProductList();
+                //c = new Connector.Connector(ip, 3000, this);
+                //c.connectToServer();
+                //c.getProductList();
 
-                this.dataGridView1.ContextMenuStrip = ProduktAlktionen;
+                this.dataGridViewProdukt.ContextMenuStrip = ProduktAlktionen;
             }
             catch (SocketException sx)
             {
@@ -62,25 +62,25 @@ namespace BauchladenProgramm
                 pr[0]=p.Id.ToString();
                 pr[1]=p.Name;
                 pr[2]=p.Preis.ToString();
-                this.dataGridView1.Invoke((MethodInvoker)delegate()
+                this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridView1.Rows.Add(pr);
+                    this.dataGridViewProdukt.Rows.Add(pr);
                 });
             }
         }
 
         public void leere_dataGridView1()
         {
-            this.dataGridView1.Invoke((MethodInvoker)delegate()
+            this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
             {
-                this.dataGridView1.Rows.Clear();
+                this.dataGridViewProdukt.Rows.Clear();
             });
         }
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Int32 selectedRowCount =
-               dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected);
+               dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
             if (selectedRowCount > 0)
             {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -88,7 +88,7 @@ namespace BauchladenProgramm
                 for (int i = 0; i < selectedRowCount; i++)
                 {
                     sb.Append("Row: ");
-                    sb.Append(dataGridView1.SelectedRows[i].Index.ToString());
+                    sb.Append(dataGridViewProdukt.SelectedRows[i].Index.ToString());
                     sb.Append(Environment.NewLine);
                 }
 
@@ -104,7 +104,7 @@ namespace BauchladenProgramm
 
         private void Mainwindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            this.c.closeConnection();
+            //this.c.closeConnection();
             Application.Exit();
         }
     }
