@@ -15,22 +15,25 @@ namespace BauchladenProgramm
 {
     public partial class Mainwindow : Form
     {
-        //private Connector.Connector c;
+        private Connector.Connector c;
         private string ip;
+
+        private List<Produkt> produktVerwaltung;
 
         public Mainwindow(string ip)
         {
             InitializeComponent();
             this.ip = ip;
+            this.produktVerwaltung = new List<Produkt>();
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
         {
             try
             {
-                //c = new Connector.Connector(ip, 3000, this);
-                //c.connectToServer();
-                //c.getProductList();
+                c = new Connector.Connector(ip, 3000, this);
+                c.connectToServer();
+                c.getProductList();
 
                 this.dataGridViewProdukt.ContextMenuStrip = ProduktAlktionen;
             }
@@ -104,8 +107,81 @@ namespace BauchladenProgramm
 
         private void Mainwindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //this.c.closeConnection();
+            this.c.closeConnection();
             Application.Exit();
+        }
+
+        private void dataGridViewProdukt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tmp = e.KeyChar;
+            int zahl = Int32.Parse(tmp.ToString());
+
+            Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount ==1)
+            {
+                this.produktVerwaltung.Add(new Produkt(dataGridViewProdukt.SelectedRows[0].Cells[0].Value.ToString(),
+                    dataGridViewProdukt.SelectedRows[0].Cells[1].Value.ToString(),
+                    dataGridViewProdukt.SelectedRows[0].Cells[2].Value.ToString(),
+                    zahl));
+                this.einkaufslisteZusammenfassen_darstellen();
+            }
+        }
+
+        private void dataGridViewEinkauf_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char tmp = e.KeyChar;
+            int zahl = Int32.Parse(tmp.ToString());
+
+            Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount == 1)
+            {
+                foreach (Produkt p in produktVerwaltung)
+                {
+                    if (p.Id == Int32.Parse(dataGridViewEinkauf.SelectedRows[0].Cells[0].Value.ToString()))
+                    {
+                        p.Anzahl -= zahl;
+                    }
+                }
+                this.einkaufslisteZusammenfassen_darstellen();
+            }
+        }
+
+        private void einkaufslisteZusammenfassen_darstellen()
+        {
+            for(int i=0;i<this.produktVerwaltung.Count;i++)
+            {
+                for(int j=i+1;j<this.produktVerwaltung.Count;j++)
+                {
+                    if(this.produktVerwaltung[i].Id == this.produktVerwaltung[j].Id)
+                    {
+                        this.produktVerwaltung[i].Anzahl += this.produktVerwaltung[j].Anzahl;
+                        this.produktVerwaltung.RemoveAt(j);
+                    }
+                } 
+            }
+
+            this.dataGridViewEinkauf.Rows.Clear();
+
+            for (int i = 0; i < produktVerwaltung.Count;i++)
+            {
+                if (produktVerwaltung[i].Anzahl <= 0)
+                {
+                    this.produktVerwaltung.RemoveAt(i);
+                }
+                else
+                {
+                    String[] pr = new String[4];
+                    pr[0] = produktVerwaltung[i].Id.ToString();
+                    pr[1] = produktVerwaltung[i].Name;
+                    pr[2] = produktVerwaltung[i].Preis.ToString();
+                    pr[3] = produktVerwaltung[i].Anzahl.ToString();
+                    this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
+                    {
+                        this.dataGridViewEinkauf.Rows.Add(pr);
+                    });
+                }
+
+            }
         }
     }
 }

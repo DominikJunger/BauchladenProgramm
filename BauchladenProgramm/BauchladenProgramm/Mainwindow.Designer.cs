@@ -30,36 +30,41 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProduktAlktionen = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Produktauswahlliste = new System.Windows.Forms.GroupBox();
             this.Einkaufsliste = new System.Windows.Forms.GroupBox();
+            this.splitContainerEinkaufsliste = new System.Windows.Forms.SplitContainer();
             this.dataGridViewEinkauf = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             this.TeilnehmerAuswahl = new System.Windows.Forms.GroupBox();
             this.splitContainerTeilnehmer = new System.Windows.Forms.SplitContainer();
             this.TeilnehmerSuche = new System.Windows.Forms.TextBox();
             this.dataGridViewTeilnehmer = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainerVerkaufP = new System.Windows.Forms.SplitContainer();
             this.splitContainerVerkauf = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Verkauf = new System.Windows.Forms.TabPage();
             this.Buechertisch = new System.Windows.Forms.TabPage();
             this.Einzahlung = new System.Windows.Forms.TabPage();
-            this.splitContainerEinkaufsliste = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
             this.ProduktAlktionen.SuspendLayout();
             this.Produktauswahlliste.SuspendLayout();
             this.Einkaufsliste.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).BeginInit();
+            this.splitContainerEinkaufsliste.Panel1.SuspendLayout();
+            this.splitContainerEinkaufsliste.Panel2.SuspendLayout();
+            this.splitContainerEinkaufsliste.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).BeginInit();
             this.TeilnehmerAuswahl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTeilnehmer)).BeginInit();
@@ -77,10 +82,6 @@
             this.splitContainerVerkauf.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Verkauf.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).BeginInit();
-            this.splitContainerEinkaufsliste.Panel1.SuspendLayout();
-            this.splitContainerEinkaufsliste.Panel2.SuspendLayout();
-            this.splitContainerEinkaufsliste.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewProdukt
@@ -107,27 +108,7 @@
             this.dataGridViewProdukt.Size = new System.Drawing.Size(199, 406);
             this.dataGridViewProdukt.TabIndex = 0;
             this.dataGridViewProdukt.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
-            // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            // 
-            // Produkt
-            // 
-            this.Produkt.HeaderText = "Produkt";
-            this.Produkt.Name = "Produkt";
-            this.Produkt.ReadOnly = true;
-            this.Produkt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Preis
-            // 
-            this.Preis.HeaderText = "Preis";
-            this.Preis.Name = "Preis";
-            this.Preis.ReadOnly = true;
-            this.Preis.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewProdukt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewProdukt_KeyPress);
             // 
             // ProduktAlktionen
             // 
@@ -166,6 +147,25 @@
             this.Einkaufsliste.TabStop = false;
             this.Einkaufsliste.Text = "Einkaufsliste";
             // 
+            // splitContainerEinkaufsliste
+            // 
+            this.splitContainerEinkaufsliste.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEinkaufsliste.Location = new System.Drawing.Point(3, 16);
+            this.splitContainerEinkaufsliste.Name = "splitContainerEinkaufsliste";
+            this.splitContainerEinkaufsliste.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerEinkaufsliste.Panel1
+            // 
+            this.splitContainerEinkaufsliste.Panel1.Controls.Add(this.dataGridViewEinkauf);
+            // 
+            // splitContainerEinkaufsliste.Panel2
+            // 
+            this.splitContainerEinkaufsliste.Panel2.Controls.Add(this.button1);
+            this.splitContainerEinkaufsliste.Panel2MinSize = 30;
+            this.splitContainerEinkaufsliste.Size = new System.Drawing.Size(216, 406);
+            this.splitContainerEinkaufsliste.SplitterDistance = 377;
+            this.splitContainerEinkaufsliste.TabIndex = 0;
+            // 
             // dataGridViewEinkauf
             // 
             this.dataGridViewEinkauf.AllowUserToAddRows = false;
@@ -176,7 +176,8 @@
             this.dataGridViewEinkauf.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3});
+            this.dataGridViewTextBoxColumn3,
+            this.Anzahl});
             this.dataGridViewEinkauf.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEinkauf.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewEinkauf.Location = new System.Drawing.Point(0, 0);
@@ -189,27 +190,16 @@
             this.dataGridViewEinkauf.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEinkauf.Size = new System.Drawing.Size(216, 377);
             this.dataGridViewEinkauf.TabIndex = 1;
+            this.dataGridViewEinkauf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewEinkauf_KeyPress);
             // 
-            // dataGridViewTextBoxColumn1
+            // button1
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Produkt";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Preis";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.button1.Location = new System.Drawing.Point(138, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // TeilnehmerAuswahl
             // 
@@ -240,7 +230,7 @@
             // 
             this.splitContainerTeilnehmer.Panel2.Controls.Add(this.dataGridViewTeilnehmer);
             this.splitContainerTeilnehmer.Size = new System.Drawing.Size(194, 406);
-            this.splitContainerTeilnehmer.SplitterDistance = 20;
+            this.splitContainerTeilnehmer.SplitterDistance = 25;
             this.splitContainerTeilnehmer.TabIndex = 0;
             // 
             // TeilnehmerSuche
@@ -272,33 +262,8 @@
             this.dataGridViewTeilnehmer.RowHeadersVisible = false;
             this.dataGridViewTeilnehmer.RowTemplate.ReadOnly = true;
             this.dataGridViewTeilnehmer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(194, 382);
+            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(194, 377);
             this.dataGridViewTeilnehmer.TabIndex = 2;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.FillWeight = 101.5228F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 95;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.FillWeight = 98.47716F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 95;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // splitContainerVerkaufP
             // 
@@ -382,33 +347,72 @@
             this.Einzahlung.Text = "Einzahlung";
             this.Einzahlung.UseVisualStyleBackColor = true;
             // 
-            // splitContainerEinkaufsliste
+            // dataGridViewTextBoxColumn1
             // 
-            this.splitContainerEinkaufsliste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerEinkaufsliste.Location = new System.Drawing.Point(3, 16);
-            this.splitContainerEinkaufsliste.Name = "splitContainerEinkaufsliste";
-            this.splitContainerEinkaufsliste.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
             // 
-            // splitContainerEinkaufsliste.Panel1
+            // dataGridViewTextBoxColumn2
             // 
-            this.splitContainerEinkaufsliste.Panel1.Controls.Add(this.dataGridViewEinkauf);
+            this.dataGridViewTextBoxColumn2.HeaderText = "Produkt";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
-            // splitContainerEinkaufsliste.Panel2
+            // dataGridViewTextBoxColumn3
             // 
-            this.splitContainerEinkaufsliste.Panel2.Controls.Add(this.button1);
-            this.splitContainerEinkaufsliste.Panel2MinSize = 30;
-            this.splitContainerEinkaufsliste.Size = new System.Drawing.Size(216, 406);
-            this.splitContainerEinkaufsliste.SplitterDistance = 377;
-            this.splitContainerEinkaufsliste.TabIndex = 0;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Preis";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // button1
+            // Anzahl
             // 
-            this.button1.Location = new System.Drawing.Point(138, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Anzahl.HeaderText = "Anzahl";
+            this.Anzahl.Name = "Anzahl";
+            this.Anzahl.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.FillWeight = 101.5228F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.FillWeight = 98.47716F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // Id
+            // 
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // Produkt
+            // 
+            this.Produkt.HeaderText = "Produkt";
+            this.Produkt.Name = "Produkt";
+            this.Produkt.ReadOnly = true;
+            // 
+            // Preis
+            // 
+            this.Preis.HeaderText = "Preis";
+            this.Preis.Name = "Preis";
+            this.Preis.ReadOnly = true;
             // 
             // Mainwindow
             // 
@@ -426,6 +430,10 @@
             this.ProduktAlktionen.ResumeLayout(false);
             this.Produktauswahlliste.ResumeLayout(false);
             this.Einkaufsliste.ResumeLayout(false);
+            this.splitContainerEinkaufsliste.Panel1.ResumeLayout(false);
+            this.splitContainerEinkaufsliste.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).EndInit();
+            this.splitContainerEinkaufsliste.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).EndInit();
             this.TeilnehmerAuswahl.ResumeLayout(false);
             this.splitContainerTeilnehmer.Panel1.ResumeLayout(false);
@@ -445,10 +453,6 @@
             this.splitContainerVerkauf.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Verkauf.ResumeLayout(false);
-            this.splitContainerEinkaufsliste.Panel1.ResumeLayout(false);
-            this.splitContainerEinkaufsliste.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).EndInit();
-            this.splitContainerEinkaufsliste.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -456,9 +460,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewProdukt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
         private System.Windows.Forms.ContextMenuStrip ProduktAlktionen;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem;
         private System.Windows.Forms.GroupBox Produktauswahlliste;
@@ -471,17 +472,21 @@
         private System.Windows.Forms.TabPage Buechertisch;
         private System.Windows.Forms.TabPage Einzahlung;
         private System.Windows.Forms.DataGridView dataGridViewEinkauf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.SplitContainer splitContainerTeilnehmer;
         private System.Windows.Forms.DataGridView dataGridViewTeilnehmer;
         private System.Windows.Forms.TextBox TeilnehmerSuche;
+        private System.Windows.Forms.SplitContainer splitContainerEinkaufsliste;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Anzahl;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.SplitContainer splitContainerEinkaufsliste;
-        private System.Windows.Forms.Button button1;
 
     }
 }

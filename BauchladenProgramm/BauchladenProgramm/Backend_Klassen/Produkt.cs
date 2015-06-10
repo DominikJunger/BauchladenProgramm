@@ -12,6 +12,15 @@ namespace BauchladenProgramm.Backend_Klassen
         private int id;
         private string name; 
         private double preis;
+        private int anzahl;
+
+        public Produkt(string id, string name, string preis, int anzahl)
+        {
+            this.id = Int32.Parse(id);
+            this.name = name;
+            this.preis = Double.Parse(preis);
+            this.anzahl = anzahl;
+        }
 
         public Produkt(int id, string name, double preis)
         {
@@ -34,6 +43,12 @@ namespace BauchladenProgramm.Backend_Klassen
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public int Anzahl
+        {
+            get { return anzahl; }
+            set { anzahl = value; }
         }
     }
 }
