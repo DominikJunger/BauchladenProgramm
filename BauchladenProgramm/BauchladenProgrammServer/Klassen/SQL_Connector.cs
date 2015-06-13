@@ -21,6 +21,8 @@ namespace BauchladenProgrammServer.Klassen
         private const string SELECT_TEILNEHMER_BY_LASTNAME = "SELECT * FROM ... WHERE Nachname LIKE @Nachname;";
         private const string INSERT_ALL_TEILNEHMER = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
 
+        private const string SELECT_TEILNEHMER_BY_WHATEVER = "SELECT * FROM Teilnehmer WHERE CAST(Teilnehmer.ID as varchar(3)) = @ID OR Teilnehmer.Nachname = CAST(@Nachname as varchar(50)) OR Teilnehmer.Vorname = CAST(@Vorname as varchar(50));";
+
         //-------- Produkte abrufen -------------------------------------
         private const string SELECT_PRODUKT_ALL = "SELECT * FROM Produkt;";
 
@@ -31,14 +33,21 @@ namespace BauchladenProgrammServer.Klassen
         private string persistSecurity;      
         private string userID;       
         private string password;       
-        private string asynchProcessing;
-   
+        private string asynchProcessing;   
+
+        private static SQL_Connector instance = null;
 
         private SqlConnection con;
 
+        public static SQL_Connector getInstance()
+        {
+            if (instance == null)
+                instance = new SQL_Connector();
+            return instance;
+        }
         
 
-        public SQL_Connector(string dataSource = @"Data Source=192.168.2.46\SQLEXPRESS;", string initialCatalog = "Initial Catalog=Jula;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
+        private SQL_Connector(string dataSource = @"Data Source=192.168.2.46\SQLEXPRESS;", string initialCatalog = "Initial Catalog=Jula;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
         {
             this.DataSource = dataSource;
             this.InitialCatalog = initialCatalog;
@@ -96,6 +105,35 @@ namespace BauchladenProgrammServer.Klassen
                 }
                 
             }           
+        }
+
+         public Teilnehmer selectTeilnehmerBySomething(string para)
+        {
+            Teilnehmer t = null;
+            SqlDataReader reader;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = SELECT_TEILNEHMER_BY_WHATEVER;
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.AddWithValue("ID", para);
+            cmd.Parameters.AddWithValue("Nachname", para);
+            cmd.Parameters.AddWithValue("Vorname", para);
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                   t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                }
+            }
+            else
+            {
+                MessageBox.Show("No rows found.");
+            }
+
+            reader.Close();
+            return t;
         }
 
         public Teilnehmer selectTeilnehmerByID(int id)
@@ -190,7 +228,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    tmpP.Add(new Produkt(reader.GetInt32(0),reader.GetString(1),Convert.ToDouble(reader.GetDecimal(2))));
+                    tmpP.Add(new Produkt(reader.GetInt32(0), reader.GetString(1),reader.GetDecimal(2)));
                 }
             }
             else

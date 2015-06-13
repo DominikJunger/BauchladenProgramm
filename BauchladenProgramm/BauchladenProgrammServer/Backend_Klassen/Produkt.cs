@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BauchladenProgrammServer.Backend_Klassen
 {
-    class Produkt
+    public class Produkt
     {
         private int id;
         private string name; 
-        private double preis;
+        private decimal preis;
 
-        public Produkt(int id, string name, double preis)
+        public Produkt(int id, string name, decimal preis)
         {
             this.id = id;
             this.name = name;
@@ -24,7 +24,7 @@ namespace BauchladenProgrammServer.Backend_Klassen
             get { return id; }
             set { id = value; }
         }
-        public double Preis
+        public decimal Preis
         {
             get { return preis; }
             set { preis = value; }
