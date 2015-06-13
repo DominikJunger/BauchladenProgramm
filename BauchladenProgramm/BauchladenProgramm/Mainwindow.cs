@@ -61,10 +61,10 @@ namespace BauchladenProgramm
         {
             if (p != null)
             {
-                String [] pr= new String[3];
+                String [] pr = new String[3];
                 pr[0]=p.Id.ToString();
                 pr[1]=p.Name;
-                pr[2]=p.Preis.ToString();
+                pr[2]=p.Preis.ToString("0.00");
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
                     this.dataGridViewProdukt.Rows.Add(pr);
@@ -171,6 +171,7 @@ namespace BauchladenProgramm
                 else
                 {
                     String[] pr = new String[4];
+                    
                     pr[0] = produktVerwaltung[i].Id.ToString();
                     pr[1] = produktVerwaltung[i].Name;
                     pr[2] = produktVerwaltung[i].Preis.ToString();

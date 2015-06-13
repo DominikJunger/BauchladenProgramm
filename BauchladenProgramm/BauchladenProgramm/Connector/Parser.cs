@@ -83,7 +83,7 @@ namespace BauchladenProgramm.Connector
         {
             Contract.Requires(dataFromBuffer != null);
             if (dataFromBuffer != null)
-            {
+            {               
                 Console.WriteLine(dataFromBuffer);
                 try
                 {
@@ -92,7 +92,7 @@ namespace BauchladenProgramm.Connector
                     if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
                     {
                         this.backend.leere_dataGridView1();
-
+                        
                         dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST+"\n", "");
 
                         MatchCollection pr = parsMatchCollection(dataFromBuffer);

@@ -56,7 +56,8 @@
             // 
             this.ipAdresse.FormattingEnabled = true;
             this.ipAdresse.Items.AddRange(new object[] {
-            "192.168.178.32"});
+            "192.168.178.32",
+            "192.168.2.43"});
             this.ipAdresse.Location = new System.Drawing.Point(15, 33);
             this.ipAdresse.Name = "ipAdresse";
             this.ipAdresse.Size = new System.Drawing.Size(204, 21);
