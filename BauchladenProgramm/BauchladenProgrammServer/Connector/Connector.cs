@@ -75,7 +75,14 @@ namespace BauchladenProgrammServer.Connector
             }
         }
 
-        // Methoden zum Senden
+        // Methode zum Senden von TeilnehmerListe
+
+        public void sendTeilnehmerList(List<Teilnehmer> teilnehmer)
+        {
+
+        }
+        
+        // Methoden zum Senden von ProduktListe
         public void sendProductList(List<Produkt> produkte)
         {
 
