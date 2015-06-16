@@ -38,6 +38,7 @@ namespace BauchladenProgramm.Connector
                                    PRODUCT_LIST_BUECHERTISCH = "prlistBuecherTisch",
                                    STATUS = "status",
                                    MEMBER = "member",
+                                   MEMBERLIST ="memberList",
                                    PRODUKT = "pr",
                                    GET = "get",
                                    SEARCH = "search",

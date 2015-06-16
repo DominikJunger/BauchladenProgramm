@@ -87,11 +87,10 @@ namespace BauchladenProgramm.Connector
                 Console.WriteLine(dataFromBuffer);
                 try
                 {
-
-// ProduktListe oder ProduktListeBüchertisch-------------------
+                    // ProduktListe oder ProduktListeBüchertisch-------------------
                     if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST).Success)
                     {
-                        this.backend.leere_dataGridView1();
+                        this.backend.leere_dataGridViewProdukt();
                         
                         dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST+"\n", "");
 
@@ -136,7 +135,54 @@ namespace BauchladenProgramm.Connector
                                 throw new Exception("Fehler beim Parsen");
                             }
                         }
-                    }                    
+                    }
+                    // TeilnehmerListe
+                    if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST).Success)
+                    {
+                        this.backend.leere_dataGridViewTeilnehmer();
+
+                        dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST + "\n", "");
+
+                        MatchCollection pr = parsMatchCollection(dataFromBuffer);
+
+                        Int32 messageNumber = 1;
+                        int i = 0;
+                        while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBERLIST).Success))
+                        {
+                            if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
+                            {
+                                int id = messageNumber;
+                                string vorname;
+                                string nachname;
+
+                                while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
+                                {
+                                    if (Regex.Match(pr[i].Value, Syntax.FIRST_NAME).Success)
+                                    {
+                                        vorname = parsToString(pr[i].Value);
+                                    }
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_PRICE).Success)
+                                    {
+                                        nachname = parsToString(pr[i].Value);
+                                    }
+                                    
+                                    i++;
+                                }
+                                if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
+                                {
+                                    this.backend.(new Teilnehmer(id,vorname,nachname));
+                                    if (i < (pr.Count-1))
+                                    {
+                                        i++;
+                                        messageNumber++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("Fehler beim Parsen");
+                            }
+                    }
                     else
                     {
                         throw new Exception("Fehler: Befehl vom Server nicht Parsbar");

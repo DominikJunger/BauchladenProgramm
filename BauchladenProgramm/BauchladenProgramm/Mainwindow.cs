@@ -72,11 +72,33 @@ namespace BauchladenProgramm
             }
         }
 
-        public void leere_dataGridView1()
+        public void addTn(Teilnehmer t)
+        {
+            if (t != null)
+            {
+                String[] pr = new String[3];
+                pr[0] = t.Id.ToString();
+                pr[1] = t.VorName;
+                pr[2] = t.NachName;
+                this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
+                {
+                    this.dataGridViewTeilnehmer.Rows.Add(pr);
+                });
+            }
+        }
+
+        public void leere_dataGridViewProdukt()
         {
             this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
             {
                 this.dataGridViewProdukt.Rows.Clear();
+            });
+        }
+        public void leere_dataGridViewTeilnehmer()
+        {
+            this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridViewTeilnehmer.Rows.Clear();
             });
         }
 
