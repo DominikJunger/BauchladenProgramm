@@ -107,24 +107,24 @@ namespace BauchladenProgrammServer.Klassen
             }           
         }
 
-         public Teilnehmer selectTeilnehmerBySomething(string para)
+        public List<Teilnehmer> selectTeilnehmerBySomething(string parameter)
         {
-            Teilnehmer t = null;
+            List<Teilnehmer> t = new List<Teilnehmer>();
             SqlDataReader reader;
             SqlCommand cmd = con.CreateCommand();
             cmd.CommandText = SELECT_TEILNEHMER_BY_WHATEVER;
             cmd.CommandType = CommandType.Text;
 
-            cmd.Parameters.AddWithValue("ID", para);
-            cmd.Parameters.AddWithValue("Nachname", para);
-            cmd.Parameters.AddWithValue("Vorname", para);
+            cmd.Parameters.AddWithValue("ID", parameter);
+            cmd.Parameters.AddWithValue("Nachname", parameter);
+            cmd.Parameters.AddWithValue("Vorname", parameter);
 
             reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                   t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                   t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(2), reader.GetString(1)));
                 }
             }
             else
