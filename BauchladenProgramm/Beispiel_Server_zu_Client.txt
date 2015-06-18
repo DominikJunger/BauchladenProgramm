@@ -16,15 +16,12 @@ end:pr:2
 end:prlist
 end:1
 
-
-begin:member
-
-id: 1
+begin:memberList
+begin:member:1
 fName:	Hans
 lName:	Müller
-bankB:	20.01
-
-end:member
+end:member:1
+end:memberList
 
 
 

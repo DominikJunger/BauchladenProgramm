@@ -61,10 +61,10 @@ namespace BauchladenProgramm
         {
             if (p != null)
             {
-                String [] pr= new String[3];
+                String [] pr = new String[3];
                 pr[0]=p.Id.ToString();
                 pr[1]=p.Name;
-                pr[2]=p.Preis.ToString();
+                pr[2]=p.Preis.ToString("0.00");
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
                     this.dataGridViewProdukt.Rows.Add(pr);
@@ -72,11 +72,33 @@ namespace BauchladenProgramm
             }
         }
 
-        public void leere_dataGridView1()
+        public void addTn(Teilnehmer t)
+        {
+            if (t != null)
+            {
+                String[] pr = new String[3];
+                pr[0] = t.Id.ToString();
+                pr[1] = t.VorName;
+                pr[2] = t.NachName;
+                this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
+                {
+                    this.dataGridViewTeilnehmer.Rows.Add(pr);
+                });
+            }
+        }
+
+        public void leere_dataGridViewProdukt()
         {
             this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
             {
                 this.dataGridViewProdukt.Rows.Clear();
+            });
+        }
+        public void leere_dataGridViewTeilnehmer()
+        {
+            this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridViewTeilnehmer.Rows.Clear();
             });
         }
 
@@ -171,6 +193,7 @@ namespace BauchladenProgramm
                 else
                 {
                     String[] pr = new String[4];
+                    
                     pr[0] = produktVerwaltung[i].Id.ToString();
                     pr[1] = produktVerwaltung[i].Name;
                     pr[2] = produktVerwaltung[i].Preis.ToString();

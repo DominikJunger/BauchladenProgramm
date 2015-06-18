@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using BauchladenProgrammServer.Backend_Klassen;
 
 namespace BauchladenProgrammServer.Connector
 {
@@ -74,25 +75,52 @@ namespace BauchladenProgrammServer.Connector
             }
         }
 
-        // Methoden zum Senden
-        public void sendProductList()
+        // Methode zum Senden von TeilnehmerListe
+
+        public void sendTeilnehmerList(List<Teilnehmer> teilnehmer)
         {
+
+        }
+        
+        // Methoden zum Senden von ProduktListe
+        public void sendProductList(List<Produkt> produkte)
+        {
+
+            // Würde so funktionieren, lass aber noch das Testbeispiel drin
+
+             /* this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + "1");
+              this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
+
+              foreach (Produkt p in produkte)
+              {
+                  this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + p.Id);
+                  this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + p.Name);
+                  this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + p.Preis);
+                  this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + p.Id);
+              }
+              
+              this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
+              this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
+              */
+              
             //Beispiel statisch aufgebaut zum Testen
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR +"1");
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
+             
+           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR +"1");
+           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
-            this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + "Snicker Groß");
-            this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + "1,50");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
+           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
+           this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + "Snicker Groß");
+           this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + "1,50");
+           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
 
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
-            this.sendMessageToClient(Syntax.PRODUKT_NAME +Syntax.COLON_CHAR + "Mars");
-            this.sendMessageToClient(Syntax.PRODUKT_PRICE +Syntax.COLON_CHAR + "0,30");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
+           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
+           this.sendMessageToClient(Syntax.PRODUKT_NAME +Syntax.COLON_CHAR + "Mars");
+           this.sendMessageToClient(Syntax.PRODUKT_PRICE +Syntax.COLON_CHAR + "0,30");
+           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
 
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
+           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
+           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
+           
         }
     }
 

@@ -37,7 +37,7 @@ namespace BauchladenProgrammServer
 
         private  void Mainwindow_Load(object sender, EventArgs e)
         {
-        
+          
             
         }
 
@@ -50,7 +50,7 @@ namespace BauchladenProgrammServer
         {
             ConnectionState conState;
 
-            con = new SQL_Connector();
+            con = SQL_Connector.getInstance();           
             conState = await con.openConnection();
 
             if(conState == ConnectionState.Open)
@@ -90,6 +90,5 @@ namespace BauchladenProgrammServer
                 }
             }           
         }
-
     }
 }

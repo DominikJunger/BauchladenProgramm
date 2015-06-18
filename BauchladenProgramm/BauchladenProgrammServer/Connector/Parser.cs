@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
+using BauchladenProgrammServer.Backend_Klassen;
+using BauchladenProgrammServer.Klassen;
 
 namespace BauchladenProgrammServer.Connector
 {
@@ -14,6 +16,7 @@ namespace BauchladenProgrammServer.Connector
         private Buffer buffer;
         private Connector backend;
         private Thread parsThread;
+        private SQL_Connector con = SQL_Connector.getInstance();
 
         public Parser(Buffer buffer, Connector backend)
         {
@@ -87,7 +90,7 @@ namespace BauchladenProgrammServer.Connector
                         if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der produkte
-                            this.backend.sendProductList();
+                            this.backend.sendProductList(con.selectProduktAll());
                         }
 
                         else if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
