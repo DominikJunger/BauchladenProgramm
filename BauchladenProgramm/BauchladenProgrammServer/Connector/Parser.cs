@@ -86,11 +86,12 @@ namespace BauchladenProgrammServer.Connector
                 {
                     if (Regex.Match(dataFromBuffer,Syntax.GET + Syntax.COLON_CHAR).Success)
                     {
-                        Regex.Replace(dataFromBuffer, Syntax.GET + Syntax.COLON_CHAR, "");
+                        dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.GET + Syntax.COLON_CHAR, "");
                         if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der produkte
-                            this.backend.sendProductList(con.selectProduktAll());
+                            //this.backend.sendProductList(con.selectProduktAll());
+                            this.backend.sendProductList(null);
                         }
 
                         else if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
@@ -100,7 +101,7 @@ namespace BauchladenProgrammServer.Connector
 
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
                         {
-                            Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");
+                            dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");
                             // hier kommt der sql befehlt zum suchen
                         }
                         else
@@ -113,7 +114,7 @@ namespace BauchladenProgrammServer.Connector
                         Regex.Replace(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR, "");
                         if (Regex.Match(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR).Success)
                         {
-                            Regex.Replace(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR, "");
+                            dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR, "");
                             // hier kommt der sql befehlt zum setzen eines einkaufs
                         }
                         else

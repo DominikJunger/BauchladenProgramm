@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BauchladenProgrammServer.Backend_Klassen
 {
-    class Teilnehmer
+    public class Teilnehmer
     {
         private int id;    
         private string vorName;      

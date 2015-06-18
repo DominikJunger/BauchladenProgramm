@@ -137,7 +137,7 @@ namespace BauchladenProgramm.Connector
                         }
                     }
                     // TeilnehmerListe
-                    if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST).Success)
+                    else if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST).Success)
                     {
                         this.backend.leere_dataGridViewTeilnehmer();
 
@@ -170,7 +170,7 @@ namespace BauchladenProgramm.Connector
                                 }
                                 if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                                 {
-                                    this.backend.(new Teilnehmer(id,vorname,nachname));
+                                    //this.backend.(new Teilnehmer(id,vorname,nachname));
                                     if (i < (pr.Count-1))
                                     {
                                         i++;
@@ -182,6 +182,7 @@ namespace BauchladenProgramm.Connector
                             {
                                 throw new Exception("Fehler beim Parsen");
                             }
+                        }
                     }
                     else
                     {

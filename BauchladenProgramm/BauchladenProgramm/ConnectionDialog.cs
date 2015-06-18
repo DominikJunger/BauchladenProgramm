@@ -20,7 +20,7 @@ namespace BauchladenProgramm
         public ConnectionDialog()
         {
             InitializeComponent();
-            this.ipAdresse.SelectedIndex = 0;
+            this.ipAdresse.SelectedIndex = 1;
             this.mainwindow = new Thread(new ThreadStart(openMainwindow));
         }
 
@@ -53,6 +53,11 @@ namespace BauchladenProgramm
         private void ConnectionDialog_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void ConnectionDialog_Load(object sender, EventArgs e)
+        {
+
         }
 
     

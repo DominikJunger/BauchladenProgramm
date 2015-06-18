@@ -77,6 +77,7 @@
             this.Name = "ConnectionDialog";
             this.Text = "ConnectionDialog";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConnectionDialog_FormClosed);
+            this.Load += new System.EventHandler(this.ConnectionDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
