@@ -48,15 +48,16 @@
             this.splitContainerTeilnehmer = new System.Windows.Forms.SplitContainer();
             this.TeilnehmerSuche = new System.Windows.Forms.TextBox();
             this.dataGridViewTeilnehmer = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainerVerkaufP = new System.Windows.Forms.SplitContainer();
             this.splitContainerVerkauf = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Verkauf = new System.Windows.Forms.TabPage();
             this.Buechertisch = new System.Windows.Forms.TabPage();
             this.Einzahlung = new System.Windows.Forms.TabPage();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
             this.ProduktAlktionen.SuspendLayout();
             this.Produktauswahlliste.SuspendLayout();
@@ -309,6 +310,29 @@
             this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(194, 377);
             this.dataGridViewTeilnehmer.TabIndex = 2;
             // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.FillWeight = 10.6599F;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.FillWeight = 146.8731F;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.FillWeight = 142.467F;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
             // splitContainerVerkaufP
             // 
             this.splitContainerVerkaufP.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -391,29 +415,6 @@
             this.Einzahlung.Text = "Einzahlung";
             this.Einzahlung.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.FillWeight = 10.6599F;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.FillWeight = 146.8731F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 95;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.FillWeight = 142.467F;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 95;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
             // Mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -487,6 +488,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
     }
 }

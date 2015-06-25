@@ -21,24 +21,24 @@ namespace BauchladenProgrammServer
         public Mainwindow()
         {
             InitializeComponent();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                textBox4.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                textBox4.UseSystemPasswordChar = true;
-            }
-        }
+        }     
 
         private  void Mainwindow_Load(object sender, EventArgs e)
         {
-          
             
+
+            
+        }
+
+        private void Mainwindow_Shown(object sender, EventArgs e)
+        {
+            openSQLConnection();
+            init_Server();
+        } 
+
+        private void init_Server()
+        {
+            backgroundWorker1.RunWorkerAsync();
         }
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -58,6 +58,41 @@ namespace BauchladenProgrammServer
         
         }
 
+        private void addTeilnehmer(List<Teilnehmer> tn)
+        {
+            
+            String[] tnString = new String[3];
+
+            foreach (Teilnehmer t in tn)
+            {
+                tnString[0] = t.Id.ToString("00");
+                tnString[1] = t.VorName;
+                tnString[2] = t.NachName;
+                this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
+                {
+                    dataGridViewTeilnehmer.Rows.Add(tnString);
+                });
+                
+            }
+        }
+       
+        private void addProdukte(List<Produkt> pr)
+        {
+            String[] prString = new String[3];
+
+            foreach (Produkt p in pr)
+            {
+                prString[0] = p.Id.ToString("00");
+                prString[1] = p.Name;
+                prString[2] = p.Preis.ToString("0.00");
+                this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
+                {
+                    dataGridViewProdukt.Rows.Add(prString);
+                });
+
+            }
+        }
+
         private void ReadCSV(string filename)
         {           
             teilnehmer = new CSV_Reader().ReadCSV(filename);
@@ -68,27 +103,33 @@ namespace BauchladenProgrammServer
                 //tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
               // Hier dann einer Tabelle hinzufügen oder andere Anzeigevariante
             }                  
-        }      
+        }       
 
-        private async void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            bool x = true;
-            while (true)
-            {
-                if (!backgroundWorker1.CancellationPending)
-                {
+           
+            if (!backgroundWorker1.CancellationPending)
+            {             
+                while (sqlState.BackColor == Color.Red)
+                {                   
                     Thread.Sleep(2000);
-
-                    x = await con.CheckDbConnection();
-
-                    if (!x)
-                    {
-                        sqlState.BackColor = Color.Red;
-                        backgroundWorker1.CancelAsync();
-                        break;
-                    }                    
                 }
-            }           
+                addTeilnehmer(con.selectTeilnehmerAll());
+                addProdukte(con.selectProduktAll());
+                backgroundWorker1.CancelAsync();
+            }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Teilnehmer t = con.selectTeilnehmerByID(Convert.ToInt32(textBox1.Text));
+            if(t != null)
+                textBox1.Text = t.Kontostand.ToString("0.00");
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("HAHA");
+        }               
     }
 }

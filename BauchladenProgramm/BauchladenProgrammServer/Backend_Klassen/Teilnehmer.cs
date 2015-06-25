@@ -10,14 +10,24 @@ namespace BauchladenProgrammServer.Backend_Klassen
     {
         private int id;    
         private string vorName;      
-        private string nachName;       
+        private string nachName;
+        private decimal kontostand;
 
-        public Teilnehmer(int id, string vorName, string nachName)
+        public decimal Kontostand
+        {
+            get { return kontostand; }
+            set { kontostand = value; }
+        }
+ 
+
+        public Teilnehmer(int id, string vorName, string nachName, decimal kontostand)
         {
             this.id = id;
             this.vorName = vorName;
             this.nachName = nachName;
-        }
+            this.Kontostand = kontostand;
+         
+        }    
 
         public int Id
         {

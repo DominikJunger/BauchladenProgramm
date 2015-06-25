@@ -16,9 +16,10 @@ namespace BauchladenProgrammServer.Klassen
     {
         
         //-------- Teilnehmer abrufen -------------------------------------
-        private const string SELECT_TEILNEHMER_BY_ID = "SELECT * FROM ... WHERE ID LIKE @ID;";
-        private const string SELECT_TEILNEHMER_BY_FIRSTNAME = "SELECT * FROM ... WHERE Vorname LIKE @Vorname;";
-        private const string SELECT_TEILNEHMER_BY_LASTNAME = "SELECT * FROM ... WHERE Nachname LIKE @Nachname;";
+        private const string SELECT_TEILNEHMER_BY_ID = "select  Teilnehmer.ID, Teilnehmer.Vorname, Teilnehmer.Nachname, Konto.Kontostand, Konto.Datum from Teilnehmer, Konto where Teilnehmer.ID = Konto.TeilnehmerID and Teilnehmer.ID = @ID and Datum = (select MAX(Konto.Datum) from Konto where Konto.TeilnehmerID = @ID);";
+        private const string SELECT_ALL_TEILNEHMER = "SELECT * FROM Teilnehmer;";
+        // select  Teilnehmer.ID, Teilnehmer.Vorname, Teilnehmer.Nachname, Konto.Kontostand, Konto.Datum from Teilnehmer, Konto where Teilnehmer.ID = Konto.TeilnehmerID and Teilnehmer.ID = 5 and Datum = (select MAX(Konto.Datum) from Konto where Konto.TeilnehmerID = 5);
+     
         private const string INSERT_ALL_TEILNEHMER = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
 
         private const string SELECT_TEILNEHMER_BY_WHATEVER = "SELECT * FROM Teilnehmer WHERE CAST(Teilnehmer.ID as varchar(3)) = @ID OR Teilnehmer.Nachname = CAST(@Nachname as varchar(50)) OR Teilnehmer.Vorname = CAST(@Vorname as varchar(50));";
@@ -55,7 +56,7 @@ namespace BauchladenProgrammServer.Klassen
             this.UserID = userID;
             this.Password = password;
             this.AsynchProcessing = asynchProcessing;         
-        }
+        }      
 
         public async Task<ConnectionState> openConnection()
         {
@@ -85,135 +86,122 @@ namespace BauchladenProgrammServer.Klassen
 
         public async void addTeilnehmer(List<Teilnehmer> teilnehmer)
         {
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = INSERT_ALL_TEILNEHMER;
-            cmd.CommandType = CommandType.Text;
+            if (con.State == ConnectionState.Open)
+            { 
+           
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = INSERT_ALL_TEILNEHMER;
+                cmd.CommandType = CommandType.Text;
           
-            cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
-            cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));
-            foreach (Teilnehmer t in teilnehmer)
-            {              
-                cmd.Parameters["@Vorname"].Value = "Test";
-                cmd.Parameters["@Nachname"].Value = "Test1";
-                try
-                {
-                    await cmd.ExecuteNonQueryAsync();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
-                }
+                cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
+                cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));
+                foreach (Teilnehmer t in teilnehmer)
+                {              
+                    cmd.Parameters["@Vorname"].Value = "Test";
+                    cmd.Parameters["@Nachname"].Value = "Test1";
+                    try
+                    {
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                    catch (SqlException ex)
+                    {
+                        MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
+                    }
                 
-            }           
+                }
+            }
         }
 
         public List<Teilnehmer> selectTeilnehmerBySomething(string parameter)
         {
-            List<Teilnehmer> t = new List<Teilnehmer>();
-            SqlDataReader reader;
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = SELECT_TEILNEHMER_BY_WHATEVER;
-            cmd.CommandType = CommandType.Text;
-
-            cmd.Parameters.AddWithValue("ID", parameter);
-            cmd.Parameters.AddWithValue("Nachname", parameter);
-            cmd.Parameters.AddWithValue("Vorname", parameter);
-
-            reader = cmd.ExecuteReader();
-            if (reader.HasRows)
+            List<Teilnehmer> t = null;
+            if (con.State == ConnectionState.Open)
             {
-                while (reader.Read())
+                t = new List<Teilnehmer>();
+                SqlDataReader reader;
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = SELECT_TEILNEHMER_BY_WHATEVER;
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.AddWithValue("ID", parameter);
+                cmd.Parameters.AddWithValue("Nachname", parameter);
+                cmd.Parameters.AddWithValue("Vorname", parameter);
+
+                reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                   t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(2), reader.GetString(1)));
+                    while (reader.Read())
+                    {
+                       t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(2), reader.GetString(1),0));
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("No rows found.");
-            }
+                else
+                {
+                    MessageBox.Show("No rows found.");
+                }
 
-            reader.Close();
+                reader.Close();
+                
+            }
             return t;
         }
 
         public Teilnehmer selectTeilnehmerByID(int id)
         {
             Teilnehmer t = null;
-            SqlDataReader reader;
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = SELECT_TEILNEHMER_BY_ID;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("ID", id);
-            reader = cmd.ExecuteReader();
-            if (reader.HasRows)
+            if (con.State == ConnectionState.Open)
             {
-                while (reader.Read())
+                SqlDataReader reader;
+                SqlCommand cmd = con.CreateCommand();
+                cmd.CommandText = SELECT_TEILNEHMER_BY_ID;
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("ID", id);
+                reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                   t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                    while (reader.Read())
+                    {
+                        t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),reader.GetDecimal(3));
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("No rows found.");
-            }
+                else
+                {
+                    MessageBox.Show("No rows found.");
+                }
 
-            reader.Close();
+                reader.Close();
+            }
             return t;
         }
 
-        public Teilnehmer selectTeilnehmerByFirstName(string vorname)
+        public List<Teilnehmer> selectTeilnehmerAll()
         {
-            Teilnehmer t = null;
-            SqlDataReader reader;
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = SELECT_TEILNEHMER_BY_FIRSTNAME;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("Vorname", vorname);
-
-            reader = cmd.ExecuteReader();
-            if (reader.HasRows)
+            List<Teilnehmer> t = null;
+            if (con.State == ConnectionState.Open)
             {
-                while (reader.Read())
+                SqlDataReader reader;
+                SqlCommand cmd = con.CreateCommand();
+                t = new List<Teilnehmer>();
+                cmd.CommandText = SELECT_ALL_TEILNEHMER;
+                cmd.CommandType = CommandType.Text;               
+                reader = cmd.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                    while (reader.Read())
+                    {
+                       t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),0));
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("No rows found.");
+                }
+
+                reader.Close();
             }
-            else
-            {
-                MessageBox.Show("No rows found.");
-            }
-            reader.Close();
             return t;
         }
-
-        public Teilnehmer selectTeilnehmerByLastName(string nachname)
-        {
-            Teilnehmer t = null;
-            SqlDataReader reader;
-            SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = SELECT_TEILNEHMER_BY_LASTNAME;
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("Nachname", nachname);
-
-            reader = cmd.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
-                }
-            }
-            else
-            {
-                MessageBox.Show("No rows found.");
-            }
-
-            reader.Close();
-            
-
-            return t;
-        }
-
+          
          public List<Produkt> selectProduktAll()
          {
             List<Produkt> tmpP = new List<Produkt>();
@@ -243,20 +231,18 @@ namespace BauchladenProgrammServer.Klassen
          }
 
         public async Task<bool> CheckDbConnection()
-        {
-           
+        {            
             try
             {
-                using (var connection = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=DBTest;Persist Security Info=True;User ID=sa;Password=12345;Asynchronous Processing=True;Connection Timeout=2"))
-                {
-                   
+                using (var connection = new SqlConnection(@"Data Source=192.168.2.46\SQLEXPRESS;Initial Catalog=Jula;Persist Security Info=True;User ID=sa;Password=12345;Asynchronous Processing=True;Connection Timeout=2"))
+                {                   
                     await connection.OpenAsync();
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Verbindung zu Datenbank abgebrochen!");
+                MessageBox.Show("Verbindung zu Datenbank abgebrochen!" + ex.Message);
                 return false; // any error is considered as db connection error for now
             }
         }
