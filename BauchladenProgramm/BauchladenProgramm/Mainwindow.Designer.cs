@@ -40,6 +40,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeilnehmerInfos = new System.Windows.Forms.ListView();
             this.send = new System.Windows.Forms.Button();
             this.TeilnehmerAuswahl = new System.Windows.Forms.GroupBox();
             this.splitContainerTeilnehmer = new System.Windows.Forms.SplitContainer();
@@ -54,7 +55,6 @@
             this.Verkauf = new System.Windows.Forms.TabPage();
             this.Buechertisch = new System.Windows.Forms.TabPage();
             this.Einzahlung = new System.Windows.Forms.TabPage();
-            this.TeilnehmerInfos = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
             this.Produktauswahlliste.SuspendLayout();
             this.Einkaufsliste.SuspendLayout();
@@ -229,6 +229,15 @@
             this.Anzahl.Name = "Anzahl";
             this.Anzahl.ReadOnly = true;
             // 
+            // TeilnehmerInfos
+            // 
+            this.TeilnehmerInfos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeilnehmerInfos.Location = new System.Drawing.Point(0, 0);
+            this.TeilnehmerInfos.Name = "TeilnehmerInfos";
+            this.TeilnehmerInfos.Size = new System.Drawing.Size(203, 86);
+            this.TeilnehmerInfos.TabIndex = 1;
+            this.TeilnehmerInfos.UseCompatibleStateImageBehavior = false;
+            // 
             // send
             // 
             this.send.Dock = System.Windows.Forms.DockStyle.Right;
@@ -302,6 +311,7 @@
             this.dataGridViewTeilnehmer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(228, 377);
             this.dataGridViewTeilnehmer.TabIndex = 2;
+            this.dataGridViewTeilnehmer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeilnehmer_CellClick);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -408,15 +418,6 @@
             this.Einzahlung.TabIndex = 2;
             this.Einzahlung.Text = "Einzahlung";
             this.Einzahlung.UseVisualStyleBackColor = true;
-            // 
-            // TeilnehmerInfos
-            // 
-            this.TeilnehmerInfos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TeilnehmerInfos.Location = new System.Drawing.Point(0, 0);
-            this.TeilnehmerInfos.Name = "TeilnehmerInfos";
-            this.TeilnehmerInfos.Size = new System.Drawing.Size(203, 86);
-            this.TeilnehmerInfos.TabIndex = 1;
-            this.TeilnehmerInfos.UseCompatibleStateImageBehavior = false;
             // 
             // Mainwindow
             // 

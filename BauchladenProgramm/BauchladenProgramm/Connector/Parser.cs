@@ -162,7 +162,7 @@ namespace BauchladenProgramm.Connector
                                     {
                                         vorname = parsToString(pr[i].Value);
                                     }
-                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_PRICE).Success)
+                                    if (Regex.Match(pr[i].Value, Syntax.LAST_NAME).Success)
                                     {
                                         nachname = parsToString(pr[i].Value);
                                     }
