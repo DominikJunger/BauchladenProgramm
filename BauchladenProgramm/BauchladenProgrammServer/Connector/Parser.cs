@@ -99,6 +99,12 @@ namespace BauchladenProgrammServer.Connector
                             // hier kommt der methodenaufruf zum verschicken der produkte vom Bueschertisch
                         }
 
+                        else if (Regex.Match(dataFromBuffer, Syntax.MEMBERLIST).Success)
+                        {
+                            // hier kommt der methodenaufruf zum verschicken der TeilnehmerListe
+                            this.backend.sendTeilnehmerList(null);
+                        }
+
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
                         {
                             dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");

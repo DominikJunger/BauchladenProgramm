@@ -21,6 +21,7 @@ namespace BauchladenProgrammServer.Connector
         private TcpClient client;
         private Thread receiveThread;
         private Parser parser;
+        private static int msgCount=0;
 
 
         public Connector(TcpClient client, Server backend)
@@ -54,7 +55,10 @@ namespace BauchladenProgrammServer.Connector
             {
                 try
                 {
+                    this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
                     sender.sendMessage(s);
+                    this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
+                    msgCount++;
                 }
                 catch (Exception e)
                 {
@@ -79,7 +83,21 @@ namespace BauchladenProgrammServer.Connector
 
         public void sendTeilnehmerList(List<Teilnehmer> teilnehmer)
         {
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
 
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "1");
+            this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + "Simon");
+            this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + "Müller");
+            this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + "1");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "1");
+
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "2");
+            this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + "Hans");
+            this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + "Eber");
+            this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + "4");
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "2");
+
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
         }
         
         // Methoden zum Senden von ProduktListe
@@ -105,7 +123,6 @@ namespace BauchladenProgrammServer.Connector
               
             //Beispiel statisch aufgebaut zum Testen
              
-           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR +"1");
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
@@ -119,7 +136,6 @@ namespace BauchladenProgrammServer.Connector
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
 
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
-           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
            
         }
     }
