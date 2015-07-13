@@ -117,6 +117,7 @@ namespace BauchladenProgrammServer.Connector
                 this.sendMessageToClient(Syntax.BANK_BALANCE + Syntax.COLON_CHAR + "2,66");
                 this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             }
+            msgCount++;
         }
         
         // Methoden zum Senden von ProduktListe

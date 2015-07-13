@@ -86,6 +86,14 @@ namespace BauchladenProgramm
             }
         }
 
+        public void kontostandAnzeigen(double kontostand)
+        {
+            this.Kontostand.Invoke((MethodInvoker)delegate()
+            {
+                this.Kontostand.Text = kontostand.ToString();
+            });
+        }
+
         public void leere_dataGridViewProdukt()
         {
             this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
@@ -114,17 +122,24 @@ namespace BauchladenProgramm
 
         private void dataGridViewProdukt_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char tmp = e.KeyChar;
-            int zahl = Int32.Parse(tmp.ToString());
-
-            Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
-            if (selectedRowCount ==1)
+            if (this.TN_Name.Text != null && this.TN_Name.Text != "")
             {
-                this.produktVerwaltung.Add(new Produkt(dataGridViewProdukt.SelectedRows[0].Cells[0].Value.ToString(),
-                    dataGridViewProdukt.SelectedRows[0].Cells[1].Value.ToString(),
-                    dataGridViewProdukt.SelectedRows[0].Cells[2].Value.ToString(),
-                    zahl));
-                this.einkaufslisteZusammenfassen_darstellen();
+                char tmp = e.KeyChar;
+                int zahl = Int32.Parse(tmp.ToString());
+
+                Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
+                if (selectedRowCount == 1)
+                {
+                    this.produktVerwaltung.Add(new Produkt(dataGridViewProdukt.SelectedRows[0].Cells[0].Value.ToString(),
+                        dataGridViewProdukt.SelectedRows[0].Cells[1].Value.ToString(),
+                        dataGridViewProdukt.SelectedRows[0].Cells[2].Value.ToString(),
+                        zahl));
+                    this.einkaufslisteZusammenfassen_darstellen();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte zuerst einen Teilnehmer auswählen");
             }
         }
 
@@ -163,7 +178,7 @@ namespace BauchladenProgramm
 
             this.dataGridViewEinkauf.Rows.Clear();
 
-           
+            double einkaufslistesumme=0;
 
             for (int i = 0; i < produktVerwaltung.Count; i++)
             {
@@ -184,9 +199,10 @@ namespace BauchladenProgramm
                     {
                         this.dataGridViewEinkauf.Rows.Add(pr);
                     });
+                    einkaufslistesumme += produktVerwaltung[i].Preis * produktVerwaltung[i].Anzahl;
                 }
-
             }
+            this.einkaufslistesumme.Text = einkaufslistesumme.ToString();
         }
 
         private void ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -195,8 +211,13 @@ namespace BauchladenProgramm
         }
 
         private void dataGridViewTeilnehmer_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+        {     
             this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+            this.Kontostand.Text = "";
+            this.TN_Name.Text = dataGridViewTeilnehmer.CurrentRow.Cells[1].Value.ToString()
+                + " "
+                + dataGridViewTeilnehmer.CurrentRow.Cells[2].Value.ToString();
+            this.dataGridViewTeilnehmer.
         }
     }
 }

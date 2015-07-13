@@ -188,6 +188,12 @@ namespace BauchladenProgramm.Connector
                             }
                         }
                     }
+                    else if (Regex.Match(dataFromBuffer, Syntax.BANK_BALANCE).Success)
+                    {
+                        String tmp = Regex.Replace(dataFromBuffer, Syntax.BANK_BALANCE + Syntax.COLON_CHAR, "");
+                        double  kontostand = Double.Parse(tmp);
+                        this.backend.kontostandAnzeigen(kontostand);
+                    }
                     else
                     {
                         throw new Exception("Fehler: Befehl vom Server nicht Parsbar");
