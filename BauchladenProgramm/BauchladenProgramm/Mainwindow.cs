@@ -193,5 +193,10 @@ namespace BauchladenProgramm
         {
             this.dataGridViewProdukt_KeyPress(sender, new KeyPressEventArgs('1'));
         }
+
+        private void dataGridViewTeilnehmer_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+        }
     }
 }

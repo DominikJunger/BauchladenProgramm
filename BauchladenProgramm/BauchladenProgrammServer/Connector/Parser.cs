@@ -107,8 +107,9 @@ namespace BauchladenProgrammServer.Connector
 
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
                         {
-                            dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR, "");
                             // hier kommt der sql befehlt zum suchen
+                            int id = parsToInt32(dataFromBuffer);  
+                            this.backend.sendTeilnehmerKontostand(id);
                         }
                         else
                         {

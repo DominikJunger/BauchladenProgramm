@@ -99,6 +99,23 @@ namespace BauchladenProgrammServer.Connector
 
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
         }
+
+        public void sendTeilnehmerKontostand(int id)
+        {
+            //Bsp zum Testen
+            if (id == 1)
+            {
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
+                this.sendMessageToClient(Syntax.BANK_BALANCE + Syntax.COLON_CHAR+ "10,5");
+                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
+            }
+            if (id == 4)
+            {
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
+                this.sendMessageToClient(Syntax.BANK_BALANCE + Syntax.COLON_CHAR + "2,66");
+                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
+            }
+        }
         
         // Methoden zum Senden von ProduktListe
         public void sendProductList(List<Produkt> produkte)

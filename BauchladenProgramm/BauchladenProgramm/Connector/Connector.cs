@@ -150,10 +150,11 @@ namespace BauchladenProgramm.Connector
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST_BUECHERTISCH);
         }
 
-        public void getSearch(string value)
+        public void getKontostand(string value)
         {
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.SEARCH + Syntax.COLON_CHAR + value);
         }
+
         public void setBuy(string userId,string productID)
         {
             this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID);
