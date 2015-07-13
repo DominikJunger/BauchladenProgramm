@@ -26,7 +26,7 @@ namespace BauchladenProgrammServer.Klassen
                 {
                     //  teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2],strArray[4]));
                 }
-                 
+
             }
             
             return teilnehmer;

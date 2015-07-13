@@ -34,8 +34,7 @@ namespace BauchladenProgramm
                 c = new Connector.Connector(ip, 3000, this);
                 c.connectToServer();
                 c.getProductList();
-
-                this.dataGridViewProdukt.ContextMenuStrip = ProduktAlktionen;
+                c.getTeilnehmerList();
             }
             catch (SocketException sx)
             {
@@ -104,27 +103,7 @@ namespace BauchladenProgramm
 
         private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            Int32 selectedRowCount =
-               dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
-            if (selectedRowCount > 0)
-            {
-                System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-                for (int i = 0; i < selectedRowCount; i++)
-                {
-                    sb.Append("Row: ");
-                    sb.Append(dataGridViewProdukt.SelectedRows[i].Index.ToString());
-                    sb.Append(Environment.NewLine);
-                }
-
-                sb.Append("Total: " + selectedRowCount.ToString());
-                MessageBox.Show(sb.ToString(), "Selected Rows");
-            }
-        }
-
-        private void VerkaufButton_Click(object sender, EventArgs e)
-        {
-
+            this.dataGridViewProdukt_KeyPress(sender, new KeyPressEventArgs('1'));
         }
 
         private void Mainwindow_FormClosed(object sender, FormClosedEventArgs e)
@@ -184,11 +163,14 @@ namespace BauchladenProgramm
 
             this.dataGridViewEinkauf.Rows.Clear();
 
-            for (int i = 0; i < produktVerwaltung.Count;i++)
+           
+
+            for (int i = 0; i < produktVerwaltung.Count; i++)
             {
                 if (produktVerwaltung[i].Anzahl <= 0)
                 {
                     this.produktVerwaltung.RemoveAt(i);
+                    i--; // wenn das erste Produkt gelöscht wird ist Count kleiner als die Bedingung --> nächstes Produkt nicht dargestellt
                 }
                 else
                 {
@@ -205,6 +187,11 @@ namespace BauchladenProgramm
                 }
 
             }
+        }
+
+        private void ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.dataGridViewProdukt_KeyPress(sender, new KeyPressEventArgs('1'));
         }
     }
 }

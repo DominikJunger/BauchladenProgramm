@@ -151,12 +151,13 @@ namespace BauchladenProgramm.Connector
                         {
                             if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                             {
-                                int id = messageNumber;
-                                string vorname;
-                                string nachname;
+                                int id=0;
+                                string vorname=null;
+                                string nachname=null;
 
                                 while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
                                 {
+                                    
                                     if (Regex.Match(pr[i].Value, Syntax.FIRST_NAME).Success)
                                     {
                                         vorname = parsToString(pr[i].Value);
@@ -165,12 +166,15 @@ namespace BauchladenProgramm.Connector
                                     {
                                         nachname = parsToString(pr[i].Value);
                                     }
-                                    
+                                    if (Regex.Match(pr[i].Value, Syntax.ID).Success)
+                                    {
+                                        id = parsToInt32(pr[i].Value);
+                                    }
                                     i++;
                                 }
                                 if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                                 {
-                                    //this.backend.(new Teilnehmer(id,vorname,nachname));
+                                    this.backend.addTn(new Teilnehmer(id,vorname,nachname));
                                     if (i < (pr.Count-1))
                                     {
                                         i++;
