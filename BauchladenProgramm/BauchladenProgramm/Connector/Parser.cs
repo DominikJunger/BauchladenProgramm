@@ -102,7 +102,7 @@ namespace BauchladenProgramm.Connector
                         {
                             if (Regex.Match(pr[i].Value, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                             {
-                                int id = messageNumber;
+                                int id = 0;
                                 string name = null;
                                 double preis = 0;
 
@@ -116,6 +116,10 @@ namespace BauchladenProgramm.Connector
                                     {
                                         String tmp=Regex.Replace(pr[i].Value, Syntax.PRODUKT_PRICE+ Syntax.COLON_CHAR, "");
                                         preis = Double.Parse(tmp);
+                                    }
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_ID).Success)
+                                    {
+                                        id = parsToInt32(pr[i].Value);
                                     }
                                     
                                     i++;

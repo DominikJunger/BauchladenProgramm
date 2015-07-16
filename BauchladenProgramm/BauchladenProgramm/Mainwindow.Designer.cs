@@ -32,13 +32,23 @@
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Produktauswahlliste = new System.Windows.Forms.GroupBox();
-            this.Einkaufsliste = new System.Windows.Forms.GroupBox();
+            this.ProduktauswahllisteVerkauf = new System.Windows.Forms.GroupBox();
+            this.EinkaufslisteVerkauf = new System.Windows.Forms.GroupBox();
             this.splitContainerEinkaufsliste = new System.Windows.Forms.SplitContainer();
             this.dataGridViewEinkauf = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.send = new System.Windows.Forms.Button();
-            this.TeilnehmerAuswahl = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.einkaufslistesumme = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TN_Name = new System.Windows.Forms.Label();
+            this.Kontostand = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.TeilnehmerAuswahlVerkauf = new System.Windows.Forms.GroupBox();
             this.splitContainerTeilnehmer = new System.Windows.Forms.SplitContainer();
             this.TeilnehmerSuche = new System.Windows.Forms.TextBox();
             this.dataGridViewTeilnehmer = new System.Windows.Forms.DataGridView();
@@ -51,25 +61,24 @@
             this.Verkauf = new System.Windows.Forms.TabPage();
             this.Buechertisch = new System.Windows.Forms.TabPage();
             this.Einzahlung = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Kontostand = new System.Windows.Forms.Label();
-            this.TN_Name = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.einkaufslistesumme = new System.Windows.Forms.Label();
+            this.splitContainerEinzahlung = new System.Windows.Forms.SplitContainer();
+            this.TeilnehmerauswahlEinzahlung = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.TeilnehmerSucheEinzahlung = new System.Windows.Forms.TextBox();
+            this.dataGridViewTeilnehmerEinzahlung = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
-            this.Produktauswahlliste.SuspendLayout();
-            this.Einkaufsliste.SuspendLayout();
+            this.ProduktauswahllisteVerkauf.SuspendLayout();
+            this.EinkaufslisteVerkauf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).BeginInit();
             this.splitContainerEinkaufsliste.Panel1.SuspendLayout();
             this.splitContainerEinkaufsliste.Panel2.SuspendLayout();
             this.splitContainerEinkaufsliste.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).BeginInit();
-            this.TeilnehmerAuswahl.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.TeilnehmerAuswahlVerkauf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTeilnehmer)).BeginInit();
             this.splitContainerTeilnehmer.Panel1.SuspendLayout();
             this.splitContainerTeilnehmer.Panel2.SuspendLayout();
@@ -85,7 +94,16 @@
             this.splitContainerVerkauf.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Verkauf.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.Einzahlung.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).BeginInit();
+            this.splitContainerEinzahlung.Panel1.SuspendLayout();
+            this.splitContainerEinzahlung.SuspendLayout();
+            this.TeilnehmerauswahlEinzahlung.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerEinzahlung)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewProdukt
@@ -135,29 +153,29 @@
             this.Preis.Name = "Preis";
             this.Preis.ReadOnly = true;
             // 
-            // Produktauswahlliste
+            // ProduktauswahllisteVerkauf
             // 
-            this.Produktauswahlliste.AutoSize = true;
-            this.Produktauswahlliste.Controls.Add(this.dataGridViewProdukt);
-            this.Produktauswahlliste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Produktauswahlliste.Location = new System.Drawing.Point(0, 0);
-            this.Produktauswahlliste.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.Produktauswahlliste.Name = "Produktauswahlliste";
-            this.Produktauswahlliste.Size = new System.Drawing.Size(265, 425);
-            this.Produktauswahlliste.TabIndex = 2;
-            this.Produktauswahlliste.TabStop = false;
-            this.Produktauswahlliste.Text = "Produktauswahlliste";
+            this.ProduktauswahllisteVerkauf.AutoSize = true;
+            this.ProduktauswahllisteVerkauf.Controls.Add(this.dataGridViewProdukt);
+            this.ProduktauswahllisteVerkauf.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProduktauswahllisteVerkauf.Location = new System.Drawing.Point(0, 0);
+            this.ProduktauswahllisteVerkauf.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.ProduktauswahllisteVerkauf.Name = "ProduktauswahllisteVerkauf";
+            this.ProduktauswahllisteVerkauf.Size = new System.Drawing.Size(265, 425);
+            this.ProduktauswahllisteVerkauf.TabIndex = 2;
+            this.ProduktauswahllisteVerkauf.TabStop = false;
+            this.ProduktauswahllisteVerkauf.Text = "Produktauswahlliste";
             // 
-            // Einkaufsliste
+            // EinkaufslisteVerkauf
             // 
-            this.Einkaufsliste.Controls.Add(this.splitContainerEinkaufsliste);
-            this.Einkaufsliste.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Einkaufsliste.Location = new System.Drawing.Point(0, 0);
-            this.Einkaufsliste.Name = "Einkaufsliste";
-            this.Einkaufsliste.Size = new System.Drawing.Size(284, 425);
-            this.Einkaufsliste.TabIndex = 3;
-            this.Einkaufsliste.TabStop = false;
-            this.Einkaufsliste.Text = "Einkaufsliste";
+            this.EinkaufslisteVerkauf.Controls.Add(this.splitContainerEinkaufsliste);
+            this.EinkaufslisteVerkauf.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.EinkaufslisteVerkauf.Location = new System.Drawing.Point(0, 0);
+            this.EinkaufslisteVerkauf.Name = "EinkaufslisteVerkauf";
+            this.EinkaufslisteVerkauf.Size = new System.Drawing.Size(284, 425);
+            this.EinkaufslisteVerkauf.TabIndex = 3;
+            this.EinkaufslisteVerkauf.TabStop = false;
+            this.EinkaufslisteVerkauf.Text = "Einkaufsliste";
             // 
             // splitContainerEinkaufsliste
             // 
@@ -205,14 +223,36 @@
             this.dataGridViewEinkauf.TabIndex = 1;
             this.dataGridViewEinkauf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewEinkauf_KeyPress);
             // 
-            // label1
+            // dataGridViewTextBoxColumn1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Kontostand des TN:";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.FillWeight = 121.8274F;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Produkt";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.FillWeight = 121.8274F;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Preis";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 80;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // Anzahl
+            // 
+            this.Anzahl.FillWeight = 56.34518F;
+            this.Anzahl.HeaderText = "Anzahl";
+            this.Anzahl.MinimumWidth = 52;
+            this.Anzahl.Name = "Anzahl";
+            this.Anzahl.ReadOnly = true;
             // 
             // send
             // 
@@ -223,17 +263,86 @@
             this.send.TabIndex = 0;
             this.send.Text = "Kaufen";
             this.send.UseVisualStyleBackColor = true;
+            this.send.Click += new System.EventHandler(this.send_Click);
             // 
-            // TeilnehmerAuswahl
+            // panel1
             // 
-            this.TeilnehmerAuswahl.Controls.Add(this.splitContainerTeilnehmer);
-            this.TeilnehmerAuswahl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TeilnehmerAuswahl.Location = new System.Drawing.Point(0, 0);
-            this.TeilnehmerAuswahl.Name = "TeilnehmerAuswahl";
-            this.TeilnehmerAuswahl.Size = new System.Drawing.Size(234, 425);
-            this.TeilnehmerAuswahl.TabIndex = 4;
-            this.TeilnehmerAuswahl.TabStop = false;
-            this.TeilnehmerAuswahl.Text = "Teilnehmerauswahl";
+            this.panel1.AutoScroll = true;
+            this.panel1.BackColor = System.Drawing.Color.GreenYellow;
+            this.panel1.Controls.Add(this.einkaufslistesumme);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.TN_Name);
+            this.panel1.Controls.Add(this.Kontostand);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 86);
+            this.panel1.TabIndex = 3;
+            // 
+            // einkaufslistesumme
+            // 
+            this.einkaufslistesumme.AutoSize = true;
+            this.einkaufslistesumme.Location = new System.Drawing.Point(111, 13);
+            this.einkaufslistesumme.Name = "einkaufslistesumme";
+            this.einkaufslistesumme.Size = new System.Drawing.Size(28, 13);
+            this.einkaufslistesumme.TabIndex = 6;
+            this.einkaufslistesumme.Text = "0,00";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Einkaufslistesumme:";
+            // 
+            // TN_Name
+            // 
+            this.TN_Name.AutoSize = true;
+            this.TN_Name.Location = new System.Drawing.Point(35, 37);
+            this.TN_Name.Name = "TN_Name";
+            this.TN_Name.Size = new System.Drawing.Size(0, 13);
+            this.TN_Name.TabIndex = 4;
+            // 
+            // Kontostand
+            // 
+            this.Kontostand.AutoSize = true;
+            this.Kontostand.Location = new System.Drawing.Point(112, 62);
+            this.Kontostand.Name = "Kontostand";
+            this.Kontostand.Size = new System.Drawing.Size(0, 13);
+            this.Kontostand.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 63);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Kontostand des TN:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 37);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(25, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "TN:";
+            // 
+            // TeilnehmerAuswahlVerkauf
+            // 
+            this.TeilnehmerAuswahlVerkauf.Controls.Add(this.splitContainerTeilnehmer);
+            this.TeilnehmerAuswahlVerkauf.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeilnehmerAuswahlVerkauf.Location = new System.Drawing.Point(0, 0);
+            this.TeilnehmerAuswahlVerkauf.Name = "TeilnehmerAuswahlVerkauf";
+            this.TeilnehmerAuswahlVerkauf.Size = new System.Drawing.Size(234, 425);
+            this.TeilnehmerAuswahlVerkauf.TabIndex = 4;
+            this.TeilnehmerAuswahlVerkauf.TabStop = false;
+            this.TeilnehmerAuswahlVerkauf.Text = "Teilnehmerauswahl";
             // 
             // splitContainerTeilnehmer
             // 
@@ -263,6 +372,7 @@
             this.TeilnehmerSuche.Name = "TeilnehmerSuche";
             this.TeilnehmerSuche.Size = new System.Drawing.Size(228, 20);
             this.TeilnehmerSuche.TabIndex = 0;
+            this.TeilnehmerSuche.TextChanged += new System.EventHandler(this.TeilnehmerSuche_TextChanged);
             // 
             // dataGridViewTeilnehmer
             // 
@@ -321,12 +431,12 @@
             // 
             // splitContainerVerkaufP.Panel1
             // 
-            this.splitContainerVerkaufP.Panel1.Controls.Add(this.Einkaufsliste);
+            this.splitContainerVerkaufP.Panel1.Controls.Add(this.EinkaufslisteVerkauf);
             this.splitContainerVerkaufP.Panel1MinSize = 250;
             // 
             // splitContainerVerkaufP.Panel2
             // 
-            this.splitContainerVerkaufP.Panel2.Controls.Add(this.Produktauswahlliste);
+            this.splitContainerVerkaufP.Panel2.Controls.Add(this.ProduktauswahllisteVerkauf);
             this.splitContainerVerkaufP.Panel2MinSize = 200;
             this.splitContainerVerkaufP.Size = new System.Drawing.Size(553, 425);
             this.splitContainerVerkaufP.SplitterDistance = 284;
@@ -340,7 +450,7 @@
             // 
             // splitContainerVerkauf.Panel1
             // 
-            this.splitContainerVerkauf.Panel1.Controls.Add(this.TeilnehmerAuswahl);
+            this.splitContainerVerkauf.Panel1.Controls.Add(this.TeilnehmerAuswahlVerkauf);
             this.splitContainerVerkauf.Panel1MinSize = 200;
             // 
             // splitContainerVerkauf.Panel2
@@ -387,6 +497,7 @@
             // 
             // Einzahlung
             // 
+            this.Einzahlung.Controls.Add(this.splitContainerEinzahlung);
             this.Einzahlung.Location = new System.Drawing.Point(4, 22);
             this.Einzahlung.Name = "Einzahlung";
             this.Einzahlung.Padding = new System.Windows.Forms.Padding(3);
@@ -395,95 +506,108 @@
             this.Einzahlung.Text = "Einzahlung";
             this.Einzahlung.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // splitContainerEinzahlung
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 37);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "TN:";
+            this.splitContainerEinzahlung.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerEinzahlung.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerEinzahlung.Name = "splitContainerEinzahlung";
             // 
-            // panel1
+            // splitContainerEinzahlung.Panel1
             // 
-            this.panel1.AutoScroll = true;
-            this.panel1.BackColor = System.Drawing.Color.GreenYellow;
-            this.panel1.Controls.Add(this.einkaufslistesumme);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.TN_Name);
-            this.panel1.Controls.Add(this.Kontostand);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 86);
-            this.panel1.TabIndex = 3;
+            this.splitContainerEinzahlung.Panel1.Controls.Add(this.TeilnehmerauswahlEinzahlung);
+            this.splitContainerEinzahlung.Panel1MinSize = 200;
+            this.splitContainerEinzahlung.Panel2MinSize = 50;
+            this.splitContainerEinzahlung.Size = new System.Drawing.Size(791, 432);
+            this.splitContainerEinzahlung.SplitterDistance = 594;
+            this.splitContainerEinzahlung.TabIndex = 6;
             // 
-            // dataGridViewTextBoxColumn1
+            // TeilnehmerauswahlEinzahlung
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.TeilnehmerauswahlEinzahlung.Controls.Add(this.splitContainer1);
+            this.TeilnehmerauswahlEinzahlung.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeilnehmerauswahlEinzahlung.Location = new System.Drawing.Point(0, 0);
+            this.TeilnehmerauswahlEinzahlung.Name = "TeilnehmerauswahlEinzahlung";
+            this.TeilnehmerauswahlEinzahlung.Size = new System.Drawing.Size(594, 432);
+            this.TeilnehmerauswahlEinzahlung.TabIndex = 5;
+            this.TeilnehmerauswahlEinzahlung.TabStop = false;
+            this.TeilnehmerauswahlEinzahlung.Text = "Teilnehmerauswahl";
             // 
-            // dataGridViewTextBoxColumn2
+            // splitContainer1
             // 
-            this.dataGridViewTextBoxColumn2.FillWeight = 121.8274F;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Produkt";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 80;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 16);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // dataGridViewTextBoxColumn3
+            // splitContainer1.Panel1
             // 
-            this.dataGridViewTextBoxColumn3.FillWeight = 121.8274F;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Preis";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 80;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.splitContainer1.Panel1.Controls.Add(this.TeilnehmerSucheEinzahlung);
+            this.splitContainer1.Panel1MinSize = 5;
             // 
-            // Anzahl
+            // splitContainer1.Panel2
             // 
-            this.Anzahl.FillWeight = 56.34518F;
-            this.Anzahl.HeaderText = "Anzahl";
-            this.Anzahl.MinimumWidth = 52;
-            this.Anzahl.Name = "Anzahl";
-            this.Anzahl.ReadOnly = true;
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewTeilnehmerEinzahlung);
+            this.splitContainer1.Size = new System.Drawing.Size(588, 413);
+            this.splitContainer1.SplitterDistance = 25;
+            this.splitContainer1.TabIndex = 0;
             // 
-            // Kontostand
+            // TeilnehmerSucheEinzahlung
             // 
-            this.Kontostand.AutoSize = true;
-            this.Kontostand.Location = new System.Drawing.Point(112, 62);
-            this.Kontostand.Name = "Kontostand";
-            this.Kontostand.Size = new System.Drawing.Size(0, 13);
-            this.Kontostand.TabIndex = 3;
+            this.TeilnehmerSucheEinzahlung.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TeilnehmerSucheEinzahlung.Location = new System.Drawing.Point(0, 0);
+            this.TeilnehmerSucheEinzahlung.Name = "TeilnehmerSucheEinzahlung";
+            this.TeilnehmerSucheEinzahlung.Size = new System.Drawing.Size(588, 20);
+            this.TeilnehmerSucheEinzahlung.TabIndex = 0;
             // 
-            // TN_Name
+            // dataGridViewTeilnehmerEinzahlung
             // 
-            this.TN_Name.AutoSize = true;
-            this.TN_Name.Location = new System.Drawing.Point(35, 37);
-            this.TN_Name.Name = "TN_Name";
-            this.TN_Name.Size = new System.Drawing.Size(0, 13);
-            this.TN_Name.TabIndex = 4;
+            this.dataGridViewTeilnehmerEinzahlung.AllowUserToAddRows = false;
+            this.dataGridViewTeilnehmerEinzahlung.AllowUserToDeleteRows = false;
+            this.dataGridViewTeilnehmerEinzahlung.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTeilnehmerEinzahlung.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridViewTeilnehmerEinzahlung.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTeilnehmerEinzahlung.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9});
+            this.dataGridViewTeilnehmerEinzahlung.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTeilnehmerEinzahlung.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridViewTeilnehmerEinzahlung.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewTeilnehmerEinzahlung.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.dataGridViewTeilnehmerEinzahlung.MultiSelect = false;
+            this.dataGridViewTeilnehmerEinzahlung.Name = "dataGridViewTeilnehmerEinzahlung";
+            this.dataGridViewTeilnehmerEinzahlung.ReadOnly = true;
+            this.dataGridViewTeilnehmerEinzahlung.RowHeadersVisible = false;
+            this.dataGridViewTeilnehmerEinzahlung.RowTemplate.ReadOnly = true;
+            this.dataGridViewTeilnehmerEinzahlung.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTeilnehmerEinzahlung.Size = new System.Drawing.Size(588, 384);
+            this.dataGridViewTeilnehmerEinzahlung.TabIndex = 2;
             // 
-            // label3
+            // dataGridViewTextBoxColumn7
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Einkaufslistesumme:";
+            this.dataGridViewTextBoxColumn7.FillWeight = 10.6599F;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn7.MinimumWidth = 30;
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
-            // einkaufslistesumme
+            // dataGridViewTextBoxColumn8
             // 
-            this.einkaufslistesumme.AutoSize = true;
-            this.einkaufslistesumme.Location = new System.Drawing.Point(111, 13);
-            this.einkaufslistesumme.Name = "einkaufslistesumme";
-            this.einkaufslistesumme.Size = new System.Drawing.Size(28, 13);
-            this.einkaufslistesumme.TabIndex = 6;
-            this.einkaufslistesumme.Text = "0,00";
+            this.dataGridViewTextBoxColumn8.FillWeight = 146.8731F;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Vorname";
+            this.dataGridViewTextBoxColumn8.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.FillWeight = 142.467F;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Nachname";
+            this.dataGridViewTextBoxColumn9.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
             // Mainwindow
             // 
@@ -498,14 +622,16 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Mainwindow_FormClosed);
             this.Load += new System.EventHandler(this.Mainwindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).EndInit();
-            this.Produktauswahlliste.ResumeLayout(false);
-            this.Einkaufsliste.ResumeLayout(false);
+            this.ProduktauswahllisteVerkauf.ResumeLayout(false);
+            this.EinkaufslisteVerkauf.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel1.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).EndInit();
             this.splitContainerEinkaufsliste.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).EndInit();
-            this.TeilnehmerAuswahl.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.TeilnehmerAuswahlVerkauf.ResumeLayout(false);
             this.splitContainerTeilnehmer.Panel1.ResumeLayout(false);
             this.splitContainerTeilnehmer.Panel1.PerformLayout();
             this.splitContainerTeilnehmer.Panel2.ResumeLayout(false);
@@ -523,8 +649,17 @@
             this.splitContainerVerkauf.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Verkauf.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.Einzahlung.ResumeLayout(false);
+            this.splitContainerEinzahlung.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).EndInit();
+            this.splitContainerEinzahlung.ResumeLayout(false);
+            this.TeilnehmerauswahlEinzahlung.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerEinzahlung)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -532,9 +667,9 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewProdukt;
-        private System.Windows.Forms.GroupBox Produktauswahlliste;
-        private System.Windows.Forms.GroupBox TeilnehmerAuswahl;
-        private System.Windows.Forms.GroupBox Einkaufsliste;
+        private System.Windows.Forms.GroupBox ProduktauswahllisteVerkauf;
+        private System.Windows.Forms.GroupBox TeilnehmerAuswahlVerkauf;
+        private System.Windows.Forms.GroupBox EinkaufslisteVerkauf;
         private System.Windows.Forms.SplitContainer splitContainerVerkaufP;
         private System.Windows.Forms.SplitContainer splitContainerVerkauf;
         private System.Windows.Forms.TabControl tabControl1;
@@ -564,6 +699,14 @@
         private System.Windows.Forms.Label TN_Name;
         private System.Windows.Forms.Label einkaufslistesumme;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox TeilnehmerauswahlEinzahlung;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox TeilnehmerSucheEinzahlung;
+        private System.Windows.Forms.DataGridView dataGridViewTeilnehmerEinzahlung;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.SplitContainer splitContainerEinzahlung;
 
     }
 }

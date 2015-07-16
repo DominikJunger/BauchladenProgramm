@@ -139,7 +139,8 @@ namespace BauchladenProgramm.Connector
             }
         }
 
-        // Methoden zum Senden
+// Methoden zum Senden-------------------------
+        // Methoden zum abfragen von Werten auf dem Server
         public void getProductList()
         {
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
@@ -155,14 +156,15 @@ namespace BauchladenProgramm.Connector
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.SEARCH + Syntax.COLON_CHAR + value);
         }
 
-        public void setBuy(string userId,string productID)
-        {
-            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID);
-        }
-
         public void getTeilnehmerList()
         {
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
+        }
+
+        // Methoden zum setzen von Werten auf dem Server
+        public void setBuy(string userId,string productID)
+        {
+            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID);
         }
     }
 

@@ -217,7 +217,50 @@ namespace BauchladenProgramm
             this.TN_Name.Text = dataGridViewTeilnehmer.CurrentRow.Cells[1].Value.ToString()
                 + " "
                 + dataGridViewTeilnehmer.CurrentRow.Cells[2].Value.ToString();
-            this.dataGridViewTeilnehmer.
+        }
+
+        private void send_Click(object sender, EventArgs e)
+        {
+            foreach(DataGridViewRow row in dataGridViewEinkauf.Rows)
+            {
+            this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(),row.Cells[0].Value.ToString());
+            }
+        }
+
+        private void TeilnehmerSuche_TextChanged(object sender, EventArgs e)
+        {
+            this.SucheNachTeilnehmer(this.TeilnehmerSuche.Text, dataGridViewTeilnehmer);
+        }
+
+        private void SucheNachTeilnehmer(string searchValue, DataGridView dv)
+        {
+            int rowIndex = 1;  //this one is depending on the position of cell or column
+            //string first_row_data=dataGridView1.Rows[0].Cells[0].Value.ToString() ;
+
+            dv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            try
+            {
+                bool valueResulet = true;
+                foreach (DataGridViewRow row in dv.Rows)
+                {
+                    if (row.Cells[rowIndex].Value.ToString().Equals(searchValue))
+                    {
+                        rowIndex = row.Index;
+                        dv.Rows[rowIndex].Selected = true;
+                        rowIndex++;
+                        valueResulet = false;
+                    }
+                }
+                if (valueResulet != false)
+                {
+                    MessageBox.Show("Es konnte kein Eintrag gefunden werden mit dem Wert: " + searchValue, "Kein Treffer");
+                    return;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }

@@ -60,7 +60,8 @@ namespace BauchladenProgramm.Connector
 
                                    //Produkt
                                    PRODUKT_NAME = "produktN",
-                                   PRODUKT_PRICE = "produktP"
+                                   PRODUKT_PRICE = "produktP",
+                                   PRODUKT_ID = "produktId"
                                    ;
 
 
