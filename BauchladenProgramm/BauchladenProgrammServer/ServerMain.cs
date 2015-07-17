@@ -25,9 +25,8 @@ namespace BauchladenProgrammServer
 
         private  void Mainwindow_Load(object sender, EventArgs e)
         {
-            
-
-            
+            PDFCreator pdfc = new PDFCreator();
+            pdfc.createSimpleExampleTable();            
         }
 
         private void Mainwindow_Shown(object sender, EventArgs e)
@@ -114,22 +113,11 @@ namespace BauchladenProgrammServer
                 {                   
                     Thread.Sleep(2000);
                 }
+
                 addTeilnehmer(con.selectTeilnehmerAll());
                 addProdukte(con.selectProduktAll());
                 backgroundWorker1.CancelAsync();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Teilnehmer t = con.selectTeilnehmerByID(Convert.ToInt32(textBox1.Text));
-            if(t != null)
-                textBox1.Text = t.Kontostand.ToString("0.00");
-        }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("HAHA");
-        }               
+        }                  
     }
 }

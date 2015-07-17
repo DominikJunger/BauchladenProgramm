@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="iTextSharp">
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +56,7 @@
     <Compile Include="Connector\Sender.cs" />
     <Compile Include="Connector\Syntax.cs" />
     <Compile Include="Klassen\CSVReader.cs" />
+    <Compile Include="Klassen\PDFCreator.cs" />
     <Compile Include="Klassen\SQL_Connector.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="ServerMain.cs">
@@ -75,6 +79,7 @@
     <EmbeddedResource Include="ServerMain.resx">
       <DependentUpon>ServerMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
