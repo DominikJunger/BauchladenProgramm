@@ -19,6 +19,7 @@ namespace BauchladenProgramm
         private string ip;
 
         private List<Produkt> produktVerwaltung;
+        AutoCompleteStringCollection TeilnehmerSucheComplete = new AutoCompleteStringCollection();
 
         public Mainwindow(string ip)
         {
@@ -82,15 +83,36 @@ namespace BauchladenProgramm
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
                     this.dataGridViewTeilnehmer.Rows.Add(pr);
+                    TeilnehmerSucheComplete.AddRange(pr);
+                    this.TeilnehmerSuche.AutoCompleteCustomSource = TeilnehmerSucheComplete;
+                });
+                this.dataGridViewTeilnehmerEinzahlung.Invoke((MethodInvoker)delegate()
+                {
+                    this.dataGridViewTeilnehmerEinzahlung.Rows.Add(pr);
+                    this.TeilnehmerSucheEinzahlung.AutoCompleteCustomSource = TeilnehmerSucheComplete;
                 });
             }
         }
 
-        public void kontostandAnzeigen(double kontostand)
+        public void kontostandAnzeigen(int id,double kontostand)
         {
             this.Kontostand.Invoke((MethodInvoker)delegate()
             {
-                this.Kontostand.Text = kontostand.ToString();
+                this.KontostandEinzahlung.Invoke((MethodInvoker)delegate()
+                {
+                    for(int i=0;i<dataGridViewTeilnehmer.Rows.Count;i++)
+                    {
+                        if (dataGridViewTeilnehmer.Rows[i].Cells[0].Value.ToString().Equals(id))
+                        {
+                            this.TN_Name.Text = dataGridViewTeilnehmer.Rows[i].Cells[1].Value.ToString()
+                            +" "
+                            + dataGridViewTeilnehmer.Rows[i].Cells[2].Value.ToString();
+                            this.TN_NameEinzahlung.Text = this.TN_Name.Text;
+                        }
+                    }
+                    this.Kontostand.Text = kontostand.ToString();
+                    this.KontostandEinzahlung.Text = kontostand.ToString();
+                }); 
             });
         }
 
@@ -205,18 +227,16 @@ namespace BauchladenProgramm
             this.einkaufslistesumme.Text = einkaufslistesumme.ToString();
         }
 
-        private void ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.dataGridViewProdukt_KeyPress(sender, new KeyPressEventArgs('1'));
-        }
-
         private void dataGridViewTeilnehmer_CellClick(object sender, DataGridViewCellEventArgs e)
         {     
             this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
             this.Kontostand.Text = "";
-            this.TN_Name.Text = dataGridViewTeilnehmer.CurrentRow.Cells[1].Value.ToString()
-                + " "
-                + dataGridViewTeilnehmer.CurrentRow.Cells[2].Value.ToString();
+        }
+
+        private void dataGridViewTeilnehmerEinzahlung_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
+            this.KontostandEinzahlung.Text = "";
         }
 
         private void send_Click(object sender, EventArgs e)
@@ -227,39 +247,56 @@ namespace BauchladenProgramm
             }
         }
 
-        private void TeilnehmerSuche_TextChanged(object sender, EventArgs e)
-        {
-            this.SucheNachTeilnehmer(this.TeilnehmerSuche.Text, dataGridViewTeilnehmer);
-        }
-
         private void SucheNachTeilnehmer(string searchValue, DataGridView dv)
         {
-            int rowIndex = 1;  //this one is depending on the position of cell or column
-            //string first_row_data=dataGridView1.Rows[0].Cells[0].Value.ToString() ;
-
             dv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             try
             {
-                bool valueResulet = true;
-                foreach (DataGridViewRow row in dv.Rows)
-                {
-                    if (row.Cells[rowIndex].Value.ToString().Equals(searchValue))
+                    foreach (DataGridViewRow row in dv.Rows)
                     {
-                        rowIndex = row.Index;
-                        dv.Rows[rowIndex].Selected = true;
-                        rowIndex++;
-                        valueResulet = false;
+                        for (int CellIndex = 0; CellIndex < row.Cells.Count; CellIndex++)
+                        {
+                            if (row.Cells[CellIndex].Value.ToString().Equals(searchValue))
+                            {
+                                dv.Rows[row.Index].Selected = true;
+                            }
+                        }
                     }
-                }
-                if (valueResulet != false)
-                {
-                    MessageBox.Show("Es konnte kein Eintrag gefunden werden mit dem Wert: " + searchValue, "Kein Treffer");
-                    return;
-                }
             }
             catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void TeilnehmerSuche_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar.Equals('\r'))
+            {
+                if(sender == this.TeilnehmerSuche)
+                {
+                    this.SucheNachTeilnehmer(this.TeilnehmerSuche.Text, dataGridViewTeilnehmer);
+                }
+                else if (sender == this.TeilnehmerSucheEinzahlung)
+                {
+                    this.SucheNachTeilnehmer(this.TeilnehmerSucheEinzahlung.Text, dataGridViewTeilnehmerEinzahlung);
+                }
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.tabControl1.SelectedIndex == 2)
+            {
+                DialogResult result = MessageBox.Show("Soll der Änderungsbereich betreten werden","Änderungsbereich betreten",MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    this.tabControl1.SelectedIndex = 2;
+                }
+                else
+                {
+                    this.tabControl1.SelectedIndex = 1;
+                }
             }
         }
     }

@@ -69,6 +69,16 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.TN_NameEinzahlung = new System.Windows.Forms.Label();
+            this.KontostandEinzahlung = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
             this.ProduktauswahllisteVerkauf.SuspendLayout();
             this.EinkaufslisteVerkauf.SuspendLayout();
@@ -97,6 +107,7 @@
             this.Einzahlung.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).BeginInit();
             this.splitContainerEinzahlung.Panel1.SuspendLayout();
+            this.splitContainerEinzahlung.Panel2.SuspendLayout();
             this.splitContainerEinzahlung.SuspendLayout();
             this.TeilnehmerauswahlEinzahlung.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -104,6 +115,8 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerEinzahlung)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewProdukt
@@ -367,12 +380,14 @@
             // 
             // TeilnehmerSuche
             // 
+            this.TeilnehmerSuche.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TeilnehmerSuche.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TeilnehmerSuche.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TeilnehmerSuche.Location = new System.Drawing.Point(0, 0);
             this.TeilnehmerSuche.Name = "TeilnehmerSuche";
             this.TeilnehmerSuche.Size = new System.Drawing.Size(228, 20);
             this.TeilnehmerSuche.TabIndex = 0;
-            this.TeilnehmerSuche.TextChanged += new System.EventHandler(this.TeilnehmerSuche_TextChanged);
+            this.TeilnehmerSuche.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TeilnehmerSuche_KeyPress);
             // 
             // dataGridViewTeilnehmer
             // 
@@ -473,6 +488,7 @@
             this.tabControl1.Size = new System.Drawing.Size(805, 464);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // Verkauf
             // 
@@ -516,6 +532,12 @@
             // 
             this.splitContainerEinzahlung.Panel1.Controls.Add(this.TeilnehmerauswahlEinzahlung);
             this.splitContainerEinzahlung.Panel1MinSize = 200;
+            // 
+            // splitContainerEinzahlung.Panel2
+            // 
+            this.splitContainerEinzahlung.Panel2.Controls.Add(this.panel3);
+            this.splitContainerEinzahlung.Panel2.Controls.Add(this.button1);
+            this.splitContainerEinzahlung.Panel2.Controls.Add(this.panel2);
             this.splitContainerEinzahlung.Panel2MinSize = 50;
             this.splitContainerEinzahlung.Size = new System.Drawing.Size(791, 432);
             this.splitContainerEinzahlung.SplitterDistance = 594;
@@ -560,6 +582,7 @@
             this.TeilnehmerSucheEinzahlung.Name = "TeilnehmerSucheEinzahlung";
             this.TeilnehmerSucheEinzahlung.Size = new System.Drawing.Size(588, 20);
             this.TeilnehmerSucheEinzahlung.TabIndex = 0;
+            this.TeilnehmerSucheEinzahlung.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TeilnehmerSuche_KeyPress);
             // 
             // dataGridViewTeilnehmerEinzahlung
             // 
@@ -584,6 +607,7 @@
             this.dataGridViewTeilnehmerEinzahlung.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTeilnehmerEinzahlung.Size = new System.Drawing.Size(588, 384);
             this.dataGridViewTeilnehmerEinzahlung.TabIndex = 2;
+            this.dataGridViewTeilnehmerEinzahlung.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeilnehmerEinzahlung_CellClick);
             // 
             // dataGridViewTextBoxColumn7
             // 
@@ -608,6 +632,100 @@
             this.dataGridViewTextBoxColumn9.MinimumWidth = 95;
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 99);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(193, 70);
+            this.panel3.TabIndex = 6;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(122, 43);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(13, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "€";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(23, 13);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(112, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Betrag zum Einzahlen:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(26, 40);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(96, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.Location = new System.Drawing.Point(0, 169);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(193, 263);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Einzahlen";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.Color.GreenYellow;
+            this.panel2.Controls.Add(this.TN_NameEinzahlung);
+            this.panel2.Controls.Add(this.KontostandEinzahlung);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(193, 99);
+            this.panel2.TabIndex = 4;
+            // 
+            // TN_NameEinzahlung
+            // 
+            this.TN_NameEinzahlung.AutoSize = true;
+            this.TN_NameEinzahlung.Location = new System.Drawing.Point(52, 16);
+            this.TN_NameEinzahlung.Name = "TN_NameEinzahlung";
+            this.TN_NameEinzahlung.Size = new System.Drawing.Size(0, 13);
+            this.TN_NameEinzahlung.TabIndex = 4;
+            // 
+            // KontostandEinzahlung
+            // 
+            this.KontostandEinzahlung.AutoSize = true;
+            this.KontostandEinzahlung.Location = new System.Drawing.Point(129, 41);
+            this.KontostandEinzahlung.Name = "KontostandEinzahlung";
+            this.KontostandEinzahlung.Size = new System.Drawing.Size(0, 13);
+            this.KontostandEinzahlung.TabIndex = 3;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(20, 42);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(102, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Kontostand des TN:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 16);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(25, 13);
+            this.label10.TabIndex = 2;
+            this.label10.Text = "TN:";
             // 
             // Mainwindow
             // 
@@ -651,6 +769,7 @@
             this.Verkauf.ResumeLayout(false);
             this.Einzahlung.ResumeLayout(false);
             this.splitContainerEinzahlung.Panel1.ResumeLayout(false);
+            this.splitContainerEinzahlung.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).EndInit();
             this.splitContainerEinzahlung.ResumeLayout(false);
             this.TeilnehmerauswahlEinzahlung.ResumeLayout(false);
@@ -660,6 +779,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerEinzahlung)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -707,6 +830,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.SplitContainer splitContainerEinzahlung;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label TN_NameEinzahlung;
+        private System.Windows.Forms.Label KontostandEinzahlung;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button1;
 
     }
 }

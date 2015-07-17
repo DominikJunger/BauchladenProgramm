@@ -192,11 +192,17 @@ namespace BauchladenProgramm.Connector
                             }
                         }
                     }
-                    else if (Regex.Match(dataFromBuffer, Syntax.BANK_BALANCE).Success)
+                    else if (Regex.Match(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE).Success)
                     {
-                        String tmp = Regex.Replace(dataFromBuffer, Syntax.BANK_BALANCE + Syntax.COLON_CHAR, "");
-                        double  kontostand = Double.Parse(tmp);
-                        this.backend.kontostandAnzeigen(kontostand);
+                        dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE + "\n", "");
+                        if (Regex.Match(dataFromBuffer, Syntax.MEMBER + Syntax.COLON_CHAR).Success)
+                        {
+                            dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.MEMBER + Syntax.COLON_CHAR + "\n", "");
+                            string[] tmp = dataFromBuffer.Split('\n');
+                            int id = parsToInt32(tmp[0]);
+                            double kontostand = Double.Parse(tmp[1]);
+                            this.backend.kontostandAnzeigen(id,kontostand);
+                        }
                     }
                     else
                     {

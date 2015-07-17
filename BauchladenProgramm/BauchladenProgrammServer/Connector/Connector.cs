@@ -108,13 +108,17 @@ namespace BauchladenProgrammServer.Connector
             if (id == 1)
             {
                 this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
-                this.sendMessageToClient(Syntax.BANK_BALANCE + Syntax.COLON_CHAR+ "10,5");
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE);
+                this.sendMessageToClient(Syntax.MEMBER + Syntax.COLON_CHAR +"1"); 
+                this.sendMessageToClient("10,1");
                 this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             }
             if (id == 4)
             {
                 this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
-                this.sendMessageToClient(Syntax.BANK_BALANCE + Syntax.COLON_CHAR + "2,66");
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE);
+                this.sendMessageToClient(Syntax.MEMBER + Syntax.COLON_CHAR + "4"); 
+                this.sendMessageToClient("2,66");
                 this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             }
             msgCount++;
