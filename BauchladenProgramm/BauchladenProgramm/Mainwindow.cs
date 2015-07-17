@@ -19,13 +19,14 @@ namespace BauchladenProgramm
         private string ip;
 
         private List<Produkt> produktVerwaltung;
-        AutoCompleteStringCollection TeilnehmerSucheComplete = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection TeilnehmerSucheComplete;
 
         public Mainwindow(string ip)
         {
             InitializeComponent();
             this.ip = ip;
             this.produktVerwaltung = new List<Produkt>();
+            this.TeilnehmerSucheComplete = new AutoCompleteStringCollection();
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
@@ -83,13 +84,13 @@ namespace BauchladenProgramm
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
                     this.dataGridViewTeilnehmer.Rows.Add(pr);
-                    TeilnehmerSucheComplete.AddRange(pr);
-                    this.TeilnehmerSuche.AutoCompleteCustomSource = TeilnehmerSucheComplete;
+                    //TeilnehmerSucheComplete.AddRange(pr);
+                    //this.TeilnehmerSuche.AutoCompleteCustomSource = TeilnehmerSucheComplete;
                 });
                 this.dataGridViewTeilnehmerEinzahlung.Invoke((MethodInvoker)delegate()
                 {
                     this.dataGridViewTeilnehmerEinzahlung.Rows.Add(pr);
-                    this.TeilnehmerSucheEinzahlung.AutoCompleteCustomSource = TeilnehmerSucheComplete;
+                    //this.TeilnehmerSucheEinzahlung.AutoCompleteCustomSource = this.TeilnehmerSuche.AutoCompleteCustomSource;
                 });
             }
         }
@@ -102,16 +103,17 @@ namespace BauchladenProgramm
                 {
                     for(int i=0;i<dataGridViewTeilnehmer.Rows.Count;i++)
                     {
-                        if (dataGridViewTeilnehmer.Rows[i].Cells[0].Value.ToString().Equals(id))
+                        if (dataGridViewTeilnehmer.Rows[i].Cells[0].Value.ToString().Equals(id.ToString()))
                         {
                             this.TN_Name.Text = dataGridViewTeilnehmer.Rows[i].Cells[1].Value.ToString()
                             +" "
                             + dataGridViewTeilnehmer.Rows[i].Cells[2].Value.ToString();
                             this.TN_NameEinzahlung.Text = this.TN_Name.Text;
+                            this.Kontostand.Text = kontostand.ToString();
+                            this.KontostandEinzahlung.Text = kontostand.ToString();
                         }
                     }
-                    this.Kontostand.Text = kontostand.ToString();
-                    this.KontostandEinzahlung.Text = kontostand.ToString();
+                    
                 }); 
             });
         }
@@ -231,12 +233,14 @@ namespace BauchladenProgramm
         {     
             this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
             this.Kontostand.Text = "";
+            this.TN_Name.Text = "";
         }
 
         private void dataGridViewTeilnehmerEinzahlung_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
             this.KontostandEinzahlung.Text = "";
+            this.TN_NameEinzahlung.Text = "";
         }
 
         private void send_Click(object sender, EventArgs e)
@@ -295,9 +299,14 @@ namespace BauchladenProgramm
                 }
                 else
                 {
-                    this.tabControl1.SelectedIndex = 1;
+                    this.tabControl1.SelectedIndex = 0;
                 }
             }
+        }
+
+        private void dataGridViewTeilnehmer_SelectionChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
