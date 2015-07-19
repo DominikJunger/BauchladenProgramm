@@ -14,21 +14,6 @@ namespace BauchladenProgrammServer.Klassen
     /// </summary>
     class SQL_Connector
     {
-        
-        //-------- Teilnehmer abrufen -------------------------------------
-        private const string SELECT_TEILNEHMER_BY_ID = "select  Teilnehmer.ID, Teilnehmer.Vorname, Teilnehmer.Nachname, Konto.Kontostand, Konto.Datum from Teilnehmer, Konto where Teilnehmer.ID = Konto.TeilnehmerID and Teilnehmer.ID = @ID and Datum = (select MAX(Konto.Datum) from Konto where Konto.TeilnehmerID = @ID);";
-        private const string SELECT_ALL_TEILNEHMER = "SELECT * FROM Teilnehmer;";
-        // select  Teilnehmer.ID, Teilnehmer.Vorname, Teilnehmer.Nachname, Konto.Kontostand, Konto.Datum from Teilnehmer, Konto where Teilnehmer.ID = Konto.TeilnehmerID and Teilnehmer.ID = 5 and Datum = (select MAX(Konto.Datum) from Konto where Konto.TeilnehmerID = 5);
-     
-        private const string INSERT_ALL_TEILNEHMER = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
-
-        private const string SELECT_TEILNEHMER_BY_WHATEVER = "SELECT * FROM Teilnehmer WHERE CAST(Teilnehmer.ID as varchar(3)) = @ID OR Teilnehmer.Nachname = CAST(@Nachname as varchar(50)) OR Teilnehmer.Vorname = CAST(@Vorname as varchar(50));";
-
-        //-------- Produkte abrufen -------------------------------------
-        private const string SELECT_PRODUKT_ALL = "SELECT * FROM Produkt;";
-
-
-        //---------------------------------------------------------------
         private string dataSource;       
         private string initialCatalog;       
         private string persistSecurity;      
@@ -48,7 +33,7 @@ namespace BauchladenProgrammServer.Klassen
         }
         
 
-        private SQL_Connector(string dataSource = @"Data Source=192.168.2.46\SQLEXPRESS;", string initialCatalog = "Initial Catalog=Jula;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=sa;", string password = "Password=12345;", string asynchProcessing = "Asynchronous Processing=True")
+        private SQL_Connector(string dataSource = @"Data Source=DOMINIK-PC;", string initialCatalog = "Initial Catalog=Bauchladen;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=jula;", string password = "Password=bauchladen;", string asynchProcessing = "Asynchronous Processing=True")
         {
             this.DataSource = dataSource;
             this.InitialCatalog = initialCatalog;
@@ -84,13 +69,15 @@ namespace BauchladenProgrammServer.Klassen
             return con.State == ConnectionState.Closed ? true : false;
         }
 
+
+// Teilnehmer---------------------------------------
         public async void addTeilnehmer(List<Teilnehmer> teilnehmer)
         {
             if (con.State == ConnectionState.Open)
             { 
            
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = INSERT_ALL_TEILNEHMER;
+                cmd.CommandText = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
                 cmd.CommandType = CommandType.Text;
           
                 cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
@@ -112,68 +99,6 @@ namespace BauchladenProgrammServer.Klassen
             }
         }
 
-        public List<Teilnehmer> selectTeilnehmerBySomething(string parameter)
-        {
-            List<Teilnehmer> t = null;
-            if (con.State == ConnectionState.Open)
-            {
-                t = new List<Teilnehmer>();
-                SqlDataReader reader;
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = SELECT_TEILNEHMER_BY_WHATEVER;
-                cmd.CommandType = CommandType.Text;
-
-                cmd.Parameters.AddWithValue("ID", parameter);
-                cmd.Parameters.AddWithValue("Nachname", parameter);
-                cmd.Parameters.AddWithValue("Vorname", parameter);
-
-                reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                       t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(2), reader.GetString(1),0));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No rows found.");
-                }
-
-                reader.Close();
-                
-            }
-            return t;
-        }
-
-        public Teilnehmer selectTeilnehmerByID(int id)
-        {
-            Teilnehmer t = null;
-            if (con.State == ConnectionState.Open)
-            {
-                SqlDataReader reader;
-                SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = SELECT_TEILNEHMER_BY_ID;
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("ID", id);
-                reader = cmd.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        t = new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),reader.GetDecimal(3));
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No rows found.");
-                }
-
-                reader.Close();
-            }
-            return t;
-        }
-
         public List<Teilnehmer> selectTeilnehmerAll()
         {
             List<Teilnehmer> t = null;
@@ -182,7 +107,7 @@ namespace BauchladenProgrammServer.Klassen
                 SqlDataReader reader;
                 SqlCommand cmd = con.CreateCommand();
                 t = new List<Teilnehmer>();
-                cmd.CommandText = SELECT_ALL_TEILNEHMER;
+                cmd.CommandText = "SELECT * FROM Teilnehmer;";
                 cmd.CommandType = CommandType.Text;               
                 reader = cmd.ExecuteReader();
                 if (reader.HasRows)
@@ -201,14 +126,15 @@ namespace BauchladenProgrammServer.Klassen
             }
             return t;
         }
-          
+ 
+// Produkte----------------------------------------------------------------
          public List<Produkt> selectProduktAll()
          {
             List<Produkt> tmpP = new List<Produkt>();
 
             SqlDataReader reader;
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = SELECT_PRODUKT_ALL;
+            cmd.CommandText = "SELECT * FROM Produkt;";
             cmd.CommandType = CommandType.Text;           
 
             reader = cmd.ExecuteReader();

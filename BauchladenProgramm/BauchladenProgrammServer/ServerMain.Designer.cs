@@ -225,7 +225,7 @@
             this.MinimumSize = new System.Drawing.Size(815, 450);
             this.Name = "Mainwindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Bauchladen Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Mainwindow_FormClosing);
             this.Load += new System.EventHandler(this.Mainwindow_Load);
             this.Shown += new System.EventHandler(this.Mainwindow_Shown);
