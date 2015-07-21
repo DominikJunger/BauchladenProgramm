@@ -21,10 +21,11 @@ namespace BauchladenProgrammServer.Connector
         private TcpClient client;
         private Thread receiveThread;
         private Parser parser;
-        private static int msgCount=0;
+        private static int msgCount=0;#
+        private Mainwindow gui
 
 
-        public Connector(TcpClient client, Server backend)
+        public Connector(TcpClient client, Server backend, Mainwindow gui)
         {
             if (client == null)
                 throw new Exception("Serververbidung hat keinen gültigen Client");
@@ -32,10 +33,11 @@ namespace BauchladenProgrammServer.Connector
 
             receiver = new Receiver(this.client);
             sender = new Sender(this.client);
+            this.gui=gui;
 
             if (backend == null)
                 throw new Exception("Kein Parsen von Daten möglich");
-            this.parser = new Parser(receiver.getBufferRef(), this);
+            this.parser = new Parser(receiver.getBufferRef(),this, gui);
 
             this.receiveThread = new Thread(new ThreadStart(receive));
             this.receiveThread.Name = "Receive";
@@ -56,6 +58,7 @@ namespace BauchladenProgrammServer.Connector
                 try
                 {
                     sender.sendMessage(s);
+                    this.gui.logNachricht(s);
                 }
                 catch (Exception e)
                 {

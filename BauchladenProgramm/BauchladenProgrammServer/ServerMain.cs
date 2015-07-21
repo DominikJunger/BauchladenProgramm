@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BauchladenProgrammServer.Klassen;
 using BauchladenProgrammServer.Backend_Klassen;
+using System.Net;
 
 namespace BauchladenProgrammServer
 {
@@ -25,8 +26,12 @@ namespace BauchladenProgrammServer
 
         private  void Mainwindow_Load(object sender, EventArgs e)
         {
+            // Startet den Serverprozess und wartet auf Anfragen
+            new Server(new IPEndPoint(IPAddress.Any, 3000),this);
+
             PDFCreator pdfc = new PDFCreator();
-            pdfc.createSimpleExampleTable();            
+            pdfc.createSimpleExampleTable();
+            
         }
 
         private void Mainwindow_Shown(object sender, EventArgs e)
@@ -42,8 +47,11 @@ namespace BauchladenProgrammServer
 
         private void Mainwindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(!con.isClosed())
+            if (con !=null && !con.isClosed())
+            {
                 con.closeConnection();
+            }
+            Environment.Exit(0);
         }
         private async void openSQLConnection()
         {
@@ -118,6 +126,11 @@ namespace BauchladenProgrammServer
                 addProdukte(con.selectProduktAll());
                 backgroundWorker1.CancelAsync();
             }
-        }                  
+        }
+
+        public void logNachricht(string nachricht)
+        {
+            this.log.Items.Add(nachricht);
+        } 
     }
 }

@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BauchladenProgrammServer
 {
@@ -14,13 +15,15 @@ namespace BauchladenProgrammServer
         private TcpListener tcpListener;
         private Thread listenThread;
         private List<Connector.Connector> clientList;
+        private Mainwindow gui;
 
-        public Server(IPEndPoint ipE)
+        public Server(IPEndPoint ipE,Mainwindow gui)
         {
             this.clientList = new List<Connector.Connector>();
             this.tcpListener = new TcpListener(ipE);
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
+            this.gui = gui;
         }
 
         private void ListenForClients()
@@ -42,7 +45,7 @@ namespace BauchladenProgrammServer
 
         private void HandleClientComm(object client)
         {
-            clientList.Add(new Connector.Connector((TcpClient)client,this));
+            clientList.Add(new Connector.Connector((TcpClient)client,this,gui));
         }
     }
 }

@@ -43,6 +43,7 @@
             this.sqlState = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.log = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).BeginInit();
@@ -62,7 +63,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(799, 380);
+            this.tabControl1.Size = new System.Drawing.Size(799, 407);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -71,7 +72,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(791, 354);
+            this.tabPage1.Size = new System.Drawing.Size(791, 381);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Teilnehmer";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -97,7 +98,7 @@
             this.dataGridViewTeilnehmer.RowHeadersVisible = false;
             this.dataGridViewTeilnehmer.RowTemplate.ReadOnly = true;
             this.dataGridViewTeilnehmer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(275, 348);
+            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(275, 375);
             this.dataGridViewTeilnehmer.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn4
@@ -129,7 +130,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(791, 354);
+            this.tabPage2.Size = new System.Drawing.Size(791, 381);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Produkte";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -155,7 +156,7 @@
             this.dataGridViewProdukt.RowHeadersVisible = false;
             this.dataGridViewProdukt.RowTemplate.ReadOnly = true;
             this.dataGridViewProdukt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProdukt.Size = new System.Drawing.Size(275, 348);
+            this.dataGridViewProdukt.Size = new System.Drawing.Size(275, 375);
             this.dataGridViewProdukt.TabIndex = 1;
             // 
             // Id
@@ -184,7 +185,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(791, 354);
+            this.tabPage3.Size = new System.Drawing.Size(791, 381);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Auszahlung";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -193,7 +194,7 @@
             // 
             this.sqlState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sqlState.BackColor = System.Drawing.Color.Red;
-            this.sqlState.Location = new System.Drawing.Point(753, 381);
+            this.sqlState.Location = new System.Drawing.Point(753, 430);
             this.sqlState.Name = "sqlState";
             this.sqlState.Size = new System.Drawing.Size(44, 28);
             this.sqlState.TabIndex = 1;
@@ -203,7 +204,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(596, 390);
+            this.label5.Location = new System.Drawing.Point(596, 439);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(151, 13);
             this.label5.TabIndex = 2;
@@ -214,11 +215,21 @@
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
+            // log
+            // 
+            this.log.Enabled = false;
+            this.log.FormattingEnabled = true;
+            this.log.Location = new System.Drawing.Point(7, 415);
+            this.log.Name = "log";
+            this.log.Size = new System.Drawing.Size(583, 43);
+            this.log.TabIndex = 3;
+            // 
             // Mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 412);
+            this.ClientSize = new System.Drawing.Size(799, 461);
+            this.Controls.Add(this.log);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.sqlState);
             this.Controls.Add(this.tabControl1);
@@ -257,6 +268,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
+        private System.Windows.Forms.ListBox log;
     }
 }
 

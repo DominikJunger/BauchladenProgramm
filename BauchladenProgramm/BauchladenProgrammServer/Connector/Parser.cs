@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using BauchladenProgrammServer.Backend_Klassen;
 using BauchladenProgrammServer.Klassen;
+using System.Windows.Forms;
 
 namespace BauchladenProgrammServer.Connector
 {
@@ -17,8 +18,10 @@ namespace BauchladenProgrammServer.Connector
         private Connector backend;
         private Thread parsThread;
         private SQL_Connector con = SQL_Connector.getInstance();
+        private BauchladenProgrammServer.Mainwindow gui;
 
-        public Parser(Buffer buffer, Connector backend)
+
+        public Parser(Buffer buffer, Connector backend, BauchladenProgrammServer.Mainwindow gui)
         {
             Contract.Requires(buffer != null);
             Contract.Requires(backend != null);
@@ -32,6 +35,10 @@ namespace BauchladenProgrammServer.Connector
             if(backend!=null)
             {
                 this.backend=backend;
+            }
+            if (gui != null)
+            {
+                this.gui = gui;
             }
             this.parsThread = new Thread(new ThreadStart(takeFromBuffer));
             this.parsThread.Start();
@@ -84,6 +91,7 @@ namespace BauchladenProgrammServer.Connector
             {
                 try
                 {
+                    this.gui.logNachricht("Eingehend: "+dataFromBuffer);
                     if (Regex.Match(dataFromBuffer,Syntax.GET + Syntax.COLON_CHAR).Success)
                     {
                         dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.GET + Syntax.COLON_CHAR, "");

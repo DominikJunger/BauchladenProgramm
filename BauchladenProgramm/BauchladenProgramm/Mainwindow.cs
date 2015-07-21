@@ -247,7 +247,7 @@ namespace BauchladenProgramm
         {
             foreach(DataGridViewRow row in dataGridViewEinkauf.Rows)
             {
-            this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(),row.Cells[0].Value.ToString());
+                this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[2].Value.ToString());
             }
         }
 

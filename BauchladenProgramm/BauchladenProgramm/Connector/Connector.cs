@@ -162,9 +162,9 @@ namespace BauchladenProgramm.Connector
         }
 
         // Methoden zum setzen von Werten auf dem Server
-        public void setBuy(string userId,string productID)
+        public void setBuy(string userId,string productID, string anzahl)
         {
-            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID);
+            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID + Syntax.ENUM_CHAR + anzahl);
         }
     }
 
