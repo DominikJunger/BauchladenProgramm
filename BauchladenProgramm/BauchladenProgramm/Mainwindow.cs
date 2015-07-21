@@ -154,6 +154,7 @@ namespace BauchladenProgramm
                 Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
                 if (selectedRowCount == 1)
                 {
+                    this.dataGridViewTeilnehmer.Enabled = false;
                     this.produktVerwaltung.Add(new Produkt(dataGridViewProdukt.SelectedRows[0].Cells[0].Value.ToString(),
                         dataGridViewProdukt.SelectedRows[0].Cells[1].Value.ToString(),
                         dataGridViewProdukt.SelectedRows[0].Cells[2].Value.ToString(),
@@ -249,6 +250,11 @@ namespace BauchladenProgramm
             {
                 this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[2].Value.ToString());
             }
+            this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+            this.Kontostand.Text = "";
+            this.TN_Name.Text = "";
+            this.dataGridViewEinkauf.Rows.Clear();
+            this.dataGridViewTeilnehmer.Enabled = true;
         }
 
         private void SucheNachTeilnehmer(string searchValue, DataGridView dv)
@@ -304,9 +310,10 @@ namespace BauchladenProgramm
             }
         }
 
-        private void dataGridViewTeilnehmer_SelectionChanged(object sender, EventArgs e)
+        private void löschen_Click(object sender, EventArgs e)
         {
-            
+            this.dataGridViewEinkauf.Rows.Clear();
+            this.dataGridViewTeilnehmer.Enabled=true;
         }
     }
 }

@@ -40,6 +40,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Anzahl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.löschen = new System.Windows.Forms.Button();
             this.send = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.einkaufslistesumme = new System.Windows.Forms.Label();
@@ -203,6 +204,7 @@
             // 
             // splitContainerEinkaufsliste.Panel2
             // 
+            this.splitContainerEinkaufsliste.Panel2.Controls.Add(this.löschen);
             this.splitContainerEinkaufsliste.Panel2.Controls.Add(this.send);
             this.splitContainerEinkaufsliste.Panel2.Controls.Add(this.panel1);
             this.splitContainerEinkaufsliste.Panel2MinSize = 30;
@@ -267,12 +269,24 @@
             this.Anzahl.Name = "Anzahl";
             this.Anzahl.ReadOnly = true;
             // 
+            // löschen
+            // 
+            this.löschen.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.löschen.Location = new System.Drawing.Point(200, 45);
+            this.löschen.Name = "löschen";
+            this.löschen.Size = new System.Drawing.Size(78, 41);
+            this.löschen.TabIndex = 2;
+            this.löschen.Text = "Löschen";
+            this.löschen.UseVisualStyleBackColor = true;
+            this.löschen.Click += new System.EventHandler(this.löschen_Click);
+            // 
             // send
             // 
-            this.send.Dock = System.Windows.Forms.DockStyle.Right;
-            this.send.Location = new System.Drawing.Point(203, 0);
+            this.send.AutoSize = true;
+            this.send.Dock = System.Windows.Forms.DockStyle.Top;
+            this.send.Location = new System.Drawing.Point(200, 0);
             this.send.Name = "send";
-            this.send.Size = new System.Drawing.Size(75, 86);
+            this.send.Size = new System.Drawing.Size(78, 39);
             this.send.TabIndex = 0;
             this.send.Text = "Kaufen";
             this.send.UseVisualStyleBackColor = true;
@@ -413,7 +427,6 @@
             this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(228, 377);
             this.dataGridViewTeilnehmer.TabIndex = 2;
             this.dataGridViewTeilnehmer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeilnehmer_CellClick);
-            this.dataGridViewTeilnehmer.SelectionChanged += new System.EventHandler(this.dataGridViewTeilnehmer_SelectionChanged);
             // 
             // dataGridViewTextBoxColumn4
             // 
@@ -745,6 +758,7 @@
             this.EinkaufslisteVerkauf.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel1.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel2.ResumeLayout(false);
+            this.splitContainerEinkaufsliste.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).EndInit();
             this.splitContainerEinkaufsliste.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).EndInit();
@@ -841,6 +855,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button löschen;
 
     }
 }
