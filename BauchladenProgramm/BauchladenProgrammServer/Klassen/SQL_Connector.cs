@@ -33,7 +33,7 @@ namespace BauchladenProgrammServer.Klassen
         }
         
 
-        private SQL_Connector(string dataSource = @"Data Source=DOMINIK-PC;", string initialCatalog = "Initial Catalog=Bauchladen;", string persistSecurity = "Persist Security Info=True;", string userID = "User ID=jula;", string password = "Password=bauchladen;", string asynchProcessing = "Asynchronous Processing=True")
+        private SQL_Connector(string dataSource = @"Data Source=DOMINIK-PC;", string initialCatalog = "Initial Catalog=Bauchladen;", string persistSecurity = "Persist Security Info=false;", string userID = "User ID=jula;", string password = "Password=jula2015;", string asynchProcessing = "Asynchronous Processing=True")
         {
             this.DataSource = dataSource;
             this.InitialCatalog = initialCatalog;
@@ -102,27 +102,71 @@ namespace BauchladenProgrammServer.Klassen
         public List<Teilnehmer> selectTeilnehmerAll()
         {
             List<Teilnehmer> t = null;
+            SqlDataReader reader=null;
+
             if (con.State == ConnectionState.Open)
             {
-                SqlDataReader reader;
-                SqlCommand cmd = con.CreateCommand();
-                t = new List<Teilnehmer>();
-                cmd.CommandText = "SELECT * FROM Teilnehmer;";
-                cmd.CommandType = CommandType.Text;               
-                reader = cmd.ExecuteReader();
-                if (reader.HasRows)
+                try
                 {
-                    while (reader.Read())
+                    t = new List<Teilnehmer>();
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandText = "SELECT id,vorname,nachname FROM Teilnehmer";
+                    cmd.CommandType = CommandType.Text;
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                       t.Add(new Teilnehmer(reader.GetInt32(0), reader.GetString(1), reader.GetString(2),0));
+                        while (reader.Read())
+                        {
+                            t.Add(new Teilnehmer(reader.GetString(0), reader.GetString(1), reader.GetString(2), 0));
+                        }
                     }
+                    else
+                    {
+                        MessageBox.Show("Keine Teilnehmer gefunden");
+                    }
+                    reader.Close();
                 }
-                else
+                catch (SqlException ex)
                 {
-                    MessageBox.Show("No rows found.");
+                    reader.Close();
+                    MessageBox.Show("Fehler bei Teilnehmerliste abrufen /n/n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            return t;
+        }
 
-                reader.Close();
+        public Teilnehmer selectTeilnehmer(int id)
+        {
+            Teilnehmer t = null;
+            SqlDataReader reader=null;
+            if (con.State == ConnectionState.Open)
+            {
+                try
+                {
+                    SqlCommand cmd = con.CreateCommand();
+                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id";
+                        //+" where k.id = @suchID";
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.Parameters.Add(new SqlParameter("@suchId", SqlDbType.Int));
+                    cmd.Parameters["@suchId"].Value = id;
+
+                    reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        t = new Teilnehmer(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(3));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Keine Teilnehmer gefunden");
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    reader.Close();
+                    MessageBox.Show("Fehler beim Kontostand abruf des Teilnehmers /n/n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             return t;
         }
@@ -142,7 +186,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    tmpP.Add(new Produkt(reader.GetInt32(0), reader.GetString(1),reader.GetDecimal(2)));
+                    tmpP.Add(new Produkt(reader.GetString(0), reader.GetString(1),reader.GetDecimal(2)));
                 }
             }
             else

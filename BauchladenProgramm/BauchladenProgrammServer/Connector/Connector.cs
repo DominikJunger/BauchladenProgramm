@@ -21,8 +21,8 @@ namespace BauchladenProgrammServer.Connector
         private TcpClient client;
         private Thread receiveThread;
         private Parser parser;
-        private static int msgCount=0;#
-        private Mainwindow gui
+        private static int msgCount=0;
+        private Mainwindow gui;
 
 
         public Connector(TcpClient client, Server backend, Mainwindow gui)
@@ -84,20 +84,16 @@ namespace BauchladenProgrammServer.Connector
         public void sendTeilnehmerList(List<Teilnehmer> teilnehmer)
         {
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount.ToString());
-            
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
 
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "1");
-            this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + "Simon");
-            this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + "Müller");
-            this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + "1");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "1");
-
-            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "2");
-            this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + "Hans");
-            this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + "Eber");
-            this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + "4");
-            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + "2");
+            for (int i = 0; i < teilnehmer.Count; i++)
+            {
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + (i+1));
+                this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + teilnehmer[i].VorName);
+                this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + teilnehmer[i].NachName);
+                this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + teilnehmer[i].Id);
+                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + (i+1));
+            }
 
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount.ToString());
@@ -105,64 +101,30 @@ namespace BauchladenProgrammServer.Connector
             msgCount++;
         }
 
-        public void sendTeilnehmerKontostand(int id)
+        public void sendTeilnehmerKontostand(Teilnehmer t)
         {
-            //Bsp zum Testen
-            if (id == 1)
-            {
-                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
-                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE);
-                this.sendMessageToClient(Syntax.MEMBER + Syntax.COLON_CHAR +"1"); 
-                this.sendMessageToClient("10,1");
-                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
-            }
-            if (id == 4)
-            {
-                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
-                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE);
-                this.sendMessageToClient(Syntax.MEMBER + Syntax.COLON_CHAR + "4"); 
-                this.sendMessageToClient("2,66");
-                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
-            }
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount);
+            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.BANK_BALANCE);
+            this.sendMessageToClient(Syntax.MEMBER + Syntax.COLON_CHAR + t.Id); 
+            this.sendMessageToClient(t.Kontostand.ToString());
+            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             msgCount++;
         }
         
         // Methoden zum Senden von ProduktListe
         public void sendProductList(List<Produkt> produkte)
         {
-
-            // Würde so funktionieren, lass aber noch das Testbeispiel drin
-
-             /* this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + "1");
-              this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
-
-              foreach (Produkt p in produkte)
-              {
-                  this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + p.Id);
-                  this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + p.Name);
-                  this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + p.Preis);
-                  this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + p.Id);
-              }
-              
-              this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
-              this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + "1");
-              */
-              
-            //Beispiel statisch aufgebaut zum Testen
-
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount.ToString());
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
-           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
-           this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + "Snicker Groß");
-           this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + "1,50");
-           this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + "1");
-           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "1");
-
-           this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
-           this.sendMessageToClient(Syntax.PRODUKT_NAME +Syntax.COLON_CHAR + "Mars");
-           this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + "3");
-           this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + "2");
+           for (int i = 0; i < produkte.Count; i++)
+           {
+               this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i+1));
+               this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + produkte[i].Name);
+               this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + produkte[i].Preis);
+               this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + produkte[i].Id);
+               this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i+1));
+           }
 
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount.ToString());

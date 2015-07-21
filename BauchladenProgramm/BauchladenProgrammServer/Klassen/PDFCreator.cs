@@ -36,8 +36,8 @@ namespace BauchladenProgrammServer.Klassen
             iTextSharp.text.Font cou = new iTextSharp.text.Font(courier, 12, 0, iTextSharp.text.Color.BLACK);
 
             // Pfad festlegen und Speichern
-            string path = @"C:\test.pdf";
-            PdfWriter.GetInstance(doc, new FileStream(path, FileMode.Create));
+            //string path = @"C:\test.pdf";
+            //PdfWriter.GetInstance(doc, new FileStream(path, FileMode.Create));
         }
 
         public void createSimpleExampleTable()

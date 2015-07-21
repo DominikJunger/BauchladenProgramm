@@ -8,18 +8,18 @@ namespace BauchladenProgrammServer.Backend_Klassen
 {
     public class Produkt
     {
-        private int id;
+        private string id;
         private string name; 
         private decimal preis;
 
-        public Produkt(int id, string name, decimal preis)
+        public Produkt(string id, string name, decimal preis)
         {
             this.id = id;
             this.name = name;
             this.preis = preis;
         }
 
-        public int Id
+        public string Id
         {
             get { return id; }
             set { id = value; }

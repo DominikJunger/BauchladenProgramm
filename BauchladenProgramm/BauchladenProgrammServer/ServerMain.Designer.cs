@@ -217,7 +217,6 @@
             // 
             // log
             // 
-            this.log.Enabled = false;
             this.log.FormattingEnabled = true;
             this.log.Location = new System.Drawing.Point(7, 415);
             this.log.Name = "log";
@@ -238,8 +237,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bauchladen Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Mainwindow_FormClosing);
-            this.Load += new System.EventHandler(this.Mainwindow_Load);
-            this.Shown += new System.EventHandler(this.Mainwindow_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).EndInit();

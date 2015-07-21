@@ -98,8 +98,7 @@ namespace BauchladenProgrammServer.Connector
                         if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der produkte
-                            //this.backend.sendProductList(con.selectProduktAll());
-                            this.backend.sendProductList(null);
+                            this.backend.sendProductList(con.selectProduktAll());
                         }
 
                         else if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
@@ -110,14 +109,14 @@ namespace BauchladenProgrammServer.Connector
                         else if (Regex.Match(dataFromBuffer, Syntax.MEMBERLIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der TeilnehmerListe
-                            this.backend.sendTeilnehmerList(null);
+                            this.backend.sendTeilnehmerList(con.selectTeilnehmerAll());
                         }
 
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
                         {
                             // hier kommt der sql befehlt zum suchen
                             int id = parsToInt32(dataFromBuffer);  
-                            this.backend.sendTeilnehmerKontostand(id);
+                            this.backend.sendTeilnehmerKontostand(con.selectTeilnehmer(id));
                         }
                         else
                         {

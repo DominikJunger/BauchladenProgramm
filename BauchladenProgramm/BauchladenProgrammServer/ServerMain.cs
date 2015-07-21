@@ -22,23 +22,15 @@ namespace BauchladenProgrammServer
         public Mainwindow()
         {
             InitializeComponent();
-        }     
-
-        private  void Mainwindow_Load(object sender, EventArgs e)
-        {
             // Startet den Serverprozess und wartet auf Anfragen
-            new Server(new IPEndPoint(IPAddress.Any, 3000),this);
+            new Server(new IPEndPoint(IPAddress.Any, 3000), this);
 
             PDFCreator pdfc = new PDFCreator();
-            pdfc.createSimpleExampleTable();
-            
-        }
+            //pdfc.createSimpleExampleTable();
 
-        private void Mainwindow_Shown(object sender, EventArgs e)
-        {
             openSQLConnection();
             init_Server();
-        } 
+        }     
 
         private void init_Server()
         {
@@ -72,7 +64,7 @@ namespace BauchladenProgrammServer
 
             foreach (Teilnehmer t in tn)
             {
-                tnString[0] = t.Id.ToString("00");
+                tnString[0] = t.Id;
                 tnString[1] = t.VorName;
                 tnString[2] = t.NachName;
                 this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
@@ -89,7 +81,7 @@ namespace BauchladenProgrammServer
 
             foreach (Produkt p in pr)
             {
-                prString[0] = p.Id.ToString("00");
+                prString[0] = p.Id;
                 prString[1] = p.Name;
                 prString[2] = p.Preis.ToString("0.00");
                 this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
@@ -130,7 +122,10 @@ namespace BauchladenProgrammServer
 
         public void logNachricht(string nachricht)
         {
-            this.log.Items.Add(nachricht);
+            this.log.Invoke((MethodInvoker)delegate()
+            {
+                this.log.Items.Add(nachricht);
+            });
         } 
     }
 }
