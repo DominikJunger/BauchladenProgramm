@@ -133,6 +133,13 @@ namespace BauchladenProgrammServer.Connector
                             string[] data =dataFromBuffer.Split(',');
                             this.con.setEinkauf(data[0],data[1],data[2]);
                         }
+                        else if (Regex.Match(dataFromBuffer, Syntax.EINZAHLUNG + Syntax.COLON_CHAR).Success)
+                        {
+                            dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.EINZAHLUNG + Syntax.COLON_CHAR, "");
+                            // hier kommt der sql befehlt zum setzen eines einkaufs
+                            string[] data = dataFromBuffer.Split(',');
+                            this.con.setEinzahlung(data[0], data[1]);
+                        }
                         else
                         {
                             throw new Exception("Fehler: SET Befehl vom Client nicht Parsbar");

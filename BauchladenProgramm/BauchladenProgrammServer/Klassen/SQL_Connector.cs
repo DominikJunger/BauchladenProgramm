@@ -144,7 +144,7 @@ namespace BauchladenProgrammServer.Klassen
                 try
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId";
+                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId order by ks.datum desc";
                     cmd.CommandType = CommandType.Text;
 
                     cmd.Parameters.Add("@suchId", SqlDbType.Int);
@@ -153,10 +153,8 @@ namespace BauchladenProgrammServer.Klassen
                     reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        while (reader.Read())
-                        {
-                            t = new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3));
-                        }
+                        reader.Read();
+                        t = new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3));
                     }
                     else
                     {
@@ -205,16 +203,105 @@ namespace BauchladenProgrammServer.Klassen
          public void setEinkauf(string userId, string productId, string anzahl)
          {
              SqlCommand cmd = con.CreateCommand();
-             cmd.CommandText = "";
+
+             SqlDataReader reader;
+
+             for (int i = 0; i < int.Parse(anzahl); i++)
+             {
+                 cmd.CommandText = "select * from Einkauf where datum = @date";
+                 cmd.CommandType = CommandType.Text;
+
+                 cmd.Parameters.Add("@Id", SqlDbType.Char);
+                 cmd.Parameters["@Id"].Value = userId.ToString();
+
+                 cmd.Parameters.Add("@date", SqlDbType.Char);
+                 cmd.Parameters["@date"].Value = DateTime.Today;
+
+                 cmd.Parameters.Add("@pId", SqlDbType.Char);
+                 cmd.Parameters["@pId"].Value = productId.ToString();
+
+                 reader = cmd.ExecuteReader();
+                 if (reader.HasRows)
+                 {
+                     reader.Read();
+                     cmd.CommandText = "insert into ProduktEinkauf (produkt,einkauf) values(@pId,@einkaufID)";
+                     cmd.CommandType = CommandType.Text;
+
+                     cmd.Parameters.Add("@einkaufID", SqlDbType.Char);
+                     cmd.Parameters["@einkaufID"].Value = reader.GetInt32(0).ToString();
+                     reader.Close();
+                     cmd.ExecuteNonQuery();
+                 }
+                 else
+                 {
+                     reader.Close();
+                     cmd.CommandText = "insert into Einkauf (datum,teilnehmer) values (@date,@Id) insert into ProduktEinkauf (produkt,einkauf) values(@pId, IDENT_CURRENT('Einkauf'))";
+                     cmd.CommandType = CommandType.Text;
+                     cmd.ExecuteNonQuery();
+                 }
+
+                 /*cmd.CommandText = "select ks.kontostand, k.id from Konto k join Kontostand ks on k.id=ks.konto where teilnehmer= @Id order by datum desc";
+                 cmd.CommandType = CommandType.Text;
+
+                 cmd.Parameters.Add("@Id", SqlDbType.Char);
+                 cmd.Parameters["@Id"].Value = userId.ToString();
+
+                 reader = cmd.ExecuteReader();
+                 if (reader.HasRows)
+                 {
+                     reader.Read();
+                     cmd.Parameters.Add("@kontostand", SqlDbType.Decimal);
+                     cmd.Parameters["@kontostand"].Value = reader.GetDecimal(0)+;
+                     cmd.Parameters.Add("@kId", SqlDbType.Int);
+                     cmd.Parameters["@kId"].Value = reader.GetInt32(1);
+                     reader.Close();
+                     cmd.Parameters.Add("@date", SqlDbType.DateTime);
+                     cmd.Parameters["@date"].Value = DateTime.Now;
+
+                     cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@kontostand,@kId,@date)";
+                     cmd.CommandType = CommandType.Text;
+                     cmd.ExecuteNonQuery();
+
+                 }
+                 else
+                 {
+                     MessageBox.Show("No rows found.");
+                 }*/
+             }           
+         }
+
+         public void setEinzahlung(string userId, string betrag)
+         {
+             SqlCommand cmd = con.CreateCommand();
+             SqlDataReader reader;
+
+             cmd.CommandText = "select ks.kontostand, k.id from Konto k join Kontostand ks on k.id=ks.konto where teilnehmer= @Id order by datum desc";
              cmd.CommandType = CommandType.Text;
 
              cmd.Parameters.Add("@Id", SqlDbType.Char);
              cmd.Parameters["@Id"].Value = userId.ToString();
 
-             cmd.Parameters.Add("@pId", SqlDbType.Char);
-             cmd.Parameters["@pId"].Value = productId.ToString();
+             reader = cmd.ExecuteReader();
+             if (reader.HasRows)
+             {
+                 reader.Read();
+                 cmd.Parameters.Add("@einzahlung", SqlDbType.Decimal);
+                 cmd.Parameters["@einzahlung"].Value = int.Parse(betrag) + reader.GetDecimal(0);
+                 cmd.Parameters.Add("@kId", SqlDbType.Int);
+                 cmd.Parameters["@kId"].Value = reader.GetInt32(1);
+                 reader.Close();
+                 cmd.Parameters.Add("@date", SqlDbType.DateTime);
+                 cmd.Parameters["@date"].Value = DateTime.Now;
 
-             cmd.ExecuteNonQuery();
+                 cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@einzahlung,@kId,@date)";
+                 cmd.CommandType = CommandType.Text;
+                 cmd.ExecuteNonQuery();
+
+             }
+             else
+             {
+                 MessageBox.Show("No rows found.");
+             }
          }
 
         public async Task<bool> CheckDbConnection()
