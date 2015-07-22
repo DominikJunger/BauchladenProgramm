@@ -43,6 +43,7 @@ namespace BauchladenProgramm.Connector
                                    GET = "get",
                                    SEARCH = "search",
                                    BUY = "buy",
+                                   EINZAHLUNG="einzahlung",
                                    SET = "set"
                                    ;
 

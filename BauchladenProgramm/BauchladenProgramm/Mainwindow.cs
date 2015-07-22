@@ -244,6 +244,7 @@ namespace BauchladenProgramm
             this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
             this.KontostandEinzahlung.Text = "";
             this.TN_NameEinzahlung.Text = "";
+            this.textBoxEinzahlung.Text = "";
         }
 
         private void send_Click(object sender, EventArgs e)
@@ -318,6 +319,14 @@ namespace BauchladenProgramm
             this.dataGridViewEinkauf.Rows.Clear();
             this.produktVerwaltung.Clear();
             this.dataGridViewTeilnehmer.Enabled=true;
+        }
+
+        private void einzahlen_Click(object sender, EventArgs e)
+        {
+            if (this.textBoxEinzahlung.Text != null && this.textBoxEinzahlung.Text != "")
+            {
+                this.c.setEinzahlung(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString(), this.textBoxEinzahlung.Text.ToString());
+            }
         }
     }
 }

@@ -43,6 +43,8 @@
             this.löschen = new System.Windows.Forms.Button();
             this.send = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.einkaufslistesumme = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.TN_Name = new System.Windows.Forms.Label();
@@ -73,8 +75,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxEinzahlung = new System.Windows.Forms.TextBox();
+            this.einzahlen = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.TN_NameEinzahlung = new System.Windows.Forms.Label();
             this.KontostandEinzahlung = new System.Windows.Forms.Label();
@@ -296,6 +298,8 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.GreenYellow;
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.einkaufslistesumme);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.TN_Name);
@@ -307,6 +311,24 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 86);
             this.panel1.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(145, 63);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(13, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "€";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(145, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(13, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "€";
             // 
             // einkaufslistesumme
             // 
@@ -550,7 +572,7 @@
             // splitContainerEinzahlung.Panel2
             // 
             this.splitContainerEinzahlung.Panel2.Controls.Add(this.panel3);
-            this.splitContainerEinzahlung.Panel2.Controls.Add(this.button1);
+            this.splitContainerEinzahlung.Panel2.Controls.Add(this.einzahlen);
             this.splitContainerEinzahlung.Panel2.Controls.Add(this.panel2);
             this.splitContainerEinzahlung.Panel2MinSize = 50;
             this.splitContainerEinzahlung.Size = new System.Drawing.Size(791, 432);
@@ -651,7 +673,7 @@
             // 
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.textBoxEinzahlung);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 99);
             this.panel3.Name = "panel3";
@@ -676,22 +698,23 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Betrag zum Einzahlen:";
             // 
-            // textBox1
+            // textBoxEinzahlung
             // 
-            this.textBox1.Location = new System.Drawing.Point(26, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(96, 20);
-            this.textBox1.TabIndex = 0;
+            this.textBoxEinzahlung.Location = new System.Drawing.Point(26, 40);
+            this.textBoxEinzahlung.Name = "textBoxEinzahlung";
+            this.textBoxEinzahlung.Size = new System.Drawing.Size(96, 20);
+            this.textBoxEinzahlung.TabIndex = 0;
             // 
-            // button1
+            // einzahlen
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.Location = new System.Drawing.Point(0, 169);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(193, 263);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Einzahlen";
-            this.button1.UseVisualStyleBackColor = true;
+            this.einzahlen.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.einzahlen.Location = new System.Drawing.Point(0, 169);
+            this.einzahlen.Name = "einzahlen";
+            this.einzahlen.Size = new System.Drawing.Size(193, 263);
+            this.einzahlen.TabIndex = 5;
+            this.einzahlen.Text = "Einzahlen";
+            this.einzahlen.UseVisualStyleBackColor = true;
+            this.einzahlen.Click += new System.EventHandler(this.einzahlen_Click);
             // 
             // panel2
             // 
@@ -846,7 +869,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.SplitContainer splitContainerEinzahlung;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxEinzahlung;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label TN_NameEinzahlung;
         private System.Windows.Forms.Label KontostandEinzahlung;
@@ -854,8 +877,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button einzahlen;
         private System.Windows.Forms.Button löschen;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
 
     }
 }

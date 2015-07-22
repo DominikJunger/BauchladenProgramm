@@ -166,6 +166,11 @@ namespace BauchladenProgramm.Connector
         {
             this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID + Syntax.ENUM_CHAR + anzahl);
         }
+
+        public void setEinzahlung(string userId, string betrag)
+        {
+            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.EINZAHLUNG + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + betrag);
+        }
     }
 
 }
