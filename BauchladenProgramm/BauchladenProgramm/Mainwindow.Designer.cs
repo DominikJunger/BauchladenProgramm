@@ -394,7 +394,7 @@
             // 
             // TeilnehmerSuche
             // 
-            this.TeilnehmerSuche.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.TeilnehmerSuche.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.TeilnehmerSuche.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.TeilnehmerSuche.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TeilnehmerSuche.Location = new System.Drawing.Point(0, 0);

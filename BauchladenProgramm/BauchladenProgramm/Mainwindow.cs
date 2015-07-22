@@ -19,14 +19,13 @@ namespace BauchladenProgramm
         private string ip;
 
         private List<Produkt> produktVerwaltung;
-        AutoCompleteStringCollection TeilnehmerSucheComplete;
+        
 
         public Mainwindow(string ip)
         {
             InitializeComponent();
             this.ip = ip;
-            this.produktVerwaltung = new List<Produkt>();
-            this.TeilnehmerSucheComplete = new AutoCompleteStringCollection();
+            this.produktVerwaltung = new List<Produkt>();  
         }
 
         private void Mainwindow_Load(object sender, EventArgs e)
@@ -77,20 +76,23 @@ namespace BauchladenProgramm
         {
             if (t != null)
             {
-                String[] pr = new String[3];
-                pr[0] = t.Id.ToString();
-                pr[1] = t.VorName;
-                pr[2] = t.NachName;
+                String[] tn = new String[3];
+                tn[0] = t.Id.ToString();
+                tn[1] = t.VorName;
+                tn[2] = t.NachName;
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridViewTeilnehmer.Rows.Add(pr);
+                    this.dataGridViewTeilnehmer.Rows.Add(tn);
                     //TeilnehmerSucheComplete.AddRange(pr);
                     //this.TeilnehmerSuche.AutoCompleteCustomSource = TeilnehmerSucheComplete;
                 });
                 this.dataGridViewTeilnehmerEinzahlung.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridViewTeilnehmerEinzahlung.Rows.Add(pr);
-                    //this.TeilnehmerSucheEinzahlung.AutoCompleteCustomSource = this.TeilnehmerSuche.AutoCompleteCustomSource;
+                    this.dataGridViewTeilnehmerEinzahlung.Rows.Add(tn);
+                });
+                this.TeilnehmerSuche.Invoke((MethodInvoker)delegate()
+                {
+                    //this.TeilnehmerSuche.AutoCompleteCustomSource.AddRange(tn);
                 });
             }
         }
@@ -248,12 +250,13 @@ namespace BauchladenProgramm
         {
             foreach(DataGridViewRow row in dataGridViewEinkauf.Rows)
             {
-                this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[2].Value.ToString());
+                this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[3].Value.ToString());
             }
             this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
             this.Kontostand.Text = "";
             this.TN_Name.Text = "";
             this.dataGridViewEinkauf.Rows.Clear();
+            this.produktVerwaltung.Clear();
             this.dataGridViewTeilnehmer.Enabled = true;
         }
 
@@ -313,6 +316,7 @@ namespace BauchladenProgramm
         private void löschen_Click(object sender, EventArgs e)
         {
             this.dataGridViewEinkauf.Rows.Clear();
+            this.produktVerwaltung.Clear();
             this.dataGridViewTeilnehmer.Enabled=true;
         }
     }
