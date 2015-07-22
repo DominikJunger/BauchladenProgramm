@@ -125,11 +125,13 @@ namespace BauchladenProgrammServer.Connector
                     }
                     else if (Regex.Match(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR).Success)
                     {
-                        Regex.Replace(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR, "");
+                        dataFromBuffer =Regex.Replace(dataFromBuffer, Syntax.SET + Syntax.COLON_CHAR, "");
                         if (Regex.Match(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR).Success)
                         {
                             dataFromBuffer=Regex.Replace(dataFromBuffer, Syntax.BUY + Syntax.COLON_CHAR, "");
                             // hier kommt der sql befehlt zum setzen eines einkaufs
+                            string[] data =dataFromBuffer.Split(',');
+                            this.con.setEinkauf(data[0],data[1],data[2]);
                         }
                         else
                         {

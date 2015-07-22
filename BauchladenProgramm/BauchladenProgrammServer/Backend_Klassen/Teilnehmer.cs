@@ -14,12 +14,12 @@ namespace BauchladenProgrammServer.Backend_Klassen
         private double kontostand;
  
 
-        public Teilnehmer(string id, string vorName, string nachName, double kontostand)
+        public Teilnehmer(string id, string vorName, string nachName, decimal kontostand)
         {
             this.id = id;
             this.vorName = vorName;
             this.nachName = nachName;
-            this.Kontostand = kontostand;
+            this.Kontostand = Double.Parse(kontostand.ToString());
          
         }    
 

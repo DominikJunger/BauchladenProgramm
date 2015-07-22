@@ -117,7 +117,7 @@ namespace BauchladenProgrammServer.Klassen
                     {
                         while (reader.Read())
                         {
-                            t.Add(new Teilnehmer(reader.GetString(0), reader.GetString(1), reader.GetString(2), 0));
+                            t.Add(new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), 0));
                         }
                     }
                     else
@@ -144,17 +144,19 @@ namespace BauchladenProgrammServer.Klassen
                 try
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id";
-                        //+" where k.id = @suchID";
+                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId";
                     cmd.CommandType = CommandType.Text;
 
-                    cmd.Parameters.Add(new SqlParameter("@suchId", SqlDbType.Int));
-                    cmd.Parameters["@suchId"].Value = id;
+                    cmd.Parameters.Add("@suchId", SqlDbType.Int);
+                    cmd.Parameters["@suchId"].Value = id.ToString();
 
                     reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
-                        t = new Teilnehmer(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(3));
+                        while (reader.Read())
+                        {
+                            t = new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3));
+                        }
                     }
                     else
                     {
@@ -165,7 +167,7 @@ namespace BauchladenProgrammServer.Klassen
                 catch (Exception ex)
                 {
                     reader.Close();
-                    MessageBox.Show("Fehler beim Kontostand abruf des Teilnehmers /n/n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Fehler beim Kontostand abruf des Teilnehmers \\n\\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return t;
@@ -186,7 +188,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    tmpP.Add(new Produkt(reader.GetString(0), reader.GetString(1),reader.GetDecimal(2)));
+                    tmpP.Add(new Produkt(reader.GetInt32(0).ToString(), reader.GetString(1),reader.GetDecimal(2)));
                 }
             }
             else
@@ -198,6 +200,21 @@ namespace BauchladenProgrammServer.Klassen
             
 
             return tmpP;
+         }
+
+         public void setEinkauf(string userId, string productId, string anzahl)
+         {
+             SqlCommand cmd = con.CreateCommand();
+             cmd.CommandText = "";
+             cmd.CommandType = CommandType.Text;
+
+             cmd.Parameters.Add("@Id", SqlDbType.Char);
+             cmd.Parameters["@Id"].Value = userId.ToString();
+
+             cmd.Parameters.Add("@pId", SqlDbType.Char);
+             cmd.Parameters["@pId"].Value = productId.ToString();
+
+             cmd.ExecuteNonQuery();
          }
 
         public async Task<bool> CheckDbConnection()
