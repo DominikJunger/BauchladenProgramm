@@ -59,9 +59,8 @@ namespace BauchladenProgrammServer
 
         private void addTeilnehmer(List<Teilnehmer> tn)
         {
-            
+            this.dataGridViewTeilnehmer.Rows.Clear();
             String[] tnString = new String[3];
-
             foreach (Teilnehmer t in tn)
             {
                 tnString[0] = t.Id;
@@ -126,6 +125,34 @@ namespace BauchladenProgrammServer
             {
                 this.log.Items.Add(nachricht);
             });
-        } 
+        }
+
+        private void dataGridViewTeilnehmer_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Teilnehmer t=this.con.selectTeilnehmer(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
+            this.Kontostand.Text = t.Kontostand.ToString();
+            this.TN_Name.Text = t.VorName + " " + t.NachName;
+        }
+
+        private void TnHinzufügen_Click(object sender, EventArgs e)
+        {
+            Form nTN = new NeuerTN(this.con);
+            nTN.ShowDialog();
+        }
+
+        private void TnHinzufügen_Leave(object sender, EventArgs e)
+        {
+            addTeilnehmer(con.selectTeilnehmerAll());
+        }
+
+        private void TnLöschen_Click(object sender, EventArgs e)
+        {
+            con.deleteTn(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
+        }
+
+        private void TnInaktiv_Click(object sender, EventArgs e)
+        {
+            con.setTnInaktiv(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
+        }
     }
 }

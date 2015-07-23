@@ -58,6 +58,12 @@
     <Compile Include="Klassen\CSVReader.cs" />
     <Compile Include="Klassen\PDFCreator.cs" />
     <Compile Include="Klassen\SQL_Connector.cs" />
+    <Compile Include="NeuerTN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NeuerTN.Designer.cs">
+      <DependentUpon>NeuerTN.cs</DependentUpon>
+    </Compile>
     <Compile Include="Server.cs" />
     <Compile Include="ServerMain.cs">
       <SubType>Form</SubType>
@@ -67,6 +73,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="NeuerTN.resx">
+      <DependentUpon>NeuerTN.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

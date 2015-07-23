@@ -21,7 +21,12 @@ namespace BauchladenProgrammServer.Backend_Klassen
             this.nachName = nachName;
             this.Kontostand = Double.Parse(kontostand.ToString());
          
-        }    
+        }
+        public Teilnehmer(string vorName, string nachName)
+        {
+            this.vorName = vorName;
+            this.nachName = nachName;
+        }
 
         public string Id
         {

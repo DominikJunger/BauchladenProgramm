@@ -12,7 +12,7 @@ namespace BauchladenProgrammServer.Klassen
     /// Klasse zum regeln der Verbindung zur SQL-Datenbank
     /// !Statements nicht fertig, aufgrund der unwissendheit der Tabellennamen.!
     /// </summary>
-    class SQL_Connector
+    public class SQL_Connector
     {
         private string dataSource;       
         private string initialCatalog;       
@@ -71,30 +71,28 @@ namespace BauchladenProgrammServer.Klassen
 
 
 // Teilnehmer---------------------------------------
-        public async void addTeilnehmer(List<Teilnehmer> teilnehmer)
+        public async void addTeilnehmer(Teilnehmer teilnehmer)
         {
             if (con.State == ConnectionState.Open)
             { 
            
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "INSERT INTO TestType (Vorname, Nachname) VALUES (@Vorname, @Nachname);";
+                cmd.CommandText = "INSERT INTO Teilnehmer (Vorname, Nachname,inaktiv) VALUES (@Vorname, @Nachname,0) insert into Konto(teilnehmer) values(IDENT_CURRENT('Teilnehmer')) insert into Kontostand(kontostand,datum,konto) values (0.00,@date,IDENT_CURRENT('Konto'))";
                 cmd.CommandType = CommandType.Text;
           
                 cmd.Parameters.Add(new SqlParameter("@Vorname", SqlDbType.VarChar));
-                cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));
-                foreach (Teilnehmer t in teilnehmer)
-                {              
-                    cmd.Parameters["@Vorname"].Value = "Test";
-                    cmd.Parameters["@Nachname"].Value = "Test1";
-                    try
-                    {
-                        await cmd.ExecuteNonQueryAsync();
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
-                    }
-                
+                cmd.Parameters.Add(new SqlParameter("@Nachname", SqlDbType.VarChar));            
+                cmd.Parameters["@Vorname"].Value = teilnehmer.VorName;
+                cmd.Parameters["@Nachname"].Value = teilnehmer.NachName;
+                cmd.Parameters.Add("@date", SqlDbType.Char);
+                cmd.Parameters["@date"].Value = DateTime.Now;
+                try
+                {
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);                    
                 }
             }
         }
@@ -110,7 +108,7 @@ namespace BauchladenProgrammServer.Klassen
                 {
                     t = new List<Teilnehmer>();
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "SELECT id,vorname,nachname FROM Teilnehmer";
+                    cmd.CommandText = "SELECT id,vorname,nachname FROM Teilnehmer where inaktiv=0";
                     cmd.CommandType = CommandType.Text;
                     reader = cmd.ExecuteReader();
                     if (reader.HasRows)
@@ -144,7 +142,7 @@ namespace BauchladenProgrammServer.Klassen
                 try
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId order by ks.datum desc";
+                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId and inaktiv=0 order by ks.datum desc";
                     cmd.CommandType = CommandType.Text;
 
                     cmd.Parameters.Add("@suchId", SqlDbType.Int);
@@ -169,6 +167,30 @@ namespace BauchladenProgrammServer.Klassen
                 }
             }
             return t;
+        }
+
+        public void deleteTn(int userId)
+        {
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "delete from Teilnehmer where id= @Id";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.Add("@Id", SqlDbType.Char);
+            cmd.Parameters["@Id"].Value = userId.ToString();
+
+            cmd.ExecuteNonQuery();
+        }
+
+        public void setTnInaktiv(int userId)
+        {
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "update Teilnehmer set inaktiv =1 where id=@Id";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.Add("@Id", SqlDbType.Char);
+            cmd.Parameters["@Id"].Value = userId.ToString();
+
+            cmd.ExecuteNonQuery();
         }
  
 // Produkte----------------------------------------------------------------
@@ -203,22 +225,21 @@ namespace BauchladenProgrammServer.Klassen
          public void setEinkauf(string userId, string productId, string anzahl)
          {
              SqlCommand cmd = con.CreateCommand();
-
              SqlDataReader reader;
+
+             cmd.Parameters.Add("@Id", SqlDbType.Char);
+             cmd.Parameters["@Id"].Value = userId.ToString();
+
+             cmd.Parameters.Add("@date", SqlDbType.Char);
+             cmd.Parameters["@date"].Value = DateTime.Now;
+
+             cmd.Parameters.Add("@pId", SqlDbType.Char);
+             cmd.Parameters["@pId"].Value = productId.ToString();
 
              for (int i = 0; i < int.Parse(anzahl); i++)
              {
-                 cmd.CommandText = "select * from Einkauf where datum = @date";
+                 cmd.CommandText = "select * from Einkauf where abgerechnet = 0";
                  cmd.CommandType = CommandType.Text;
-
-                 cmd.Parameters.Add("@Id", SqlDbType.Char);
-                 cmd.Parameters["@Id"].Value = userId.ToString();
-
-                 cmd.Parameters.Add("@date", SqlDbType.Char);
-                 cmd.Parameters["@date"].Value = DateTime.Today;
-
-                 cmd.Parameters.Add("@pId", SqlDbType.Char);
-                 cmd.Parameters["@pId"].Value = productId.ToString();
 
                  reader = cmd.ExecuteReader();
                  if (reader.HasRows)
@@ -235,39 +256,54 @@ namespace BauchladenProgrammServer.Klassen
                  else
                  {
                      reader.Close();
-                     cmd.CommandText = "insert into Einkauf (datum,teilnehmer) values (@date,@Id) insert into ProduktEinkauf (produkt,einkauf) values(@pId, IDENT_CURRENT('Einkauf'))";
+                     cmd.CommandText = "insert into Einkauf (datum,teilnehmer,abgerechnet) values (@date,@Id,0) insert into ProduktEinkauf (produkt,einkauf) values(@pId, IDENT_CURRENT('Einkauf'))";
                      cmd.CommandType = CommandType.Text;
                      cmd.ExecuteNonQuery();
-                 }
-
-                 /*cmd.CommandText = "select ks.kontostand, k.id from Konto k join Kontostand ks on k.id=ks.konto where teilnehmer= @Id order by datum desc";
-                 cmd.CommandType = CommandType.Text;
-
-                 cmd.Parameters.Add("@Id", SqlDbType.Char);
-                 cmd.Parameters["@Id"].Value = userId.ToString();
-
-                 reader = cmd.ExecuteReader();
-                 if (reader.HasRows)
-                 {
-                     reader.Read();
-                     cmd.Parameters.Add("@kontostand", SqlDbType.Decimal);
-                     cmd.Parameters["@kontostand"].Value = reader.GetDecimal(0)+;
-                     cmd.Parameters.Add("@kId", SqlDbType.Int);
-                     cmd.Parameters["@kId"].Value = reader.GetInt32(1);
-                     reader.Close();
-                     cmd.Parameters.Add("@date", SqlDbType.DateTime);
-                     cmd.Parameters["@date"].Value = DateTime.Now;
-
-                     cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@kontostand,@kId,@date)";
-                     cmd.CommandType = CommandType.Text;
-                     cmd.ExecuteNonQuery();
-
-                 }
-                 else
-                 {
-                     MessageBox.Show("No rows found.");
-                 }*/
+                 }  
              }           
+         }
+
+         public void setEinkaufOK(Int32 userId)
+         {
+             SqlCommand cmd = con.CreateCommand();
+             SqlDataReader reader;
+             double kontostand = 0;
+
+             cmd.CommandText = "select ks.kontostand, k.id from Konto k join Kontostand ks on k.id=ks.konto where k.teilnehmer= @Id order by datum desc";
+             cmd.CommandType = CommandType.Text;
+
+             cmd.Parameters.Add("@Id", SqlDbType.Char);
+             cmd.Parameters["@Id"].Value = userId.ToString();
+
+             reader = cmd.ExecuteReader();
+             if (reader.HasRows)
+             {
+                 reader.Read();
+                 kontostand = double.Parse(reader.GetDecimal(0).ToString());
+                 cmd.Parameters.Add("@kId", SqlDbType.Int);
+                 cmd.Parameters["@kId"].Value = reader.GetInt32(1);
+             }
+             reader.Close();
+
+             cmd.CommandText = "select sum(p.preis) as'endpreis' from ProduktEinkauf pe join Produkt p on pe.produkt=p.id join Einkauf e on e.id=pe.einkauf where e.teilnehmer=@Id and e.abgerechnet != 1 group by e.id";
+             cmd.CommandType = CommandType.Text;
+             reader = cmd.ExecuteReader();
+             if (reader.HasRows)
+             {
+                 while (reader.Read())
+                 {
+                     kontostand=kontostand - double.Parse(reader.GetDecimal(0).ToString());
+                 }
+                     cmd.Parameters.Add("@kontostand", SqlDbType.Decimal);
+                     cmd.Parameters["@kontostand"].Value = kontostand;
+                     reader.Close();
+                     cmd.Parameters.Add("@dateN", SqlDbType.Char);
+                     cmd.Parameters["@dateN"].Value = DateTime.Now;
+
+                     cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@kontostand,@kId,@dateN) update Einkauf set abgerechnet = 1 where id= IDENT_CURRENT('Einkauf')";
+                     cmd.CommandType = CommandType.Text;
+                     cmd.ExecuteNonQuery();
+             }
          }
 
          public void setEinzahlung(string userId, string betrag)
@@ -303,6 +339,8 @@ namespace BauchladenProgrammServer.Klassen
                  MessageBox.Show("No rows found.");
              }
          }
+
+         
 
         public async Task<bool> CheckDbConnection()
         {            
