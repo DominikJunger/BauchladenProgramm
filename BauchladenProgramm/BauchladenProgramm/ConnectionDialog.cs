@@ -14,14 +14,15 @@ namespace BauchladenProgramm
 {
     public partial class ConnectionDialog : Form
     {
-        private Thread mainwindow;
+        private Thread mainwindowT;
         private String ip;
+        Form mainwindow;
 
         public ConnectionDialog()
         {
             InitializeComponent();
             this.ipAdresse.SelectedIndex = 0;
-            this.mainwindow = new Thread(new ThreadStart(openMainwindow));
+            this.mainwindowT = new Thread(new ThreadStart(openMainwindow));
         }
 
         private void connect_Click(object sender, EventArgs e)
@@ -29,7 +30,7 @@ namespace BauchladenProgramm
             try
             {
                 this.ip = this.ipAdresse.Text;
-                this.mainwindow.Start();
+                this.mainwindowT.Start();
                 this.Close();
             }
             catch (Exception exception)
@@ -41,7 +42,7 @@ namespace BauchladenProgramm
         private void openMainwindow(){
             try
             {
-                Form mainwindow = new Mainwindow(ip);
+                mainwindow = new Mainwindow(ip);
                 mainwindow.ShowDialog();
             }
             catch (Exception e)

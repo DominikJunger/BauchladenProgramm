@@ -249,16 +249,25 @@ namespace BauchladenProgramm
 
         private void send_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in dataGridViewEinkauf.Rows)
-            {
-                this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[3].Value.ToString());
+            if((double.Parse(this.Kontostand.Text) - double.Parse(this.einkaufslistesumme.Text))>=0)
+            {    
+                foreach (DataGridViewRow row in dataGridViewEinkauf.Rows)
+                {
+                    this.c.setBuy(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), row.Cells[0].Value.ToString(), row.Cells[3].Value.ToString());
+                }
+                c.setBuyEnd(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+                this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+                this.Kontostand.Text = "";
+                this.TN_Name.Text = "";
+                this.einkaufslistesumme.Text = "0.00";
+                this.dataGridViewEinkauf.Rows.Clear();
+                this.produktVerwaltung.Clear();
+                this.dataGridViewTeilnehmer.Enabled = true;
             }
-            this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
-            this.Kontostand.Text = "";
-            this.TN_Name.Text = "";
-            this.dataGridViewEinkauf.Rows.Clear();
-            this.produktVerwaltung.Clear();
-            this.dataGridViewTeilnehmer.Enabled = true;
+            else
+            {
+                MessageBox.Show("Teilnehmer hat nicht genügend Geld auf dem Konto");
+            }
         }
 
         private void SucheNachTeilnehmer(string searchValue, DataGridView dv)
@@ -318,14 +327,17 @@ namespace BauchladenProgramm
         {
             this.dataGridViewEinkauf.Rows.Clear();
             this.produktVerwaltung.Clear();
+            this.einkaufslistesumme.Text = "0.00";
             this.dataGridViewTeilnehmer.Enabled=true;
         }
 
         private void einzahlen_Click(object sender, EventArgs e)
         {
-            if (this.textBoxEinzahlung.Text != null && this.textBoxEinzahlung.Text != "")
+            if (this.textBoxEinzahlung.Text != null && this.textBoxEinzahlung.Text != "" && double.Parse(this.textBoxEinzahlung.Text)>0)
             {
                 this.c.setEinzahlung(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString(), this.textBoxEinzahlung.Text.ToString());
+                this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
+                this.textBoxEinzahlung.Text = "";
             }
         }
     }

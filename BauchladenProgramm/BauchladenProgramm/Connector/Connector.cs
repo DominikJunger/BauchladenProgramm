@@ -151,9 +151,9 @@ namespace BauchladenProgramm.Connector
             this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST_BUECHERTISCH);
         }
 
-        public void getKontostand(string value)
+        public void getKontostand(string userId)
         {
-            this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.SEARCH + Syntax.COLON_CHAR + value);
+            this.sendMessageToServer(Syntax.GET + Syntax.COLON_CHAR + Syntax.SEARCH + Syntax.COLON_CHAR + userId);
         }
 
         public void getTeilnehmerList()
@@ -170,6 +170,11 @@ namespace BauchladenProgramm.Connector
         public void setEinzahlung(string userId, string betrag)
         {
             this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.EINZAHLUNG + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + betrag);
+        }
+
+        public void setBuyEnd(string userId)
+        {
+            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + Syntax.OKAY + userId);
         }
     }
 
