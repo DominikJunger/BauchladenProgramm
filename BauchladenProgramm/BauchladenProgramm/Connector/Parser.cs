@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,10 +17,6 @@ namespace BauchladenProgramm.Connector
 
         public Parser(Buffer buffer, Mainwindow backend)
         {
-            Contract.Requires(buffer != null);
-            Contract.Requires(backend != null);
-            Contract.OldValue(this.buffer == null);
-            Contract.OldValue(this.backend == null);
 
             if(buffer!=null)
             {
@@ -81,7 +76,6 @@ namespace BauchladenProgramm.Connector
         
         private void determineParsMethod(String dataFromBuffer)
         {
-            Contract.Requires(dataFromBuffer != null);
             if (dataFromBuffer != null)
             {               
                 Console.WriteLine(dataFromBuffer);
@@ -214,14 +208,6 @@ namespace BauchladenProgramm.Connector
                     throw e;
                 }
             }
-        }
-
-
-        [ContractInvariantMethod]
-        private void ObjectInvariant()
-        {
-            Contract.Invariant(buffer != null);
-            Contract.Invariant(backend != null);
         }
     }
 }

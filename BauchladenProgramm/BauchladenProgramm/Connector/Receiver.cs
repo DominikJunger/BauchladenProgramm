@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -70,7 +69,6 @@ namespace BauchladenProgramm.Connector
         }
         private void sendToBuffer(string msg)
         {
-            Contract.Requires(msg != null);
             try{
                 if (msg != null)
                 {

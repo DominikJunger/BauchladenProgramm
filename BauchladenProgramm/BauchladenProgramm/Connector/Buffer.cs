@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +19,6 @@ namespace BauchladenProgramm.Connector
        
 
         public Buffer(int size) {
-            Contract.Requires(size > 0);
             
             this.msgCountLock = new Object();
             this.msgCount = 0;
@@ -46,7 +44,6 @@ namespace BauchladenProgramm.Connector
         public void append(String s)
         {
             //add a new message to the unsortedBuffer
-            Contract.Requires(s != null);
             try
             {
                 if (s != null) {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Diagnostics.Contracts;
 using System.Net.Sockets;
 
 namespace BauchladenProgramm.Connector
@@ -21,8 +20,6 @@ namespace BauchladenProgramm.Connector
 
         public void sendMessage(String message)          //send a message to the Server 
         {
-            Contract.Requires(message != null);
-            Contract.Requires(!client.GetStream().CanWrite);
             try
             {
                 if (message != null)

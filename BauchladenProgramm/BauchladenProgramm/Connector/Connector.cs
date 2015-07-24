@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -27,8 +26,6 @@ namespace BauchladenProgramm.Connector
         public Connector(String ip, Int32 port, Mainwindow mainwindow)
         {
             //the server needs an ip-adress and a port for the unique identification
-            Contract.Requires(ip != null);
-            Contract.Requires(port != 0);
             try
             {
                 if (ip != null && port > 0)
@@ -58,7 +55,6 @@ namespace BauchladenProgramm.Connector
 
         public void closeConnection()
         {
-            Contract.Requires(connected);
             //closing the Stream from client and break off the server-connection
             if(this.connected){
                 try
@@ -83,8 +79,6 @@ namespace BauchladenProgramm.Connector
         private void sendMessageToServer(String s)
         {
             //here send a message to the Server with the Sender-class (sender.sendMessage(String))
-            Contract.Requires(s!=null);
-            Contract.Requires(connected);
             if (s != null && this.connected)
             {
                 try
