@@ -136,23 +136,42 @@ namespace BauchladenProgrammServer
 
         private void TnHinzufügen_Click(object sender, EventArgs e)
         {
-            Form nTN = new NeuerTN(this.con);
-            nTN.ShowDialog();
-        }
-
-        private void TnHinzufügen_Leave(object sender, EventArgs e)
-        {
+            this.con.addTeilnehmer(new Teilnehmer(this.vorname.Text, this.nachname.Text));
+            this.vorname.Text = "";
+            this.nachname.Text = "";
+            Thread.Sleep(500);
             addTeilnehmer(con.selectTeilnehmerAll());
         }
 
         private void TnLöschen_Click(object sender, EventArgs e)
         {
             con.deleteTn(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
+            Thread.Sleep(500);
+            addTeilnehmer(con.selectTeilnehmerAll());
+            Thread.Sleep(500);
+            this.dataGridViewTeilnehmer_CellClick(null, null);
         }
 
         private void TnInaktiv_Click(object sender, EventArgs e)
         {
             con.setTnInaktiv(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
+            Thread.Sleep(500);
+            addTeilnehmer(con.selectTeilnehmerAll());
+        }
+
+        private void TnEinzahlen_Click(object sender, EventArgs e)
+        {
+            if (this.einzahlung != null && this.einzahlung.Text != "" && double.Parse(this.einzahlung.Text) > 0)
+            {
+                con.setEinzahlung(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString(), this.einzahlung.Text);
+                this.einzahlung.Text = "";
+                Thread.Sleep(500);
+                this.dataGridViewTeilnehmer_CellClick(null,null);
+            }
+            else
+            {
+                MessageBox.Show("Fehler bei der Einzahlung! Betrag muss größer 0 sein");
+            }
         }
     }
 }

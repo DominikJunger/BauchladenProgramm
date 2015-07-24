@@ -25,7 +25,7 @@ namespace BauchladenProgrammServer.Connector
                                   TAB_CHAR = (char)9,
                                   ESCAPE_CHAR = (char)27,
                                   COLON_CHAR = ':',
-                                  ENUM_CHAR = ',',
+                                  ENUM_CHAR = ';',
                                   DOT_CHAR = '.',
                                   UNDERSCORE_CHAR = '_'
                                   ;

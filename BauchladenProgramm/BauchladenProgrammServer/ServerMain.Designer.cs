@@ -29,8 +29,22 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.sqlState = new System.Windows.Forms.PictureBox();
+            this.log = new System.Windows.Forms.ListBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.nachname = new System.Windows.Forms.TextBox();
+            this.vorname = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.einzahlung = new System.Windows.Forms.TextBox();
+            this.TnEinzahlen = new System.Windows.Forms.Button();
+            this.TnAuszahlen = new System.Windows.Forms.Button();
+            this.TnInaktiv = new System.Windows.Forms.Button();
             this.TnLöschen = new System.Windows.Forms.Button();
             this.TnHinzufügen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -44,39 +58,79 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sqlState = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.log = new System.Windows.Forms.ListBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.TnInaktiv = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sqlState)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sqlState)).BeginInit();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(799, 407);
+            this.tabControl1.Size = new System.Drawing.Size(799, 461);
             this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.sqlState);
+            this.tabPage3.Controls.Add(this.log);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(791, 435);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Allgemein";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(612, 111);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(151, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "SQl Server Verbindungsstatus:";
+            // 
+            // sqlState
+            // 
+            this.sqlState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sqlState.BackColor = System.Drawing.Color.Red;
+            this.sqlState.Location = new System.Drawing.Point(665, 138);
+            this.sqlState.Name = "sqlState";
+            this.sqlState.Size = new System.Drawing.Size(44, 28);
+            this.sqlState.TabIndex = 1;
+            this.sqlState.TabStop = false;
+            // 
+            // log
+            // 
+            this.log.FormattingEnabled = true;
+            this.log.Location = new System.Drawing.Point(3, 100);
+            this.log.Name = "log";
+            this.log.Size = new System.Drawing.Size(583, 329);
+            this.log.TabIndex = 3;
             // 
             // tabPage1
             // 
@@ -86,43 +140,136 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(791, 381);
+            this.tabPage1.Size = new System.Drawing.Size(791, 435);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Teilnehmer";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.nachname);
+            this.panel2.Controls.Add(this.vorname);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.einzahlung);
+            this.panel2.Controls.Add(this.TnEinzahlen);
+            this.panel2.Controls.Add(this.TnAuszahlen);
             this.panel2.Controls.Add(this.TnInaktiv);
             this.panel2.Controls.Add(this.TnLöschen);
             this.panel2.Controls.Add(this.TnHinzufügen);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(586, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(202, 375);
+            this.panel2.Size = new System.Drawing.Size(202, 429);
             this.panel2.TabIndex = 6;
+            // 
+            // nachname
+            // 
+            this.nachname.Location = new System.Drawing.Point(9, 57);
+            this.nachname.Name = "nachname";
+            this.nachname.Size = new System.Drawing.Size(188, 20);
+            this.nachname.TabIndex = 16;
+            // 
+            // vorname
+            // 
+            this.vorname.Location = new System.Drawing.Point(9, 16);
+            this.vorname.Name = "vorname";
+            this.vorname.Size = new System.Drawing.Size(188, 20);
+            this.vorname.TabIndex = 15;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Nachname:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(52, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Vorname:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(144, 252);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(13, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "€";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 230);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(112, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Betrag zum Einzahlen:";
+            // 
+            // einzahlung
+            // 
+            this.einzahlung.Location = new System.Drawing.Point(9, 249);
+            this.einzahlung.Name = "einzahlung";
+            this.einzahlung.Size = new System.Drawing.Size(129, 20);
+            this.einzahlung.TabIndex = 10;
+            // 
+            // TnEinzahlen
+            // 
+            this.TnEinzahlen.Location = new System.Drawing.Point(9, 275);
+            this.TnEinzahlen.Name = "TnEinzahlen";
+            this.TnEinzahlen.Size = new System.Drawing.Size(188, 23);
+            this.TnEinzahlen.TabIndex = 9;
+            this.TnEinzahlen.Text = "Ausgewählter TN einzahlen";
+            this.TnEinzahlen.UseVisualStyleBackColor = true;
+            this.TnEinzahlen.Click += new System.EventHandler(this.TnEinzahlen_Click);
+            // 
+            // TnAuszahlen
+            // 
+            this.TnAuszahlen.Location = new System.Drawing.Point(9, 191);
+            this.TnAuszahlen.Name = "TnAuszahlen";
+            this.TnAuszahlen.Size = new System.Drawing.Size(188, 23);
+            this.TnAuszahlen.TabIndex = 8;
+            this.TnAuszahlen.Text = "Ausgewählter TN auszahlen";
+            this.TnAuszahlen.UseVisualStyleBackColor = true;
+            // 
+            // TnInaktiv
+            // 
+            this.TnInaktiv.Location = new System.Drawing.Point(9, 142);
+            this.TnInaktiv.Name = "TnInaktiv";
+            this.TnInaktiv.Size = new System.Drawing.Size(188, 23);
+            this.TnInaktiv.TabIndex = 7;
+            this.TnInaktiv.Text = "Setzt den auswewählent TN inaktiv";
+            this.TnInaktiv.UseVisualStyleBackColor = true;
+            this.TnInaktiv.Click += new System.EventHandler(this.TnInaktiv_Click);
             // 
             // TnLöschen
             // 
-            this.TnLöschen.Location = new System.Drawing.Point(9, 41);
+            this.TnLöschen.Location = new System.Drawing.Point(9, 112);
             this.TnLöschen.Name = "TnLöschen";
             this.TnLöschen.Size = new System.Drawing.Size(188, 23);
             this.TnLöschen.TabIndex = 6;
             this.TnLöschen.Text = "Ausgewählten Teilnehmer löschen";
             this.TnLöschen.UseVisualStyleBackColor = true;
             this.TnLöschen.Click += new System.EventHandler(this.TnLöschen_Click);
-            this.TnLöschen.Leave += new System.EventHandler(this.TnHinzufügen_Leave);
             // 
             // TnHinzufügen
             // 
-            this.TnHinzufügen.Location = new System.Drawing.Point(9, 10);
+            this.TnHinzufügen.Location = new System.Drawing.Point(9, 83);
             this.TnHinzufügen.Name = "TnHinzufügen";
             this.TnHinzufügen.Size = new System.Drawing.Size(188, 23);
             this.TnHinzufügen.TabIndex = 5;
             this.TnHinzufügen.Text = "Neuen Teilnehmer hinzugügen";
             this.TnHinzufügen.UseVisualStyleBackColor = true;
             this.TnHinzufügen.Click += new System.EventHandler(this.TnHinzufügen_Click);
-            this.TnHinzufügen.Leave += new System.EventHandler(this.TnHinzufügen_Leave);
             // 
             // panel1
             // 
@@ -136,7 +283,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(364, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(222, 375);
+            this.panel1.Size = new System.Drawing.Size(222, 429);
             this.panel1.TabIndex = 4;
             // 
             // label7
@@ -203,7 +350,7 @@
             this.dataGridViewTeilnehmer.RowHeadersVisible = false;
             this.dataGridViewTeilnehmer.RowTemplate.ReadOnly = true;
             this.dataGridViewTeilnehmer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(361, 375);
+            this.dataGridViewTeilnehmer.Size = new System.Drawing.Size(361, 429);
             this.dataGridViewTeilnehmer.TabIndex = 3;
             this.dataGridViewTeilnehmer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTeilnehmer_CellClick);
             // 
@@ -232,14 +379,53 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.panel4);
             this.tabPage2.Controls.Add(this.dataGridViewProdukt);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(791, 381);
+            this.tabPage2.Size = new System.Drawing.Size(791, 435);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Produkte";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.button2);
+            this.panel4.Controls.Add(this.button3);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(485, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(303, 429);
+            this.panel4.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 64);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(292, 23);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Setzt des auswewählte Produkt auf nicht verfügbar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 34);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(292, 23);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "Ausgewähltes Produkt löschen";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(6, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(292, 23);
+            this.button3.TabIndex = 8;
+            this.button3.Text = "Neues Produkt hinzugügen";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // dataGridViewProdukt
             // 
@@ -262,91 +448,43 @@
             this.dataGridViewProdukt.RowHeadersVisible = false;
             this.dataGridViewProdukt.RowTemplate.ReadOnly = true;
             this.dataGridViewProdukt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProdukt.Size = new System.Drawing.Size(275, 375);
+            this.dataGridViewProdukt.Size = new System.Drawing.Size(482, 429);
             this.dataGridViewProdukt.TabIndex = 1;
             // 
             // Id
             // 
-            this.Id.FillWeight = 62.88269F;
+            this.Id.FillWeight = 100.7564F;
             this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 50;
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             // 
             // Produkt
             // 
-            this.Produkt.FillWeight = 98.5386F;
+            this.Produkt.FillWeight = 123.1014F;
             this.Produkt.HeaderText = "Produkt";
+            this.Produkt.MinimumWidth = 50;
             this.Produkt.Name = "Produkt";
             this.Produkt.ReadOnly = true;
             // 
             // Preis
             // 
-            this.Preis.FillWeight = 138.5786F;
+            this.Preis.FillWeight = 76.14211F;
             this.Preis.HeaderText = "Preis";
+            this.Preis.MinimumWidth = 50;
             this.Preis.Name = "Preis";
             this.Preis.ReadOnly = true;
-            // 
-            // sqlState
-            // 
-            this.sqlState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sqlState.BackColor = System.Drawing.Color.Red;
-            this.sqlState.Location = new System.Drawing.Point(753, 19);
-            this.sqlState.Name = "sqlState";
-            this.sqlState.Size = new System.Drawing.Size(44, 28);
-            this.sqlState.TabIndex = 1;
-            this.sqlState.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(596, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(151, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "SQl Server Verbindungsstatus:";
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
-            // log
-            // 
-            this.log.FormattingEnabled = true;
-            this.log.Location = new System.Drawing.Point(7, 12);
-            this.log.Name = "log";
-            this.log.Size = new System.Drawing.Size(583, 43);
-            this.log.TabIndex = 3;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.label5);
-            this.panel3.Controls.Add(this.sqlState);
-            this.panel3.Controls.Add(this.log);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 397);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(799, 64);
-            this.panel3.TabIndex = 7;
-            // 
-            // TnInaktiv
-            // 
-            this.TnInaktiv.Location = new System.Drawing.Point(9, 71);
-            this.TnInaktiv.Name = "TnInaktiv";
-            this.TnInaktiv.Size = new System.Drawing.Size(188, 23);
-            this.TnInaktiv.TabIndex = 7;
-            this.TnInaktiv.Text = "Setzt den auswewählent TN inaktiv";
-            this.TnInaktiv.UseVisualStyleBackColor = true;
-            this.TnInaktiv.Click += new System.EventHandler(this.TnInaktiv_Click);
-            this.TnInaktiv.Leave += new System.EventHandler(this.TnHinzufügen_Leave);
-            // 
             // Mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(799, 461);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(815, 450);
             this.Name = "Mainwindow";
@@ -354,16 +492,18 @@
             this.Text = "Bauchladen Server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Mainwindow_FormClosing);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sqlState)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sqlState)).EndInit();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -381,9 +521,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
         private System.Windows.Forms.ListBox log;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label7;
@@ -394,8 +531,24 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button TnLöschen;
         private System.Windows.Forms.Button TnHinzufügen;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button TnInaktiv;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox einzahlung;
+        private System.Windows.Forms.Button TnEinzahlen;
+        private System.Windows.Forms.Button TnAuszahlen;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox nachname;
+        private System.Windows.Forms.TextBox vorname;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
     }
 }
 

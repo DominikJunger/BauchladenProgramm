@@ -137,7 +137,7 @@ namespace BauchladenProgrammServer.Connector
                             else
                             {
                                 // hier kommt der sql befehlt zum setzen eines einkaufs
-                                string[] data = dataFromBuffer.Split(',');
+                                string[] data = dataFromBuffer.Split(Syntax.ENUM_CHAR);
                                 this.con.setEinkauf(data[0], data[1], data[2]);
                             }
                         }
@@ -145,7 +145,7 @@ namespace BauchladenProgrammServer.Connector
                         {
                             dataFromBuffer = Regex.Replace(dataFromBuffer, Syntax.EINZAHLUNG + Syntax.COLON_CHAR, "");
                             // hier kommt der sql befehlt zum setzen eines einkaufs
-                            string[] data = dataFromBuffer.Split(',');
+                            string[] data = dataFromBuffer.Split(Syntax.ENUM_CHAR);
                             this.con.setEinzahlung(data[0], data[1]);
                         }
                         else
