@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BauchladenProgrammServer.Backend_Klassen;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,15 +16,49 @@ namespace BauchladenProgrammServer
         private TcpListener tcpListener;
         private Thread listenThread;
         private List<Connector.Connector> clientList;
-        private Mainwindow gui;
+        Mainwindow gui;
 
         public Server(IPEndPoint ipE,Mainwindow gui)
         {
+            this.gui = gui;
             this.clientList = new List<Connector.Connector>();
             this.tcpListener = new TcpListener(ipE);
             this.listenThread = new Thread(new ThreadStart(ListenForClients));
             this.listenThread.Start();
-            this.gui = gui;
+        }
+
+        public void TnAnAlle(List<Teilnehmer> tn)
+        {
+            if (this.clientList != null)
+            {
+                foreach (Connector.Connector c in this.clientList)
+                {
+                    c.sendTeilnehmerList(tn);
+                }
+            }
+        }
+
+        public void PrAnAlle(List<Produkt> pr)
+        {
+            if (this.clientList != null)
+            {
+                foreach (Connector.Connector c in this.clientList)
+                {
+                    c.sendProductList(pr);
+                }
+            }
+        }
+
+        public bool isConnected()
+        {
+            if (this.clientList.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void ListenForClients()
@@ -45,7 +80,7 @@ namespace BauchladenProgrammServer
 
         private void HandleClientComm(object client)
         {
-            clientList.Add(new Connector.Connector((TcpClient)client,this,gui));
+            clientList.Add(new Connector.Connector((TcpClient)client, this, gui));
         }
     }
 }

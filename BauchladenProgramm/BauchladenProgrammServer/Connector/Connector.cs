@@ -25,15 +25,15 @@ namespace BauchladenProgrammServer.Connector
         private Mainwindow gui;
 
 
-        public Connector(TcpClient client, Server backend, Mainwindow gui)
+        public Connector(TcpClient client, Server backend,Mainwindow gui)
         {
             if (client == null)
                 throw new Exception("Serververbidung hat keinen gültigen Client");
             this.client = client;
+            this.gui = gui;
 
             receiver = new Receiver(this.client);
             sender = new Sender(this.client);
-            this.gui=gui;
 
             if (backend == null)
                 throw new Exception("Kein Parsen von Daten möglich");
@@ -119,13 +119,15 @@ namespace BauchladenProgrammServer.Connector
 
            for (int i = 0; i < produkte.Count; i++)
            {
-               this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i+1));
-               this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + produkte[i].Name);
-               this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + produkte[i].Preis);
-               this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + produkte[i].Id);
-               this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i+1));
+               if (produkte[i].Verfügbar)
+               {
+                   this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i + 1));
+                   this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + produkte[i].Name);
+                   this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + produkte[i].Preis);
+                   this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + produkte[i].Id);
+                   this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i + 1));
+               }
            }
-
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount.ToString());
 

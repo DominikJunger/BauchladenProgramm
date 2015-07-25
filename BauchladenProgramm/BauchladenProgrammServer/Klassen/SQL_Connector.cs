@@ -192,6 +192,93 @@ namespace BauchladenProgrammServer.Klassen
 
             cmd.ExecuteNonQuery();
         }
+
+        public PDFAuszahlung PDF(int userId)
+        {
+            PDFAuszahlung pdfA;
+            EinkaufListe el = new EinkaufListe();
+            List<Kontostand> einzahlung=new List<Kontostand>();
+            List<Kontostand> auszahlung = new List<Kontostand>();
+            List<Kontostand> auflistung = new List<Kontostand>();
+
+
+            SqlDataReader reader;
+            SqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = "select p.name,p.preis, count(name) as'anzahl',e.datum from Produkt p join ProduktEinkauf pe on p.id = pe.produkt join Einkauf e on e.id = pe.einkauf join Teilnehmer t on t.id = e.teilnehmer where t.id = @Id group by p.name,p.preis,e.datum, t.Vorname, t.Nachname order by datum";
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.Add("@Id", SqlDbType.Char);
+            cmd.Parameters["@Id"].Value = userId.ToString();
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    el.El.Add(new Einkauf(new Produkt(reader.GetString(0), reader.GetDecimal(1)), reader.GetInt32(2), reader.GetDateTime(3)));
+                }
+            }
+
+            reader.Close();
+
+            cmd.CommandText = "select t.Vorname, t.Nachname from Teilnehmer t where t.id = @Id";
+            cmd.CommandType = CommandType.Text;
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    el.Tn = new Teilnehmer(reader.GetString(0), reader.GetString(1));
+                }
+            }
+
+            reader.Close();
+
+            cmd.CommandText = "select ks.kontostand, ks.datum from Kontostand ks join Konto k on k.id = ks.konto join Teilnehmer t on t.id = k.teilnehmer where ks.einzahlung= '1' and t.id = @Id order by datum";
+            cmd.CommandType = CommandType.Text;
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    einzahlung.Add(new Kontostand(reader.GetDecimal(0),reader.GetDateTime(1).ToShortDateString()));
+                }
+            }
+            reader.Close();
+
+            cmd.CommandText = "select ks.kontostand, ks.datum from Kontostand ks join Konto k on k.id = ks.konto join Teilnehmer t on t.id = k.teilnehmer where ks.einzahlung= '0' and t.id = @Id order by datum";
+            cmd.CommandType = CommandType.Text;
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    auszahlung.Add(new Kontostand(reader.GetDecimal(0), reader.GetDateTime(1).ToShortDateString()));
+                }
+            }
+            reader.Close();
+
+            cmd.CommandText = "select ks.kontostand, ks.datum from Kontostand ks join Konto k on k.id = ks.konto join Teilnehmer t on t.id = k.teilnehmer where t.id = @Id order by datum";
+            cmd.CommandType = CommandType.Text;
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    auflistung.Add(new Kontostand(reader.GetDecimal(0), reader.GetDateTime(1).ToShortDateString()));
+                }
+            }
+            reader.Close();
+
+
+            pdfA = new PDFAuszahlung(el, auszahlung,einzahlung,auflistung);
+
+            return pdfA;
+        }
  
 // Produkte----------------------------------------------------------------
          public List<Produkt> selectProduktAll()
@@ -208,7 +295,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    tmpP.Add(new Produkt(reader.GetInt32(0).ToString(), reader.GetString(1),reader.GetDecimal(2)));
+                    tmpP.Add(new Produkt(reader.GetInt32(0).ToString(), reader.GetString(1),reader.GetDecimal(2),reader.GetBoolean(3)));
                 }
             }
             else
@@ -222,6 +309,72 @@ namespace BauchladenProgrammServer.Klassen
             return tmpP;
          }
 
+         public void addProdukt(Produkt produkt)
+         {
+             if (con.State == ConnectionState.Open)
+             {
+
+                 SqlCommand cmd = con.CreateCommand();
+                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit) values(@Name,@Preis,1)";
+                 cmd.CommandType = CommandType.Text;
+
+                 cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar));
+                 cmd.Parameters.Add(new SqlParameter("@Preis", SqlDbType.Decimal));
+                 cmd.Parameters["@Name"].Value = produkt.Name;
+                 cmd.Parameters["@Preis"].Value = produkt.Preis;
+
+                 try
+                 {
+                     cmd.ExecuteNonQueryAsync();
+                 }
+                 catch (Exception ex)
+                 {
+                     MessageBox.Show("Fehler beim Einfügen der Daten:\n\n" + ex.Message, "SqlException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 }
+             }
+         }
+
+         public void deletePr(int proId)
+         {
+             SqlCommand cmd = con.CreateCommand();
+             cmd.CommandText = "delete from Produkt where id= @Id";
+             cmd.CommandType = CommandType.Text;
+
+             cmd.Parameters.Add("@Id", SqlDbType.Char);
+             cmd.Parameters["@Id"].Value = proId.ToString();
+
+             cmd.ExecuteNonQuery();
+         }
+         public void setVerfügbarkeit(int proId)
+         {
+             SqlCommand cmd = con.CreateCommand();
+             SqlDataReader reader;
+             cmd.Parameters.Add("@Id", SqlDbType.Char);
+             cmd.Parameters["@Id"].Value = proId.ToString();
+
+             cmd.CommandText = "SELECT * FROM Produkt where id =@Id";
+             cmd.CommandType = CommandType.Text;
+
+             reader = cmd.ExecuteReader();
+             if (reader.HasRows)
+             {
+                reader.Read();
+                if (reader.GetBoolean(3) == true)
+                {
+                    cmd.CommandText = "update Produkt set verfügbarkeit=0 where id=@Id";
+                    cmd.CommandType = CommandType.Text;
+                }
+                else
+                {
+                    cmd.CommandText = "update Produkt set verfügbarkeit=1 where id=@Id";
+                    cmd.CommandType = CommandType.Text;
+                }
+                reader.Close();
+                cmd.ExecuteNonQuery();
+             }
+         }
+
+//Set Methoden Datenbank
          public void setEinkauf(string userId, string productId, string anzahl)
          {
              SqlCommand cmd = con.CreateCommand();
@@ -236,6 +389,9 @@ namespace BauchladenProgrammServer.Klassen
              cmd.Parameters.Add("@pId", SqlDbType.Char);
              cmd.Parameters["@pId"].Value = productId.ToString();
 
+             cmd.Parameters.Add("@einkaufID", SqlDbType.Char);
+             cmd.Parameters["@einkaufID"].Value = "";
+
              for (int i = 0; i < int.Parse(anzahl); i++)
              {
                  cmd.CommandText = "select * from Einkauf where abgerechnet = 0";
@@ -248,8 +404,8 @@ namespace BauchladenProgrammServer.Klassen
                      cmd.CommandText = "insert into ProduktEinkauf (produkt,einkauf) values(@pId,@einkaufID)";
                      cmd.CommandType = CommandType.Text;
 
-                     cmd.Parameters.Add("@einkaufID", SqlDbType.Char);
                      cmd.Parameters["@einkaufID"].Value = reader.GetInt32(0).ToString();
+
                      reader.Close();
                      cmd.ExecuteNonQuery();
                  }
@@ -300,7 +456,7 @@ namespace BauchladenProgrammServer.Klassen
                      cmd.Parameters.Add("@dateN", SqlDbType.Char);
                      cmd.Parameters["@dateN"].Value = DateTime.Now;
 
-                     cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@kontostand,@kId,@dateN) update Einkauf set abgerechnet = 1 where id= IDENT_CURRENT('Einkauf')";
+                     cmd.CommandText = "insert into Kontostand(kontostand,konto,datum,einzahlung) values (@kontostand,@kId,@dateN,0) update Einkauf set abgerechnet = 1 where id= IDENT_CURRENT('Einkauf')";
                      cmd.CommandType = CommandType.Text;
                      cmd.ExecuteNonQuery();
              }
@@ -322,14 +478,14 @@ namespace BauchladenProgrammServer.Klassen
              {
                  reader.Read();
                  cmd.Parameters.Add("@einzahlung", SqlDbType.Decimal);
-                 cmd.Parameters["@einzahlung"].Value = int.Parse(betrag) + reader.GetDecimal(0);
+                 cmd.Parameters["@einzahlung"].Value = Decimal.Parse(betrag) + reader.GetDecimal(0);
                  cmd.Parameters.Add("@kId", SqlDbType.Int);
                  cmd.Parameters["@kId"].Value = reader.GetInt32(1);
                  reader.Close();
                  cmd.Parameters.Add("@date", SqlDbType.DateTime);
                  cmd.Parameters["@date"].Value = DateTime.Now;
 
-                 cmd.CommandText = "insert into Kontostand(kontostand,konto,datum) values (@einzahlung,@kId,@date)";
+                 cmd.CommandText = "insert into Kontostand(kontostand,konto,datum,einzahlung) values (@einzahlung,@kId,@date,1)";
                  cmd.CommandType = CommandType.Text;
                  cmd.ExecuteNonQuery();
 
@@ -339,8 +495,6 @@ namespace BauchladenProgrammServer.Klassen
                  MessageBox.Show("No rows found.");
              }
          }
-
-         
 
         public async Task<bool> CheckDbConnection()
         {            

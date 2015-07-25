@@ -47,6 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backend_Klassen\Einkauf.cs" />
+    <Compile Include="Backend_Klassen\EinkaufListe.cs" />
+    <Compile Include="Backend_Klassen\Kontostand.cs" />
+    <Compile Include="Backend_Klassen\PDFAuszahlung.cs" />
     <Compile Include="Backend_Klassen\Produkt.cs" />
     <Compile Include="Backend_Klassen\Teilnehmer.cs" />
     <Compile Include="Connector\Buffer.cs" />
@@ -58,12 +62,6 @@
     <Compile Include="Klassen\CSVReader.cs" />
     <Compile Include="Klassen\PDFCreator.cs" />
     <Compile Include="Klassen\SQL_Connector.cs" />
-    <Compile Include="NeuerTN.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NeuerTN.Designer.cs">
-      <DependentUpon>NeuerTN.cs</DependentUpon>
-    </Compile>
     <Compile Include="Server.cs" />
     <Compile Include="ServerMain.cs">
       <SubType>Form</SubType>
@@ -73,9 +71,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="NeuerTN.resx">
-      <DependentUpon>NeuerTN.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

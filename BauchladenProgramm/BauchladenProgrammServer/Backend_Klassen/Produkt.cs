@@ -11,6 +11,13 @@ namespace BauchladenProgrammServer.Backend_Klassen
         private string id;
         private string name; 
         private decimal preis;
+        private bool verfügbar;
+
+        public Produkt(string name, decimal preis)
+        {
+            this.name = name;
+            this.preis = preis;
+        }
 
         public Produkt(string id, string name, decimal preis)
         {
@@ -18,6 +25,16 @@ namespace BauchladenProgrammServer.Backend_Klassen
             this.name = name;
             this.preis = preis;
         }
+        
+        public Produkt(string id, string name, decimal preis,bool verfügbar)
+        {
+            this.id = id;
+            this.name = name;
+            this.preis = preis;
+            this.verfügbar = verfügbar;
+        }
+
+        
 
         public string Id
         {
@@ -33,6 +50,12 @@ namespace BauchladenProgrammServer.Backend_Klassen
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public bool Verfügbar
+        {
+            get { return verfügbar; }
+            set { verfügbar = value; }
         }
     }
 }
