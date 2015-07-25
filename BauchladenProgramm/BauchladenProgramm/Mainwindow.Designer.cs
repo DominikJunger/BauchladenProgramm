@@ -704,10 +704,12 @@
             this.textBoxEinzahlung.Name = "textBoxEinzahlung";
             this.textBoxEinzahlung.Size = new System.Drawing.Size(96, 20);
             this.textBoxEinzahlung.TabIndex = 0;
+            this.textBoxEinzahlung.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxEinzahlung_KeyPress);
             // 
             // einzahlen
             // 
             this.einzahlen.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.einzahlen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.einzahlen.Location = new System.Drawing.Point(0, 169);
             this.einzahlen.Name = "einzahlen";
             this.einzahlen.Size = new System.Drawing.Size(193, 263);

@@ -111,8 +111,8 @@ namespace BauchladenProgramm
                             +" "
                             + dataGridViewTeilnehmer.Rows[i].Cells[2].Value.ToString();
                             this.TN_NameEinzahlung.Text = this.TN_Name.Text;
-                            this.Kontostand.Text = kontostand.ToString();
-                            this.KontostandEinzahlung.Text = kontostand.ToString();
+                            this.Kontostand.Text = String.Format("{0:F2}", kontostand);
+                            this.KontostandEinzahlung.Text = String.Format("{0:F2}", kontostand) +" €";
                         }
                     }
                     
@@ -275,16 +275,18 @@ namespace BauchladenProgramm
             dv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             try
             {
-                    foreach (DataGridViewRow row in dv.Rows)
+                foreach (DataGridViewRow row in dv.Rows)
+                {
+                    for (int CellIndex = 0; CellIndex < row.Cells.Count; CellIndex++)
                     {
-                        for (int CellIndex = 0; CellIndex < row.Cells.Count; CellIndex++)
+                        if (row.Cells[CellIndex].Value.ToString().Equals(searchValue))
                         {
-                            if (row.Cells[CellIndex].Value.ToString().Equals(searchValue))
-                            {
-                                dv.Rows[row.Index].Selected = true;
-                            }
+                             dv.Rows[row.Index].Selected = true;
+                             dv.CurrentCell = dv.Rows[row.Index].Cells[0];
                         }
                     }
+                }
+                this.dataGridViewTeilnehmer_CellClick(null,null);
             }
             catch (Exception exc)
             {
@@ -333,12 +335,22 @@ namespace BauchladenProgramm
 
         private void einzahlen_Click(object sender, EventArgs e)
         {
-            if (this.textBoxEinzahlung.Text != null && this.textBoxEinzahlung.Text != "" && double.Parse(this.textBoxEinzahlung.Text)>0)
+            if (this.textBoxEinzahlung != null && this.textBoxEinzahlung.Text != "" && double.Parse(this.textBoxEinzahlung.Text) > 0)
             {
-                this.c.setEinzahlung(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString(), this.textBoxEinzahlung.Text.ToString());
+                this.c.setEinzahlung(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString(), decimal.Parse(this.textBoxEinzahlung.Text));
                 this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
                 this.textBoxEinzahlung.Text = "";
             }
+            else
+            {
+                MessageBox.Show("Der Betrag zum Einzahlen muss größer als 0 sein");
+            }
+        }
+
+        private void textBoxEinzahlung_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && !e.KeyChar.Equals(','))
+                e.Handled = true; 
         }
     }
 }

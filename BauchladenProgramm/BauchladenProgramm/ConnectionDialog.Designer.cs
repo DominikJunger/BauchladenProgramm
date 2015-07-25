@@ -54,6 +54,8 @@
             // 
             // ipAdresse
             // 
+            this.ipAdresse.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.ipAdresse.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
             this.ipAdresse.FormattingEnabled = true;
             this.ipAdresse.Items.AddRange(new object[] {
             "192.168.178.32",

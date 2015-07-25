@@ -161,9 +161,9 @@ namespace BauchladenProgramm.Connector
             this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.BUY + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + productID + Syntax.ENUM_CHAR + anzahl);
         }
 
-        public void setEinzahlung(string userId, string betrag)
+        public void setEinzahlung(string userId, decimal betrag)
         {
-            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.EINZAHLUNG + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + betrag);
+            this.sendMessageToServer(Syntax.SET + Syntax.COLON_CHAR + Syntax.EINZAHLUNG + Syntax.COLON_CHAR + userId + Syntax.ENUM_CHAR + String.Format("{0:F2}",betrag));
         }
 
         public void setBuyEnd(string userId)
