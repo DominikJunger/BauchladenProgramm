@@ -75,6 +75,8 @@
             this.tagesabschluss = new System.Windows.Forms.Button();
             this.alleAuszahlen = new System.Windows.Forms.Button();
             this.stückelung = new System.Windows.Forms.Button();
+            this.CsvEinlesen = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlState)).BeginInit();
@@ -101,6 +103,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.CsvEinlesen);
             this.tabPage3.Controls.Add(this.stückelung);
             this.tabPage3.Controls.Add(this.alleAuszahlen);
             this.tabPage3.Controls.Add(this.tagesabschluss);
@@ -575,6 +578,21 @@
             this.stückelung.Text = "Aktuelle Stückelung für die gesamte Auszahlung berechnen";
             this.stückelung.UseVisualStyleBackColor = true;
             // 
+            // CsvEinlesen
+            // 
+            this.CsvEinlesen.Location = new System.Drawing.Point(408, 6);
+            this.CsvEinlesen.Name = "CsvEinlesen";
+            this.CsvEinlesen.Size = new System.Drawing.Size(128, 88);
+            this.CsvEinlesen.TabIndex = 7;
+            this.CsvEinlesen.Text = "Teilnehmer aus einer CSV Datei einlesen";
+            this.CsvEinlesen.UseVisualStyleBackColor = true;
+            this.CsvEinlesen.Click += new System.EventHandler(this.CsvEinlesen_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"CSV-Dateien\"| *.csv";
+            // 
             // Mainwindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -653,6 +671,8 @@
         private System.Windows.Forms.Button stückelung;
         private System.Windows.Forms.Button alleAuszahlen;
         private System.Windows.Forms.Button tagesabschluss;
+        private System.Windows.Forms.Button CsvEinlesen;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

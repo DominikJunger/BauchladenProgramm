@@ -8,12 +8,12 @@ using BauchladenProgrammServer.Backend_Klassen;
 
 namespace BauchladenProgrammServer.Klassen
 {
-    class CSV_Reader
+    public class CSV_Reader
     {
         public List<Teilnehmer> ReadCSV(string filename)
         {
             List<Teilnehmer> teilnehmer = new List<Teilnehmer>();
-            StreamReader fs = new StreamReader(new FileStream(filename,FileMode.Open));
+            StreamReader fs = new StreamReader(new FileStream(filename,FileMode.Open),System.Text.Encoding.Default);
 
             string strLine;
             string[] strArray;
@@ -21,14 +21,12 @@ namespace BauchladenProgrammServer.Klassen
             while (!fs.EndOfStream)
             {
                 strLine = fs.ReadLine();
-                strArray = strLine.Split(',');
+                strArray = strLine.Split(';');
                 if ((strArray[1] != "") || (strArray[2] != ""))
                 {
-                    //  teilnehmer.Add(new Teilnehmer(strArray[1], strArray[2],strArray[4]));
+                      teilnehmer.Add(new Teilnehmer(strArray[0],strArray[1]));
                 }
-
             }
-            
             return teilnehmer;
         }
     }

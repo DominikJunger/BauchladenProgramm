@@ -71,7 +71,7 @@ namespace BauchladenProgrammServer.Klassen
 
 
 // Teilnehmer---------------------------------------
-        public async void addTeilnehmer(Teilnehmer teilnehmer)
+        public void addTeilnehmer(Teilnehmer teilnehmer)
         {
             if (con.State == ConnectionState.Open)
             { 
@@ -88,7 +88,7 @@ namespace BauchladenProgrammServer.Klassen
                 cmd.Parameters["@date"].Value = DateTime.Now;
                 try
                 {
-                    await cmd.ExecuteNonQueryAsync();
+                    cmd.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {

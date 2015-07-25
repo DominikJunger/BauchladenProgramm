@@ -99,19 +99,7 @@ namespace BauchladenProgrammServer
 
             }
         }
-
-        private void ReadCSV(string filename)
-        {           
-            teilnehmer = new CSV_Reader().ReadCSV(filename);
-
-            foreach (Teilnehmer t in teilnehmer)
-            {
-                string tmpTeilnehmer;
-                //tmpTeilnehmer = t.Vorname + ", " + t.Nachname + ", " + t.Geburtsdatum.ToString() + ", " + t.Wohnort;
-              // Hier dann einer Tabelle hinzufügen oder andere Anzeigevariante
-            }                  
-        }       
-
+      
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
            
@@ -268,29 +256,60 @@ namespace BauchladenProgrammServer
 
         private void tagesabschluss_Click(object sender, EventArgs e)
         {
-            System.IO.Directory.CreateDirectory(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString());
-            foreach (Teilnehmer t in con.selectTeilnehmerAll())
+            try
             {
-                PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\"+DateTime.Today.ToShortDateString()+"\\" + t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
-                pdfc.createTagesabschluss(con.PDF(t.Id));
+                System.IO.Directory.CreateDirectory(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString());
+                foreach (Teilnehmer t in con.selectTeilnehmerAll())
+                {
+                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString() + "\\" + t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
+                    pdfc.createTagesabschluss(con.PDF(t.Id));
+                }
+                MessageBox.Show("Pdf´s wurden erfolgreich erstellt");
+                this.logNachricht("Tagesabschluss erfolgreich erstellt");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler beim Tagesabschluss: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void alleAuszahlen_Click(object sender, EventArgs e)
         {
-            foreach (Teilnehmer t in con.selectTeilnehmerAll())
+            try
             {
-                // PDF für Auszahlung erstellen
-                PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Auszahlung\" +t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
-                pdfc.createAuszahlung(con.PDF(t.Id));
-                con.deleteTn(t.Id);
+                foreach (Teilnehmer t in con.selectTeilnehmerAll())
+                {
+                    // PDF für Auszahlung erstellen
+                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Auszahlung\" + t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
+                    pdfc.createAuszahlung(con.PDF(t.Id));
+                    con.deleteTn(t.Id);
+                }
+                Thread.Sleep(300);
+                List<Teilnehmer> tn = con.selectTeilnehmerAll();
+                addTeilnehmer(tn);
+                if (ser.isConnected())
+                {
+                    this.ser.TnAnAlle(tn);
+                }
+                MessageBox.Show("Pdf´s wurden erfolgreich erstellt");
+                this.logNachricht("Auszahlung aller Teilnehmer erfolgreich");
             }
-            Thread.Sleep(300);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll();
-            addTeilnehmer(tn);
-            if (ser.isConnected())
+            catch (Exception ex)
             {
-                this.ser.TnAnAlle(tn);
+                MessageBox.Show("Fehler beim Auszahlen: " + ex.Message,"Fehler",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+        }
+
+        private void CsvEinlesen_Click(object sender, EventArgs e)
+        {
+            if (this.openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                CSV_Reader r = new CSV_Reader();
+                foreach(Teilnehmer t in r.ReadCSV(this.openFileDialog1.FileName))
+                {
+                    con.addTeilnehmer(t);
+                }
+                this.addTeilnehmer(con.selectTeilnehmerAll());
             }
         }
     }

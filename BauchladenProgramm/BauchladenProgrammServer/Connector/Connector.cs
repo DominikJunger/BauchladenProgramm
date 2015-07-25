@@ -58,7 +58,6 @@ namespace BauchladenProgrammServer.Connector
                 try
                 {
                     sender.sendMessage(s);
-                    this.gui.logNachricht(s);
                 }
                 catch (Exception e)
                 {
@@ -99,6 +98,7 @@ namespace BauchladenProgrammServer.Connector
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount.ToString());
 
             msgCount++;
+            this.gui.logNachricht("Ausgehend: Teilnehmer Liste versendet");
         }
 
         public void sendTeilnehmerKontostand(Teilnehmer t)
@@ -109,6 +109,7 @@ namespace BauchladenProgrammServer.Connector
             this.sendMessageToClient(t.Kontostand.ToString());
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             msgCount++;
+            this.gui.logNachricht("Ausgehend: Kontostand versendet");
         }
         
         // Methoden zum Senden von ProduktListe
@@ -132,7 +133,7 @@ namespace BauchladenProgrammServer.Connector
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount.ToString());
 
            msgCount++;
-           
+           this.gui.logNachricht("Ausgehend: Produkt Liste versendet");
         }
     }
 
