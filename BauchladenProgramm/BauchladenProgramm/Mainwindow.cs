@@ -127,8 +127,10 @@ namespace BauchladenProgramm
                             +" "
                             + dataGridViewTeilnehmer.Rows[i].Cells[2].Value.ToString();
                             this.TN_NameEinzahlung.Text = this.TN_Name.Text;
+                            this.TN_NameB.Text = this.TN_Name.Text;
                             this.Kontostand.Text = String.Format("{0:F2}", kontostand);
                             this.KontostandEinzahlung.Text = String.Format("{0:F2}", kontostand) +" €";
+                            this.KontostandB.Text = String.Format("{0:F2}", kontostand);
                         }
                     }
                     

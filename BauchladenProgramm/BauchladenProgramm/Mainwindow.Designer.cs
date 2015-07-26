@@ -790,6 +790,7 @@
             this.dataGridViewEinkaufB.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEinkaufB.Size = new System.Drawing.Size(278, 316);
             this.dataGridViewEinkaufB.TabIndex = 1;
+            this.dataGridViewEinkaufB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewEinkauf_KeyPress);
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -970,6 +971,7 @@
             this.dataGridViewProduktB.Size = new System.Drawing.Size(259, 406);
             this.dataGridViewProduktB.TabIndex = 0;
             this.dataGridViewProduktB.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            this.dataGridViewProduktB.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridViewProdukt_KeyPress);
             // 
             // dataGridViewTextBoxColumn17
             // 

@@ -9,7 +9,7 @@ namespace BauchladenProgramm.Connector
     sealed class Syntax
     {
         //Primitiv Typen
-        public static readonly String BOOLEAN = "(true|false)",
+        public static readonly String BOOLEAN = "(true|false|True|False)",
                                       INTEGER = @"-?(0|([1-9]\d{0,9}))",
                                       DOUBLE = @"\d+(\.\d+)?",
                                       STRING = @"(?<=:).*",

@@ -116,7 +116,7 @@ namespace BauchladenProgramm.Connector
                                     {
                                         id = parsToInt32(pr[i].Value);
                                     }
-                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_ID).Success)
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_Bücher).Success)
                                     {
                                         bücherT = parsToBoolean(pr[i].Value);
                                     }
