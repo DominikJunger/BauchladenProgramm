@@ -101,11 +101,6 @@ namespace BauchladenProgrammServer.Connector
                             this.backend.sendProductList(con.selectProduktAll());
                         }
 
-                        else if (Regex.Match(dataFromBuffer, Syntax.PRODUCT_LIST_BUECHERTISCH).Success)
-                        {
-                            // hier kommt der methodenaufruf zum verschicken der produkte vom Bueschertisch
-                        }
-
                         else if (Regex.Match(dataFromBuffer, Syntax.MEMBERLIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der TeilnehmerListe

@@ -295,7 +295,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    tmpP.Add(new Produkt(reader.GetInt32(0).ToString(), reader.GetString(1),reader.GetDecimal(2),reader.GetBoolean(3)));
+                    tmpP.Add(new Produkt(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetDecimal(2), reader.GetBoolean(3), reader.GetBoolean(4)));
                 }
             }
             else

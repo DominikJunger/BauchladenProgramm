@@ -126,6 +126,7 @@ namespace BauchladenProgrammServer.Connector
                    this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + produkte[i].Name);
                    this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + produkte[i].Preis);
                    this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + produkte[i].Id);
+                   this.sendMessageToClient(Syntax.PRODUKT_Bücher+ Syntax.COLON_CHAR + produkte[i].BücherT);
                    this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i + 1));
                }
            }
