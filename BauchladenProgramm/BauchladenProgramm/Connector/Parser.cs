@@ -99,6 +99,7 @@ namespace BauchladenProgramm.Connector
                                 int id = 0;
                                 string name = null;
                                 double preis = 0;
+                                bool bücherT=false;
 
                                 while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
                                 {
@@ -115,12 +116,15 @@ namespace BauchladenProgramm.Connector
                                     {
                                         id = parsToInt32(pr[i].Value);
                                     }
-                                    
+                                    if (Regex.Match(pr[i].Value, Syntax.PRODUKT_ID).Success)
+                                    {
+                                        bücherT = parsToBoolean(pr[i].Value);
+                                    }
                                     i++;
                                 }
                                 if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                                 {
-                                    this.backend.addPr(new Produkt(id, name, preis));
+                                    this.backend.addPr(new Produkt(id, name, preis), bücherT);
                                     if (i < (pr.Count-1))
                                     {
                                         i++;
