@@ -315,7 +315,7 @@ namespace BauchladenProgrammServer.Klassen
              {
 
                  SqlCommand cmd = con.CreateCommand();
-                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit) values(@Name,@Preis,1)";
+                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit,bücherTisch) values(@Name,@Preis,1,0)";
                  cmd.CommandType = CommandType.Text;
 
                  cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar));
