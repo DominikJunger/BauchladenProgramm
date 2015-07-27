@@ -18,7 +18,6 @@ namespace BauchladenProgrammServer
     public partial class Mainwindow : Form
     {
         private SQL_Connector con;
-        private List<Teilnehmer> teilnehmer;
         private Server ser;
       
         public Mainwindow()
@@ -59,12 +58,20 @@ namespace BauchladenProgrammServer
         private void addTeilnehmer(List<Teilnehmer> tn)
         {
             this.dataGridViewTeilnehmer.Rows.Clear();
-            String[] tnString = new String[3];
+            String[] tnString = new String[4];
             foreach (Teilnehmer t in tn)
             {
                 tnString[0] = t.Id.ToString();
                 tnString[1] = t.VorName;
                 tnString[2] = t.NachName;
+                if (t.Inatkiv)
+                {
+                    tnString[3] = "Ja";
+                }
+                else
+                {
+                    tnString[3] = "Nein";
+                }
                 this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
                 {
                     dataGridViewTeilnehmer.Rows.Add(tnString);
@@ -110,7 +117,7 @@ namespace BauchladenProgrammServer
                     Thread.Sleep(2000);
                 }
 
-                addTeilnehmer(con.selectTeilnehmerAll());
+                addTeilnehmer(con.selectTeilnehmerAll(false));
                 addProdukte(con.selectProduktAll());
                 backgroundWorker1.CancelAsync();
             }
@@ -137,7 +144,7 @@ namespace BauchladenProgrammServer
             this.vorname.Text = "";
             this.nachname.Text = "";
             Thread.Sleep(500);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll();
+            List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
             addTeilnehmer(tn);
             if (ser.isConnected())
             {
@@ -149,7 +156,7 @@ namespace BauchladenProgrammServer
         {
             con.deleteTn(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
             Thread.Sleep(500);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll();
+            List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
             addTeilnehmer(tn);
             if (ser.isConnected())
             {
@@ -164,7 +171,7 @@ namespace BauchladenProgrammServer
         {
             con.setTnInaktiv(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
             Thread.Sleep(500);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll();
+            List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
             addTeilnehmer(tn);
             if (ser.isConnected())
             {
@@ -233,7 +240,7 @@ namespace BauchladenProgrammServer
             con.deleteTn(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
             System.Diagnostics.Process.Start(@"D:\Jula\Abrechnungen\Auszahlung\" + dataGridViewTeilnehmer.CurrentRow.Cells[1].Value.ToString() + "_" + dataGridViewTeilnehmer.CurrentRow.Cells[2].Value.ToString() + ".pdf");
             Thread.Sleep(200);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll();
+            List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
             addTeilnehmer(tn);
             if (ser.isConnected())
             {
@@ -259,9 +266,9 @@ namespace BauchladenProgrammServer
             try
             {
                 System.IO.Directory.CreateDirectory(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString());
-                foreach (Teilnehmer t in con.selectTeilnehmerAll())
+                foreach (Teilnehmer t in con.selectTeilnehmerAll(false))
                 {
-                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString() + "\\" + t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
+                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString() + "\\" + t.VorName + "_" + t.NachName + "_" + t.Id + "_" + DateTime.Today.ToShortDateString() + ".pdf");
                     pdfc.createTagesabschluss(con.PDF(t.Id));
                 }
                 MessageBox.Show("Pdf´s wurden erfolgreich erstellt");
@@ -277,15 +284,15 @@ namespace BauchladenProgrammServer
         {
             try
             {
-                foreach (Teilnehmer t in con.selectTeilnehmerAll())
+                foreach (Teilnehmer t in con.selectTeilnehmerAll(false))
                 {
                     // PDF für Auszahlung erstellen
-                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Auszahlung\" + t.VorName + "_" + t.NachName + "_" + DateTime.Today.ToShortDateString() + ".pdf");
+                    PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Auszahlung\" + t.VorName + "_" + t.NachName + "_" + t.Id + "_" + DateTime.Today.ToShortDateString() + ".pdf");
                     pdfc.createAuszahlung(con.PDF(t.Id));
                     con.deleteTn(t.Id);
                 }
                 Thread.Sleep(300);
-                List<Teilnehmer> tn = con.selectTeilnehmerAll();
+                List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
                 addTeilnehmer(tn);
                 if (ser.isConnected())
                 {
@@ -309,7 +316,23 @@ namespace BauchladenProgrammServer
                 {
                     con.addTeilnehmer(t);
                 }
-                this.addTeilnehmer(con.selectTeilnehmerAll());
+                this.addTeilnehmer(con.selectTeilnehmerAll(false));
+            }
+        }
+
+        private void stückelung_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\" +"Aktuelle_Stückelung_"+ DateTime.Today.ToShortDateString() + ".pdf");
+                pdfc.createStückelung(con.selectTeilnehmerAll(true));
+                System.Diagnostics.Process.Start(@"D:\Jula\Abrechnungen\" + "Aktuelle_Stückelung_" + DateTime.Today.ToShortDateString() + ".pdf");
+                MessageBox.Show("Pdf für die Stückelung wurden erfolgreich erstellt");
+                this.logNachricht("Stückelung erfolgreich erstellt");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler bei der Stückelung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

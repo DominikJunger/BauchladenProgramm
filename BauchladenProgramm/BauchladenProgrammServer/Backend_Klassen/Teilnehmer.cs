@@ -12,24 +12,24 @@ namespace BauchladenProgrammServer.Backend_Klassen
         private string vorName;      
         private string nachName;
         private double kontostand;
- 
+        private bool inatkiv;
 
-        public Teilnehmer(string id, string vorName, string nachName, decimal kontostand)
+        public Teilnehmer(string id, string vorName, string nachName, decimal kontostand, bool inaktiv)
         {
             this.id = int.Parse(id);
             this.vorName = vorName;
             this.nachName = nachName;
             this.Kontostand = Double.Parse(kontostand.ToString());
-         
+            this.inatkiv = inaktiv;
         }
 
-        public Teilnehmer(int id, string vorName, string nachName, decimal kontostand)
+        public Teilnehmer(int id, string vorName, string nachName, decimal kontostand, bool inaktiv)
         {
             this.id = id;
             this.vorName = vorName;
             this.nachName = nachName;
             this.Kontostand = Double.Parse(kontostand.ToString());
-
+            this.inatkiv = inaktiv;
         }
         public Teilnehmer(string vorName, string nachName)
         {
@@ -41,6 +41,11 @@ namespace BauchladenProgrammServer.Backend_Klassen
         {
             get { return id; }
             set { id = value; }
+        }
+        public bool Inatkiv
+        {
+            get { return inatkiv; }
+            set { inatkiv = value; }
         }
         public string VorName
         {

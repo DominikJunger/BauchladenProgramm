@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Threading;
 using BauchladenProgramm.Backend_Klassen;
 
@@ -134,7 +133,7 @@ namespace BauchladenProgramm.Connector
                             }
                             else
                             {
-                                throw new Exception("Fehler beim Parsen");
+                                throw new Exception("Fehler beim Parsen der Produkte");
                             }
                         }
                     }
@@ -186,7 +185,7 @@ namespace BauchladenProgramm.Connector
                             }
                             else
                             {
-                                throw new Exception("Fehler beim Parsen");
+                                throw new Exception("Fehler beim Parsen der Teilnehmer");
                             }
                         }
                     }

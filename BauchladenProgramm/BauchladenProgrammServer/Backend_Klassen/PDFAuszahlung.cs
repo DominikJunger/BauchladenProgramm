@@ -42,8 +42,8 @@ namespace BauchladenProgrammServer.Backend_Klassen
 
         public List<Kontostand> Auflistung
         {
-            get { return auszahlung; }
-            set { auszahlung = value; }
+            get { return auflistung; }
+            set { auflistung = value; }
         }
     }
 }

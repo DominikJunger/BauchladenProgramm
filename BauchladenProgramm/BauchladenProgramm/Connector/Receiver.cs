@@ -47,7 +47,7 @@ namespace BauchladenProgramm.Connector
                         do
                         {
                             byte[] dataByte = new byte[sizeByteTMP];
-                            client.GetStream().ReadAsync(dataByte, 0, sizeByteTMP);
+                            client.GetStream().Read(dataByte, 0, sizeByteTMP);
                             data.Add(dataByte[0]);
                             rcvString = Encoding.UTF32.GetString(data.ToArray(), 0, data.Count);
                         } while (!(Regex.Match(rcvString, "\n").Success));

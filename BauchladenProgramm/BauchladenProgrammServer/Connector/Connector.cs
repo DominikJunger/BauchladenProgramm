@@ -82,16 +82,21 @@ namespace BauchladenProgrammServer.Connector
 
         public void sendTeilnehmerList(List<Teilnehmer> teilnehmer)
         {
+            int count = 1;
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount.ToString());
             this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
 
             for (int i = 0; i < teilnehmer.Count; i++)
             {
-                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + (i+1));
-                this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + teilnehmer[i].VorName);
-                this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + teilnehmer[i].NachName);
-                this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + teilnehmer[i].Id);
-                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + (i+1));
+                if (!teilnehmer[i].Inatkiv)
+                {
+                    this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
+                    this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + teilnehmer[i].VorName);
+                    this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + teilnehmer[i].NachName);
+                    this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + teilnehmer[i].Id);
+                    this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
+                    count++;
+                }
             }
 
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBERLIST);
@@ -115,6 +120,7 @@ namespace BauchladenProgrammServer.Connector
         // Methoden zum Senden von ProduktListe
         public void sendProductList(List<Produkt> produkte)
         {
+           int count = 1;
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + msgCount.ToString());
            this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
 
@@ -122,12 +128,13 @@ namespace BauchladenProgrammServer.Connector
            {
                if (produkte[i].Verfügbar)
                {
-                   this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i + 1));
+                   this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + count);
                    this.sendMessageToClient(Syntax.PRODUKT_NAME + Syntax.COLON_CHAR + produkte[i].Name);
                    this.sendMessageToClient(Syntax.PRODUKT_PRICE + Syntax.COLON_CHAR + produkte[i].Preis);
                    this.sendMessageToClient(Syntax.PRODUKT_ID + Syntax.COLON_CHAR + produkte[i].Id);
                    this.sendMessageToClient(Syntax.PRODUKT_Bücher+ Syntax.COLON_CHAR + produkte[i].BücherT);
-                   this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + (i + 1));
+                   this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUKT + Syntax.COLON_CHAR + count);
+                   count++;
                }
            }
            this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.PRODUCT_LIST);
