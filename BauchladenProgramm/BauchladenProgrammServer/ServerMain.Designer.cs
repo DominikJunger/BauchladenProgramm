@@ -30,6 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.CsvEinlesen = new System.Windows.Forms.Button();
+            this.stückelung = new System.Windows.Forms.Button();
+            this.alleAuszahlen = new System.Windows.Forms.Button();
+            this.tagesabschluss = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.sqlState = new System.Windows.Forms.PictureBox();
             this.log = new System.Windows.Forms.ListBox();
@@ -57,6 +61,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inaktiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
             this.PPreis = new System.Windows.Forms.TextBox();
@@ -72,10 +77,6 @@
             this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.verfügbarkeit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.tagesabschluss = new System.Windows.Forms.Button();
-            this.alleAuszahlen = new System.Windows.Forms.Button();
-            this.stückelung = new System.Windows.Forms.Button();
-            this.CsvEinlesen = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -117,6 +118,46 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Allgemein";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // CsvEinlesen
+            // 
+            this.CsvEinlesen.Location = new System.Drawing.Point(408, 6);
+            this.CsvEinlesen.Name = "CsvEinlesen";
+            this.CsvEinlesen.Size = new System.Drawing.Size(128, 88);
+            this.CsvEinlesen.TabIndex = 7;
+            this.CsvEinlesen.Text = "Teilnehmer aus einer CSV Datei einlesen";
+            this.CsvEinlesen.UseVisualStyleBackColor = true;
+            this.CsvEinlesen.Click += new System.EventHandler(this.CsvEinlesen_Click);
+            // 
+            // stückelung
+            // 
+            this.stückelung.Location = new System.Drawing.Point(274, 6);
+            this.stückelung.Name = "stückelung";
+            this.stückelung.Size = new System.Drawing.Size(128, 88);
+            this.stückelung.TabIndex = 6;
+            this.stückelung.Text = "Aktuelle Stückelung für die gesamte Auszahlung berechnen";
+            this.stückelung.UseVisualStyleBackColor = true;
+            this.stückelung.Click += new System.EventHandler(this.stückelung_Click);
+            // 
+            // alleAuszahlen
+            // 
+            this.alleAuszahlen.Location = new System.Drawing.Point(140, 6);
+            this.alleAuszahlen.Name = "alleAuszahlen";
+            this.alleAuszahlen.Size = new System.Drawing.Size(128, 88);
+            this.alleAuszahlen.TabIndex = 5;
+            this.alleAuszahlen.Text = "Alle Teilnehmer auszahlen und löschen";
+            this.alleAuszahlen.UseVisualStyleBackColor = true;
+            this.alleAuszahlen.Click += new System.EventHandler(this.alleAuszahlen_Click);
+            // 
+            // tagesabschluss
+            // 
+            this.tagesabschluss.Location = new System.Drawing.Point(6, 6);
+            this.tagesabschluss.Name = "tagesabschluss";
+            this.tagesabschluss.Size = new System.Drawing.Size(128, 88);
+            this.tagesabschluss.TabIndex = 4;
+            this.tagesabschluss.Text = "Tagesabschluss PDF erstellen";
+            this.tagesabschluss.UseVisualStyleBackColor = true;
+            this.tagesabschluss.Click += new System.EventHandler(this.tagesabschluss_Click);
             // 
             // label5
             // 
@@ -263,9 +304,9 @@
             // 
             this.TnInaktiv.Location = new System.Drawing.Point(9, 142);
             this.TnInaktiv.Name = "TnInaktiv";
-            this.TnInaktiv.Size = new System.Drawing.Size(188, 23);
+            this.TnInaktiv.Size = new System.Drawing.Size(188, 43);
             this.TnInaktiv.TabIndex = 7;
-            this.TnInaktiv.Text = "Setzt den auswewählent TN inaktiv";
+            this.TnInaktiv.Text = "Ändern der Inaktivität des ausgewählten TN";
             this.TnInaktiv.UseVisualStyleBackColor = true;
             this.TnInaktiv.Click += new System.EventHandler(this.TnInaktiv_Click);
             // 
@@ -357,7 +398,8 @@
             this.dataGridViewTeilnehmer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
+            this.dataGridViewTextBoxColumn6,
+            this.inaktiv});
             this.dataGridViewTeilnehmer.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridViewTeilnehmer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewTeilnehmer.Location = new System.Drawing.Point(3, 3);
@@ -374,7 +416,7 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            this.dataGridViewTextBoxColumn4.FillWeight = 45.68526F;
+            this.dataGridViewTextBoxColumn4.FillWeight = 48.54543F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Id";
             this.dataGridViewTextBoxColumn4.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -382,7 +424,7 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
-            this.dataGridViewTextBoxColumn5.FillWeight = 105.6065F;
+            this.dataGridViewTextBoxColumn5.FillWeight = 112.2181F;
             this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
             this.dataGridViewTextBoxColumn5.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -390,11 +432,19 @@
             // 
             // dataGridViewTextBoxColumn6
             // 
-            this.dataGridViewTextBoxColumn6.FillWeight = 148.7081F;
+            this.dataGridViewTextBoxColumn6.FillWeight = 158.0181F;
             this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
             this.dataGridViewTextBoxColumn6.MinimumWidth = 30;
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // inaktiv
+            // 
+            this.inaktiv.FillWeight = 81.21825F;
+            this.inaktiv.HeaderText = "Inaktiv";
+            this.inaktiv.MinimumWidth = 30;
+            this.inaktiv.Name = "inaktiv";
+            this.inaktiv.ReadOnly = true;
             // 
             // tabPage2
             // 
@@ -463,7 +513,7 @@
             this.PInaktiv.Name = "PInaktiv";
             this.PInaktiv.Size = new System.Drawing.Size(292, 23);
             this.PInaktiv.TabIndex = 10;
-            this.PInaktiv.Text = "Ändern der Verfügbarkeit des auswewähltem Produkts";
+            this.PInaktiv.Text = "Ändern der Verfügbarkeit des ausgewähltem Produkts";
             this.PInaktiv.UseVisualStyleBackColor = true;
             this.PInaktiv.Click += new System.EventHandler(this.PInaktiv_Click);
             // 
@@ -549,45 +599,6 @@
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             // 
-            // tagesabschluss
-            // 
-            this.tagesabschluss.Location = new System.Drawing.Point(6, 6);
-            this.tagesabschluss.Name = "tagesabschluss";
-            this.tagesabschluss.Size = new System.Drawing.Size(128, 88);
-            this.tagesabschluss.TabIndex = 4;
-            this.tagesabschluss.Text = "Tagesabschluss PDF erstellen";
-            this.tagesabschluss.UseVisualStyleBackColor = true;
-            this.tagesabschluss.Click += new System.EventHandler(this.tagesabschluss_Click);
-            // 
-            // alleAuszahlen
-            // 
-            this.alleAuszahlen.Location = new System.Drawing.Point(140, 6);
-            this.alleAuszahlen.Name = "alleAuszahlen";
-            this.alleAuszahlen.Size = new System.Drawing.Size(128, 88);
-            this.alleAuszahlen.TabIndex = 5;
-            this.alleAuszahlen.Text = "Alle Teilnehmer auszahlen und löschen";
-            this.alleAuszahlen.UseVisualStyleBackColor = true;
-            this.alleAuszahlen.Click += new System.EventHandler(this.alleAuszahlen_Click);
-            // 
-            // stückelung
-            // 
-            this.stückelung.Location = new System.Drawing.Point(274, 6);
-            this.stückelung.Name = "stückelung";
-            this.stückelung.Size = new System.Drawing.Size(128, 88);
-            this.stückelung.TabIndex = 6;
-            this.stückelung.Text = "Aktuelle Stückelung für die gesamte Auszahlung berechnen";
-            this.stückelung.UseVisualStyleBackColor = true;
-            // 
-            // CsvEinlesen
-            // 
-            this.CsvEinlesen.Location = new System.Drawing.Point(408, 6);
-            this.CsvEinlesen.Name = "CsvEinlesen";
-            this.CsvEinlesen.Size = new System.Drawing.Size(128, 88);
-            this.CsvEinlesen.TabIndex = 7;
-            this.CsvEinlesen.Text = "Teilnehmer aus einer CSV Datei einlesen";
-            this.CsvEinlesen.UseVisualStyleBackColor = true;
-            this.CsvEinlesen.Click += new System.EventHandler(this.CsvEinlesen_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -661,9 +672,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox PName;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
@@ -673,6 +681,10 @@
         private System.Windows.Forms.Button tagesabschluss;
         private System.Windows.Forms.Button CsvEinlesen;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inaktiv;
     }
 }
 

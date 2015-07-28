@@ -97,25 +97,25 @@ namespace BauchladenProgrammServer.Klassen
             }
         }
 
-        public List<Teilnehmer> selectTeilnehmerAll()
+        public List<Teilnehmer> selectTeilnehmerAll(bool mitKontostand)
         {
             List<Teilnehmer> t = null;
             SqlDataReader reader=null;
+            SqlCommand cmd = con.CreateCommand();
 
             if (con.State == ConnectionState.Open)
             {
                 try
                 {
                     t = new List<Teilnehmer>();
-                    SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "SELECT id,vorname,nachname FROM Teilnehmer where inaktiv=0";
+                    cmd.CommandText = "SELECT id,vorname,nachname,inaktiv FROM Teilnehmer";
                     cmd.CommandType = CommandType.Text;
                     reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            t.Add(new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), 0));
+                            t.Add(new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), 0, reader.GetBoolean(3)));
                         }
                     }
                     else
@@ -123,6 +123,13 @@ namespace BauchladenProgrammServer.Klassen
                         MessageBox.Show("Keine Teilnehmer gefunden");
                     }
                     reader.Close();
+                    if (mitKontostand)
+                    {
+                        foreach (Teilnehmer tn in t)
+                        {
+                            tn.Kontostand = this.selectTeilnehmer(tn.Id).Kontostand;
+                        }
+                    }
                 }
                 catch (SqlException ex)
                 {
@@ -142,7 +149,7 @@ namespace BauchladenProgrammServer.Klassen
                 try
                 {
                     SqlCommand cmd = con.CreateCommand();
-                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId and inaktiv=0 order by ks.datum desc";
+                    cmd.CommandText = "select t.id,t.Vorname,t.Nachname,ks.kontostand,t.inaktiv from (Teilnehmer t join Konto k on t.id = k.teilnehmer) join Kontostand ks on ks.konto=k.id where k.id = @suchId order by ks.datum desc";
                     cmd.CommandType = CommandType.Text;
 
                     cmd.Parameters.Add("@suchId", SqlDbType.Int);
@@ -152,7 +159,7 @@ namespace BauchladenProgrammServer.Klassen
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        t = new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3));
+                        t = new Teilnehmer(reader.GetInt32(0).ToString(), reader.GetString(1), reader.GetString(2), reader.GetDecimal(3),reader.GetBoolean(4));
                     }
                     else
                     {
@@ -184,13 +191,30 @@ namespace BauchladenProgrammServer.Klassen
         public void setTnInaktiv(int userId)
         {
             SqlCommand cmd = con.CreateCommand();
-            cmd.CommandText = "update Teilnehmer set inaktiv =1 where id=@Id";
-            cmd.CommandType = CommandType.Text;
-
+            SqlDataReader reader;
             cmd.Parameters.Add("@Id", SqlDbType.Char);
             cmd.Parameters["@Id"].Value = userId.ToString();
 
-            cmd.ExecuteNonQuery();
+            cmd.CommandText = "SELECT * FROM Teilnehmer where id =@Id";
+            cmd.CommandType = CommandType.Text;
+
+            reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                if (reader.GetBoolean(3) == true)
+                {
+                    cmd.CommandText = "update Teilnehmer set inaktiv=0 where id=@Id";
+                    cmd.CommandType = CommandType.Text;
+                }
+                else
+                {
+                    cmd.CommandText = "update Teilnehmer set inaktiv=1 where id=@Id";
+                    cmd.CommandType = CommandType.Text;
+                }
+                reader.Close();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public PDFAuszahlung PDF(int userId)
@@ -243,7 +267,7 @@ namespace BauchladenProgrammServer.Klassen
             {
                 while (reader.Read())
                 {
-                    einzahlung.Add(new Kontostand(reader.GetDecimal(0),reader.GetDateTime(1).ToShortDateString()));
+                    einzahlung.Add(new Kontostand(reader.GetDecimal(0),reader.GetDateTime(1).ToString()));
                 }
             }
             reader.Close();
@@ -315,7 +339,7 @@ namespace BauchladenProgrammServer.Klassen
              {
 
                  SqlCommand cmd = con.CreateCommand();
-                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit) values(@Name,@Preis,1)";
+                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit,bücherTisch) values(@Name,@Preis,1,0)";
                  cmd.CommandType = CommandType.Text;
 
                  cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar));

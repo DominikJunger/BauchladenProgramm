@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BauchladenProgramm.Backend_Klassen;
 using System.Net.Sockets;
@@ -219,7 +218,7 @@ namespace BauchladenProgramm
             char tmp = e.KeyChar;
             int zahl = Int32.Parse(tmp.ToString());
 
-            if (sender == this.dataGridViewProdukt)
+            if (sender == this.dataGridViewEinkauf)
             {
                 Int32 selectedRowCount = dataGridViewProdukt.Rows.GetRowCount(DataGridViewElementStates.Selected);
                 if (selectedRowCount == 1)
@@ -228,13 +227,13 @@ namespace BauchladenProgramm
                     {
                         if (p.Id == Int32.Parse(dataGridViewEinkauf.SelectedRows[0].Cells[0].Value.ToString()))
                         {
-                            p.Anzahl -= zahl;
+                            p.Anzahl = zahl;
                         }
                     }
                     this.einkaufslisteZusammenfassen_darstellen(false);
                 }
             }
-            else if (sender == this.dataGridViewProduktB)
+            else if (sender == this.dataGridViewEinkaufB)
             {
                 Int32 selectedRowCount = dataGridViewProduktB.Rows.GetRowCount(DataGridViewElementStates.Selected);
                 if (selectedRowCount == 1)
@@ -243,7 +242,7 @@ namespace BauchladenProgramm
                     {
                         if (p.Id == Int32.Parse(dataGridViewEinkaufB.SelectedRows[0].Cells[0].Value.ToString()))
                         {
-                            p.Anzahl -= zahl;
+                            p.Anzahl = zahl;
                         }
                     }
                     this.einkaufslisteZusammenfassen_darstellen(true);
@@ -293,7 +292,7 @@ namespace BauchladenProgramm
                         einkaufslistesumme += produktVerwaltung[i].Preis * produktVerwaltung[i].Anzahl;
                     }
                 }
-                this.einkaufslistesumme.Text = einkaufslistesumme.ToString();
+                this.einkaufslistesumme.Text = String.Format("{0:F2}",einkaufslistesumme);
             }
             else
             {
@@ -335,7 +334,7 @@ namespace BauchladenProgramm
                         einkaufslistesumme += produktVerwaltungB[i].Preis * produktVerwaltungB[i].Anzahl;
                     }
                 }
-                this.einkaufslistesummeB.Text = einkaufslistesumme.ToString();
+                this.einkaufslistesumme.Text = String.Format("{0:F2}", einkaufslistesumme);
             }
         }
 
@@ -346,21 +345,26 @@ namespace BauchladenProgramm
                 this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
                 this.Kontostand.Text = "";
                 this.TN_Name.Text = "";
+                this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
+                this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
             }
             else if (sender == this.dataGridViewTeilnehmerB)
             {
                 this.c.getKontostand(dataGridViewTeilnehmerB.CurrentRow.Cells[0].Value.ToString());
                 this.KontostandB.Text = "";
                 this.TN_NameB.Text = "";
+                this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
+                this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
             }
-        }
-
-        private void dataGridViewTeilnehmerEinzahlung_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
-            this.KontostandEinzahlung.Text = "";
-            this.TN_NameEinzahlung.Text = "";
-            this.textBoxEinzahlung.Text = "";
+            else if (sender == this.dataGridViewTeilnehmerEinzahlung)
+            {
+                this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
+                this.KontostandEinzahlung.Text = "";
+                this.TN_NameEinzahlung.Text = "";
+                this.textBoxEinzahlung.Text = "";
+                this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
+                this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
+            }
         }
 
         private void send_Click(object sender, EventArgs e)

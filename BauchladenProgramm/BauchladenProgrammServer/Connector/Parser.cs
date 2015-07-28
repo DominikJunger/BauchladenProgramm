@@ -104,7 +104,7 @@ namespace BauchladenProgrammServer.Connector
                         else if (Regex.Match(dataFromBuffer, Syntax.MEMBERLIST).Success)
                         {
                             // hier kommt der methodenaufruf zum verschicken der TeilnehmerListe
-                            this.backend.sendTeilnehmerList(con.selectTeilnehmerAll());
+                            this.backend.sendTeilnehmerList(con.selectTeilnehmerAll(false));
                         }
 
                         else if (Regex.Match(dataFromBuffer, Syntax.SEARCH + Syntax.COLON_CHAR).Success)
