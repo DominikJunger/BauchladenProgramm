@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainwindow));
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -118,37 +117,45 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProdukt)).BeginInit();
             this.ProduktauswahllisteVerkauf.SuspendLayout();
             this.EinkaufslisteVerkauf.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).BeginInit();
             this.splitContainerEinkaufsliste.Panel1.SuspendLayout();
             this.splitContainerEinkaufsliste.Panel2.SuspendLayout();
             this.splitContainerEinkaufsliste.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).BeginInit();
             this.panel1.SuspendLayout();
             this.TeilnehmerAuswahlVerkauf.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTeilnehmer)).BeginInit();
             this.splitContainerTeilnehmer.Panel1.SuspendLayout();
             this.splitContainerTeilnehmer.Panel2.SuspendLayout();
             this.splitContainerTeilnehmer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerVerkaufP)).BeginInit();
             this.splitContainerVerkaufP.Panel1.SuspendLayout();
             this.splitContainerVerkaufP.Panel2.SuspendLayout();
             this.splitContainerVerkaufP.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerVerkauf)).BeginInit();
             this.splitContainerVerkauf.Panel1.SuspendLayout();
             this.splitContainerVerkauf.Panel2.SuspendLayout();
             this.splitContainerVerkauf.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Verkauf.SuspendLayout();
             this.Buechertisch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
@@ -157,10 +164,12 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduktB)).BeginInit();
             this.Einzahlung.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).BeginInit();
             this.splitContainerEinzahlung.Panel1.SuspendLayout();
             this.splitContainerEinzahlung.Panel2.SuspendLayout();
             this.splitContainerEinzahlung.SuspendLayout();
             this.TeilnehmerauswahlEinzahlung.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -554,7 +563,7 @@
             // splitContainerVerkauf.Panel2
             // 
             this.splitContainerVerkauf.Panel2.Controls.Add(this.splitContainerVerkaufP);
-            this.splitContainerVerkauf.Panel2MinSize = 400;
+            this.splitContainerVerkauf.Panel2MinSize = 200;
             this.splitContainerVerkauf.Size = new System.Drawing.Size(791, 425);
             this.splitContainerVerkauf.SplitterDistance = 234;
             this.splitContainerVerkauf.TabIndex = 6;
@@ -715,7 +724,7 @@
             // splitContainer4.Panel1
             // 
             this.splitContainer4.Panel1.Controls.Add(this.groupBox2);
-            this.splitContainer4.Panel1MinSize = 250;
+            this.splitContainer4.Panel1MinSize = 200;
             // 
             // splitContainer4.Panel2
             // 
@@ -1211,7 +1220,6 @@
             this.ClientSize = new System.Drawing.Size(805, 464);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Mainwindow";
             this.ShowIcon = false;
             this.Text = "Bauchladen EJW BadUrach";
@@ -1223,6 +1231,7 @@
             this.splitContainerEinkaufsliste.Panel1.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel2.ResumeLayout(false);
             this.splitContainerEinkaufsliste.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinkaufsliste)).EndInit();
             this.splitContainerEinkaufsliste.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkauf)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -1231,35 +1240,42 @@
             this.splitContainerTeilnehmer.Panel1.ResumeLayout(false);
             this.splitContainerTeilnehmer.Panel1.PerformLayout();
             this.splitContainerTeilnehmer.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerTeilnehmer)).EndInit();
             this.splitContainerTeilnehmer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmer)).EndInit();
             this.splitContainerVerkaufP.Panel1.ResumeLayout(false);
             this.splitContainerVerkaufP.Panel2.ResumeLayout(false);
             this.splitContainerVerkaufP.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerVerkaufP)).EndInit();
             this.splitContainerVerkaufP.ResumeLayout(false);
             this.splitContainerVerkauf.Panel1.ResumeLayout(false);
             this.splitContainerVerkauf.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerVerkauf)).EndInit();
             this.splitContainerVerkauf.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.Verkauf.ResumeLayout(false);
             this.Buechertisch.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerB)).EndInit();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             this.splitContainer4.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
             this.splitContainer5.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEinkaufB)).EndInit();
             this.panel4.ResumeLayout(false);
@@ -1269,11 +1285,13 @@
             this.Einzahlung.ResumeLayout(false);
             this.splitContainerEinzahlung.Panel1.ResumeLayout(false);
             this.splitContainerEinzahlung.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerEinzahlung)).EndInit();
             this.splitContainerEinzahlung.ResumeLayout(false);
             this.TeilnehmerauswahlEinzahlung.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeilnehmerEinzahlung)).EndInit();
             this.panel3.ResumeLayout(false);
