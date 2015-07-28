@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainwindow));
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1220,6 +1221,7 @@
             this.ClientSize = new System.Drawing.Size(805, 464);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Mainwindow";
             this.ShowIcon = false;
             this.Text = "Bauchladen EJW BadUrach";

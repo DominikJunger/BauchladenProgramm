@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionDialog));
             this.connect = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ipAdresse = new System.Windows.Forms.ComboBox();
@@ -74,6 +75,7 @@
             this.Controls.Add(this.ipAdresse);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connect);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnectionDialog";
