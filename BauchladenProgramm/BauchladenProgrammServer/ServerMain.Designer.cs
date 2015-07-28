@@ -72,12 +72,13 @@
             this.PLöschen = new System.Windows.Forms.Button();
             this.PHinzugügen = new System.Windows.Forms.Button();
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.verfügbarkeit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.BücherTisch = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlState)).BeginInit();
@@ -468,23 +469,23 @@
             this.panel4.Controls.Add(this.PLöschen);
             this.panel4.Controls.Add(this.PHinzugügen);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(485, 3);
+            this.panel4.Location = new System.Drawing.Point(500, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(303, 429);
+            this.panel4.Size = new System.Drawing.Size(288, 429);
             this.panel4.TabIndex = 2;
             // 
             // PPreis
             // 
-            this.PPreis.Location = new System.Drawing.Point(11, 80);
+            this.PPreis.Location = new System.Drawing.Point(9, 77);
             this.PPreis.Name = "PPreis";
-            this.PPreis.Size = new System.Drawing.Size(287, 20);
+            this.PPreis.Size = new System.Drawing.Size(273, 20);
             this.PPreis.TabIndex = 14;
             this.PPreis.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.einzahlung_KeyPress);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 64);
+            this.label10.Location = new System.Drawing.Point(6, 62);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(30, 13);
             this.label10.TabIndex = 13;
@@ -492,16 +493,16 @@
             // 
             // PName
             // 
-            this.PName.Location = new System.Drawing.Point(11, 36);
+            this.PName.Location = new System.Drawing.Point(9, 33);
             this.PName.Name = "PName";
-            this.PName.Size = new System.Drawing.Size(287, 20);
+            this.PName.Size = new System.Drawing.Size(273, 20);
             this.PName.TabIndex = 12;
             this.PName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.vorname_KeyPress);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 19);
+            this.label9.Location = new System.Drawing.Point(6, 17);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(73, 13);
             this.label9.TabIndex = 11;
@@ -509,9 +510,9 @@
             // 
             // PInaktiv
             // 
-            this.PInaktiv.Location = new System.Drawing.Point(6, 179);
+            this.PInaktiv.Location = new System.Drawing.Point(9, 176);
             this.PInaktiv.Name = "PInaktiv";
-            this.PInaktiv.Size = new System.Drawing.Size(292, 23);
+            this.PInaktiv.Size = new System.Drawing.Size(273, 23);
             this.PInaktiv.TabIndex = 10;
             this.PInaktiv.Text = "Ändern der Verfügbarkeit des ausgewähltem Produkts";
             this.PInaktiv.UseVisualStyleBackColor = true;
@@ -519,9 +520,9 @@
             // 
             // PLöschen
             // 
-            this.PLöschen.Location = new System.Drawing.Point(6, 149);
+            this.PLöschen.Location = new System.Drawing.Point(9, 146);
             this.PLöschen.Name = "PLöschen";
-            this.PLöschen.Size = new System.Drawing.Size(292, 23);
+            this.PLöschen.Size = new System.Drawing.Size(273, 23);
             this.PLöschen.TabIndex = 9;
             this.PLöschen.Text = "Ausgewähltes Produkt löschen";
             this.PLöschen.UseVisualStyleBackColor = true;
@@ -529,9 +530,9 @@
             // 
             // PHinzugügen
             // 
-            this.PHinzugügen.Location = new System.Drawing.Point(6, 118);
+            this.PHinzugügen.Location = new System.Drawing.Point(9, 115);
             this.PHinzugügen.Name = "PHinzugügen";
-            this.PHinzugügen.Size = new System.Drawing.Size(292, 23);
+            this.PHinzugügen.Size = new System.Drawing.Size(273, 23);
             this.PHinzugügen.TabIndex = 8;
             this.PHinzugügen.Text = "Neues Produkt hinzugügen";
             this.PHinzugügen.UseVisualStyleBackColor = true;
@@ -548,7 +549,8 @@
             this.Id,
             this.Produkt,
             this.Preis,
-            this.verfügbarkeit});
+            this.verfügbarkeit,
+            this.BücherTisch});
             this.dataGridViewProdukt.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridViewProdukt.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewProdukt.Location = new System.Drawing.Point(3, 3);
@@ -559,8 +561,18 @@
             this.dataGridViewProdukt.RowHeadersVisible = false;
             this.dataGridViewProdukt.RowTemplate.ReadOnly = true;
             this.dataGridViewProdukt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProdukt.Size = new System.Drawing.Size(482, 429);
+            this.dataGridViewProdukt.Size = new System.Drawing.Size(497, 429);
             this.dataGridViewProdukt.TabIndex = 1;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"CSV-Dateien\"| *.csv";
             // 
             // Id
             // 
@@ -594,15 +606,12 @@
             this.verfügbarkeit.Name = "verfügbarkeit";
             this.verfügbarkeit.ReadOnly = true;
             // 
-            // backgroundWorker1
+            // BücherTisch
             // 
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "\"CSV-Dateien\"| *.csv";
+            this.BücherTisch.HeaderText = "BücherTisch";
+            this.BücherTisch.MinimumWidth = 30;
+            this.BücherTisch.Name = "BücherTisch";
+            this.BücherTisch.ReadOnly = true;
             // 
             // Mainwindow
             // 
@@ -672,10 +681,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox PName;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
-        private System.Windows.Forms.DataGridViewTextBoxColumn verfügbarkeit;
         private System.Windows.Forms.Button stückelung;
         private System.Windows.Forms.Button alleAuszahlen;
         private System.Windows.Forms.Button tagesabschluss;
@@ -685,6 +690,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn inaktiv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
+        private System.Windows.Forms.DataGridViewTextBoxColumn verfügbarkeit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BücherTisch;
     }
 }
 

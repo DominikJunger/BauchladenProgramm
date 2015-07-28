@@ -58,6 +58,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inaktiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainerVerkaufP = new System.Windows.Forms.SplitContainer();
             this.splitContainerVerkauf = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -71,6 +72,7 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inaktivB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
@@ -104,6 +106,7 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inaktivE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -491,7 +494,8 @@
             this.dataGridViewTeilnehmer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
+            this.dataGridViewTextBoxColumn6,
+            this.inaktiv});
             this.dataGridViewTeilnehmer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTeilnehmer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewTeilnehmer.Location = new System.Drawing.Point(0, 0);
@@ -518,7 +522,7 @@
             // 
             this.dataGridViewTextBoxColumn5.FillWeight = 146.8731F;
             this.dataGridViewTextBoxColumn5.HeaderText = "Vorname";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn5.MinimumWidth = 50;
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
@@ -526,9 +530,16 @@
             // 
             this.dataGridViewTextBoxColumn6.FillWeight = 142.467F;
             this.dataGridViewTextBoxColumn6.HeaderText = "Nachname";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 95;
+            this.dataGridViewTextBoxColumn6.MinimumWidth = 50;
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // inaktiv
+            // 
+            this.inaktiv.HeaderText = "Inaktiv";
+            this.inaktiv.Name = "inaktiv";
+            this.inaktiv.ReadOnly = true;
+            this.inaktiv.Visible = false;
             // 
             // splitContainerVerkaufP
             // 
@@ -676,7 +687,8 @@
             this.dataGridViewTeilnehmerB.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12});
+            this.dataGridViewTextBoxColumn12,
+            this.inaktivB});
             this.dataGridViewTeilnehmerB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTeilnehmerB.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewTeilnehmerB.Location = new System.Drawing.Point(0, 0);
@@ -714,6 +726,13 @@
             this.dataGridViewTextBoxColumn12.MinimumWidth = 95;
             this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
             this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // inaktivB
+            // 
+            this.inaktivB.HeaderText = "Inaktiv";
+            this.inaktivB.Name = "inaktivB";
+            this.inaktivB.ReadOnly = true;
+            this.inaktivB.Visible = false;
             // 
             // splitContainer4
             // 
@@ -1077,7 +1096,8 @@
             this.dataGridViewTeilnehmerEinzahlung.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9});
+            this.dataGridViewTextBoxColumn9,
+            this.inaktivE});
             this.dataGridViewTeilnehmerEinzahlung.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTeilnehmerEinzahlung.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridViewTeilnehmerEinzahlung.Location = new System.Drawing.Point(0, 0);
@@ -1115,6 +1135,13 @@
             this.dataGridViewTextBoxColumn9.MinimumWidth = 95;
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // inaktivE
+            // 
+            this.inaktivE.HeaderText = "inaktiv";
+            this.inaktivE.Name = "inaktivE";
+            this.inaktivE.ReadOnly = true;
+            this.inaktivE.Visible = false;
             // 
             // panel3
             // 
@@ -1320,9 +1347,6 @@
         private System.Windows.Forms.TextBox TeilnehmerSuche;
         private System.Windows.Forms.SplitContainer splitContainerEinkaufsliste;
         private System.Windows.Forms.Button send;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Produkt;
         private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
@@ -1341,9 +1365,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox TeilnehmerSucheEinzahlung;
         private System.Windows.Forms.DataGridView dataGridViewTeilnehmerEinzahlung;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.SplitContainer splitContainerEinzahlung;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxEinzahlung;
@@ -1363,9 +1384,6 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.TextBox TeilnehmerSucheB;
         private System.Windows.Forms.DataGridView dataGridViewTeilnehmerB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.SplitContainer splitContainer5;
@@ -1390,6 +1408,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inaktivB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inaktivE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inaktiv;
 
     }
 }

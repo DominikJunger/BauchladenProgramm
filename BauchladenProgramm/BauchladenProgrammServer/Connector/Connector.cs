@@ -88,15 +88,13 @@ namespace BauchladenProgrammServer.Connector
 
             for (int i = 0; i < teilnehmer.Count; i++)
             {
-                if (!teilnehmer[i].Inatkiv)
-                {
-                    this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
-                    this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + teilnehmer[i].VorName);
-                    this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + teilnehmer[i].NachName);
-                    this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + teilnehmer[i].Id);
-                    this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
-                    count++;
-                }
+                this.sendMessageToClient(Syntax.BEGIN + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
+                this.sendMessageToClient(Syntax.FIRST_NAME + Syntax.COLON_CHAR + teilnehmer[i].VorName);
+                this.sendMessageToClient(Syntax.LAST_NAME + Syntax.COLON_CHAR + teilnehmer[i].NachName);
+                this.sendMessageToClient(Syntax.ID + Syntax.COLON_CHAR + teilnehmer[i].Id);
+                this.sendMessageToClient(Syntax.INAKTIV + Syntax.COLON_CHAR + teilnehmer[i].Inatkiv);
+                this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + count);
+                count++;
             }
 
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBERLIST);

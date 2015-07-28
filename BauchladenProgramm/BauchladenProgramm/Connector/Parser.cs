@@ -155,6 +155,7 @@ namespace BauchladenProgramm.Connector
                                 int id=0;
                                 string vorname=null;
                                 string nachname=null;
+                                bool inaktiv=false;
 
                                 while (!(Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success))
                                 {
@@ -171,11 +172,15 @@ namespace BauchladenProgramm.Connector
                                     {
                                         id = parsToInt32(pr[i].Value);
                                     }
+                                    if (Regex.Match(pr[i].Value, Syntax.INAKTIV).Success)
+                                    {
+                                        inaktiv = parsToBoolean(pr[i].Value);
+                                    }
                                     i++;
                                 }
                                 if (Regex.Match(pr[i].Value, Syntax.END + Syntax.COLON_CHAR + Syntax.MEMBER + Syntax.COLON_CHAR + messageNumber.ToString()).Success)
                                 {
-                                    this.backend.addTn(new Teilnehmer(id,vorname,nachname));
+                                    this.backend.addTn(new Teilnehmer(id,vorname,nachname,inaktiv));
                                     if (i < (pr.Count-1))
                                     {
                                         i++;

@@ -78,6 +78,49 @@ namespace BauchladenProgramm
                     this.dataGridViewProduktB.Invoke((MethodInvoker)delegate()
                     {
                         this.dataGridViewProduktB.Rows.Add(pr);
+                        foreach (DataGridViewRow row in this.dataGridViewProduktB.Rows)
+                        {
+                            if (row.Cells[1].Value.Equals("Gelb"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Yellow;
+                            }
+                            if (row.Cells[1].Value.Equals("Orange"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Orange;
+                            }
+                            if (row.Cells[1].Value.Equals("Rot"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Red;
+                            }
+                            if (row.Cells[1].Value.Equals("Pink"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Pink;
+                            }
+                            if (row.Cells[1].Value.Equals("Lila"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Purple;
+                            }
+                            if (row.Cells[1].Value.Equals("Dunkelblau"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.DarkBlue;
+                            }
+                            if (row.Cells[1].Value.Equals("Hellblau"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.LightBlue;
+                            }
+                            if (row.Cells[1].Value.Equals("Hellgrün"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.LightGreen;
+                            }
+                            if (row.Cells[1].Value.Equals("Dunkelgrün"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.DarkGreen;
+                            }
+                            if (row.Cells[1].Value.Equals("Braun"))
+                            {
+                                row.Cells[1].Style.BackColor = Color.Brown;
+                            }
+                        }
                     });
                 }
             }
@@ -87,27 +130,55 @@ namespace BauchladenProgramm
         {
             if (t != null)
             {
-                String[] tn = new String[3];
+                String[] tn = new String[4];
                 tn[0] = t.Id.ToString();
                 tn[1] = t.VorName;
                 tn[2] = t.NachName;
+                tn[3] = t.Inaktiv.ToString();
                 this.dataGridViewProdukt.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridViewTeilnehmer.Rows.Add(tn);
-                    //TeilnehmerSucheComplete.AddRange(pr);
-                    //this.TeilnehmerSuche.AutoCompleteCustomSource = TeilnehmerSucheComplete;
+                    if (!t.Inaktiv)
+                    {
+                        this.dataGridViewTeilnehmer.Rows.Add(tn);
+                    }
+                    else
+                    {
+                        this.dataGridViewTeilnehmer.Rows.Add(tn);
+                        DataGridViewRow row = dataGridViewTeilnehmer.Rows[dataGridViewTeilnehmer.Rows.Count-1];
+                        row.Cells[0].Style.BackColor=Color.Red;
+                        row.Cells[1].Style.BackColor = Color.Red;
+                        row.Cells[2].Style.BackColor = Color.Red;
+                    }
                 });
                 this.dataGridViewTeilnehmerEinzahlung.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridViewTeilnehmerEinzahlung.Rows.Add(tn);
+                    if (!t.Inaktiv)
+                    {
+                        this.dataGridViewTeilnehmerEinzahlung.Rows.Add(tn);
+                    }
+                    else
+                    {
+                        this.dataGridViewTeilnehmerEinzahlung.Rows.Add(tn);
+                        DataGridViewRow row = dataGridViewTeilnehmerEinzahlung.Rows[dataGridViewTeilnehmerEinzahlung.Rows.Count - 1];
+                        row.Cells[0].Style.BackColor = Color.Red;
+                        row.Cells[1].Style.BackColor = Color.Red;
+                        row.Cells[2].Style.BackColor = Color.Red;
+                    }
                 });
                 this.dataGridViewTeilnehmerB.Invoke((MethodInvoker)delegate()
                 {
-                    this.dataGridViewTeilnehmerB.Rows.Add(tn);
-                });
-                this.TeilnehmerSuche.Invoke((MethodInvoker)delegate()
-                {
-                    //this.TeilnehmerSuche.AutoCompleteCustomSource.AddRange(tn);
+                    if (!t.Inaktiv)
+                    {
+                        this.dataGridViewTeilnehmerB.Rows.Add(tn);
+                    }
+                    else
+                    {
+                        this.dataGridViewTeilnehmerB.Rows.Add(tn);
+                        DataGridViewRow row = dataGridViewTeilnehmerB.Rows[dataGridViewTeilnehmerB.Rows.Count - 1];
+                        row.Cells[0].Style.BackColor = Color.Red;
+                        row.Cells[1].Style.BackColor = Color.Red;
+                        row.Cells[2].Style.BackColor = Color.Red;
+                    }
                 });
             }
         }
@@ -143,12 +214,24 @@ namespace BauchladenProgramm
             {
                 this.dataGridViewProdukt.Rows.Clear();
             });
+            this.dataGridViewProduktB.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridViewProduktB.Rows.Clear();
+            });
         }
         public void leere_dataGridViewTeilnehmer()
         {
             this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
             {
                 this.dataGridViewTeilnehmer.Rows.Clear();
+            });
+            this.dataGridViewTeilnehmerB.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridViewTeilnehmerB.Rows.Clear();
+            });
+            this.dataGridViewTeilnehmerEinzahlung.Invoke((MethodInvoker)delegate()
+            {
+                this.dataGridViewTeilnehmerEinzahlung.Rows.Clear();
             });
         }
 
@@ -334,7 +417,7 @@ namespace BauchladenProgramm
                         einkaufslistesumme += produktVerwaltungB[i].Preis * produktVerwaltungB[i].Anzahl;
                     }
                 }
-                this.einkaufslistesumme.Text = String.Format("{0:F2}", einkaufslistesumme);
+                this.einkaufslistesummeB.Text = String.Format("{0:F2}", einkaufslistesumme);
             }
         }
 
@@ -342,28 +425,68 @@ namespace BauchladenProgramm
         {
             if (sender == this.dataGridViewTeilnehmer)
             {
-                this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
-                this.Kontostand.Text = "";
-                this.TN_Name.Text = "";
-                this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
-                this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
+                if (dataGridViewTeilnehmer.CurrentRow.Cells[3].Value.ToString().Equals("False"))
+                {
+                    this.dataGridViewEinkauf.Enabled = true;
+                    this.dataGridViewProdukt.Enabled = true;
+                    this.send.Enabled = true;
+                    this.löschen.Enabled = true;
+                    this.c.getKontostand(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString());
+                    this.Kontostand.Text = "";
+                    this.TN_Name.Text = "";
+                    this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
+                    this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmer.CurrentCell.RowIndex].Cells[1];
+                }
+                else
+                {
+                    this.dataGridViewEinkauf.Enabled = false;
+                    this.dataGridViewProdukt.Enabled = false;
+                    this.send.Enabled = false;
+                    this.löschen.Enabled = false;
+                    this.Kontostand.Text = "";
+                    this.TN_Name.Text = "";
+                }
             }
             else if (sender == this.dataGridViewTeilnehmerB)
             {
-                this.c.getKontostand(dataGridViewTeilnehmerB.CurrentRow.Cells[0].Value.ToString());
-                this.KontostandB.Text = "";
-                this.TN_NameB.Text = "";
-                this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
-                this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
+                if (dataGridViewTeilnehmerB.CurrentRow.Cells[3].Value.ToString().Equals("False"))
+                {
+                    this.dataGridViewEinkaufB.Enabled = true;
+                    this.dataGridViewProduktB.Enabled = true;
+                    this.sendB.Enabled = true;
+                    this.löschenB.Enabled = true;
+                    this.c.getKontostand(dataGridViewTeilnehmerB.CurrentRow.Cells[0].Value.ToString());
+                    this.KontostandB.Text = "";
+                    this.TN_NameB.Text = "";
+                    this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
+                    this.dataGridViewTeilnehmerEinzahlung.CurrentCell = this.dataGridViewTeilnehmerEinzahlung.Rows[this.dataGridViewTeilnehmerB.CurrentCell.RowIndex].Cells[1];
+                }
+                else
+                {
+                    this.dataGridViewEinkaufB.Enabled = false;
+                    this.dataGridViewProduktB.Enabled = false;
+                    this.sendB.Enabled = false;
+                    this.löschenB.Enabled = false;
+                    this.KontostandB.Text = "";
+                    this.TN_NameB.Text = "";
+                }
             }
             else if (sender == this.dataGridViewTeilnehmerEinzahlung)
             {
-                this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
-                this.KontostandEinzahlung.Text = "";
-                this.TN_NameEinzahlung.Text = "";
-                this.textBoxEinzahlung.Text = "";
-                this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
-                this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
+                if (dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[3].Value.ToString().Equals("False"))
+                {
+                    this.einzahlen.Enabled = true;
+                    this.c.getKontostand(dataGridViewTeilnehmerEinzahlung.CurrentRow.Cells[0].Value.ToString());
+                    this.KontostandEinzahlung.Text = "";
+                    this.TN_NameEinzahlung.Text = "";
+                    this.textBoxEinzahlung.Text = "";
+                    this.dataGridViewTeilnehmer.CurrentCell = this.dataGridViewTeilnehmer.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
+                    this.dataGridViewTeilnehmerB.CurrentCell = this.dataGridViewTeilnehmerB.Rows[this.dataGridViewTeilnehmerEinzahlung.CurrentCell.RowIndex].Cells[1];
+                }
+                else
+                {
+                    this.einzahlen.Enabled = false;
+                }
             }
         }
 

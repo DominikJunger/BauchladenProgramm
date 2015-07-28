@@ -56,6 +56,7 @@ namespace BauchladenProgramm.Connector
                                    FIRST_NAME = "fName",
                                    LAST_NAME = "lName",
                                    ID = "id",
+                                   INAKTIV = "inaktiv",
                                    BANK_BALANCE = "bankB",
 
                                    //Produkt

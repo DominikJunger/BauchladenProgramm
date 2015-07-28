@@ -83,7 +83,7 @@ namespace BauchladenProgrammServer
         private void addProdukte(List<Produkt> pr)
         {
             this.dataGridViewProdukt.Rows.Clear();
-            String[] prString = new String[4];
+            String[] prString = new String[5];
 
             foreach (Produkt p in pr)
             {
@@ -98,11 +98,103 @@ namespace BauchladenProgrammServer
                 {
                      prString[3] = "Nicht";
                 }
+                if (p.BücherT)
+                {
+                    prString[4] = "Ja";
+                }
+                else
+                {
+                    prString[4] = "Nein";
+                }
                
                 this.dataGridViewTeilnehmer.Invoke((MethodInvoker)delegate()
                 {
                     dataGridViewProdukt.Rows.Add(prString);
                 });
+
+            }
+            foreach(DataGridViewRow row in this.dataGridViewProdukt.Rows)
+            {
+                if (row.Cells[1].Value.Equals("Gelb"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Yellow;
+                    row.Cells[1].Style.BackColor = Color.Yellow;
+                    row.Cells[2].Style.BackColor = Color.Yellow;
+                    row.Cells[3].Style.BackColor = Color.Yellow;
+                    row.Cells[4].Style.BackColor = Color.Yellow;
+                }
+                if (row.Cells[1].Value.Equals("Orange"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Orange;
+                    row.Cells[1].Style.BackColor = Color.Orange;
+                    row.Cells[2].Style.BackColor = Color.Orange;
+                    row.Cells[3].Style.BackColor = Color.Orange;
+                    row.Cells[4].Style.BackColor = Color.Orange;
+                }
+                if (row.Cells[1].Value.Equals("Rot"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Red;
+                    row.Cells[1].Style.BackColor = Color.Red;
+                    row.Cells[2].Style.BackColor = Color.Red;
+                    row.Cells[3].Style.BackColor = Color.Red;
+                    row.Cells[4].Style.BackColor = Color.Red;
+                }
+                if (row.Cells[1].Value.Equals("Pink"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Pink;
+                    row.Cells[1].Style.BackColor = Color.Pink;
+                    row.Cells[2].Style.BackColor = Color.Pink;
+                    row.Cells[3].Style.BackColor = Color.Pink;
+                    row.Cells[4].Style.BackColor = Color.Pink;
+                }
+                if (row.Cells[1].Value.Equals("Lila"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Purple;
+                    row.Cells[1].Style.BackColor = Color.Purple;
+                    row.Cells[2].Style.BackColor = Color.Purple;
+                    row.Cells[3].Style.BackColor = Color.Purple;
+                    row.Cells[4].Style.BackColor = Color.Purple;
+                }
+                if (row.Cells[1].Value.Equals("Dunkelblau"))
+                {
+                    row.Cells[0].Style.BackColor = Color.DarkBlue;
+                    row.Cells[1].Style.BackColor = Color.DarkBlue;
+                    row.Cells[2].Style.BackColor = Color.DarkBlue;
+                    row.Cells[3].Style.BackColor = Color.DarkBlue;
+                    row.Cells[4].Style.BackColor = Color.DarkBlue;
+                }
+                if (row.Cells[1].Value.Equals("Hellblau"))
+                {
+                    row.Cells[0].Style.BackColor = Color.LightBlue;
+                    row.Cells[1].Style.BackColor = Color.LightBlue;
+                    row.Cells[2].Style.BackColor = Color.LightBlue;
+                    row.Cells[3].Style.BackColor = Color.LightBlue;
+                    row.Cells[4].Style.BackColor = Color.LightBlue;
+                }
+                if (row.Cells[1].Value.Equals("Hellgrün"))
+                {
+                    row.Cells[0].Style.BackColor = Color.LightGreen;
+                    row.Cells[1].Style.BackColor = Color.LightGreen;
+                    row.Cells[2].Style.BackColor = Color.LightGreen;
+                    row.Cells[3].Style.BackColor = Color.LightGreen;
+                    row.Cells[4].Style.BackColor = Color.LightGreen;
+                }
+                if (row.Cells[1].Value.Equals("Dunkelgrün"))
+                {
+                    row.Cells[0].Style.BackColor = Color.DarkGreen;
+                    row.Cells[1].Style.BackColor = Color.DarkGreen;
+                    row.Cells[2].Style.BackColor = Color.DarkGreen;
+                    row.Cells[3].Style.BackColor = Color.DarkGreen;
+                    row.Cells[4].Style.BackColor = Color.DarkGreen;
+                }
+                if (row.Cells[1].Value.Equals("Braun"))
+                {
+                    row.Cells[0].Style.BackColor = Color.Brown;
+                    row.Cells[1].Style.BackColor = Color.Brown;
+                    row.Cells[2].Style.BackColor = Color.Brown;
+                    row.Cells[3].Style.BackColor = Color.Brown;
+                    row.Cells[4].Style.BackColor = Color.Brown;
+                }
 
             }
         }
@@ -265,12 +357,18 @@ namespace BauchladenProgrammServer
         {
             try
             {
+                List<PDFAuszahlung> pdfA=new List<PDFAuszahlung>();
                 System.IO.Directory.CreateDirectory(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString());
                 foreach (Teilnehmer t in con.selectTeilnehmerAll(false))
                 {
                     PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\" + DateTime.Today.ToShortDateString() + "\\" + t.VorName + "_" + t.NachName + "_" + t.Id + "_" + DateTime.Today.ToShortDateString() + ".pdf");
-                    pdfc.createTagesabschluss(con.PDF(t.Id));
+                    PDFAuszahlung tmp = con.PDF(t.Id);
+                    pdfA.Add(tmp);
+                    pdfc.createTagesabschluss(tmp);
                 }
+                PDFCreator pdf = new PDFCreator(@"D:\Jula\Abrechnungen\Tagesabschluss\Teilnehmer\"+"GesamterTagesabschluss_" + DateTime.Today.ToShortDateString() + ".pdf");
+                pdf.createTagesabschlussAlle(pdfA);
+
                 MessageBox.Show("Pdf´s wurden erfolgreich erstellt");
                 this.logNachricht("Tagesabschluss erfolgreich erstellt");
             }

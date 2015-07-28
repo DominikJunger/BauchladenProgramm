@@ -436,5 +436,40 @@ namespace BauchladenProgrammServer.Klassen
             doc.Add(tableAuflistung);
             doc.Close();
         }
+        public void createTagesabschlussAlle(List<PDFAuszahlung> aus)
+        {
+            doc.Open();
+
+            doc.Add(new Paragraph("Gesamt Tagesabschluss am " + DateTime.Now.Date.ToShortDateString() + "\n\n"));
+
+            PdfPTable tableAuflistung = new PdfPTable(3);
+            tableAuflistung.HorizontalAlignment = 0; // 0 = Links, 1 = Mitte, 2 = Rechts
+
+            // "Überschriften" Zelle einfügen
+            PdfPCell cellAuflistung = new PdfPCell(new Phrase("Kontostände im Verlauf"));
+            cellAuflistung.Colspan = 3;
+            cellAuflistung.HorizontalAlignment = 1;
+            tableAuflistung.AddCell(cellAuflistung);
+
+            // Neue Zellen hinzufügen
+            tableAuflistung.AddCell(new Phrase("Teilnehmer"));
+            tableAuflistung.AddCell(new Phrase("Datum"));
+            tableAuflistung.AddCell(new Phrase("Kontostand"));
+
+            decimal sum=0;
+            foreach (PDFAuszahlung pdf in aus)
+            {
+                tableAuflistung.AddCell(pdf.El.Tn.VorName + " "+pdf.El.Tn.NachName);
+                tableAuflistung.AddCell(pdf.Auflistung[pdf.Auflistung.Count-1].Datum.ToString());
+                tableAuflistung.AddCell(pdf.Auflistung[pdf.Auflistung.Count-1].Kstand.ToString());
+                sum += pdf.Auflistung[pdf.Auflistung.Count - 1].Kstand;
+            }
+
+            doc.Add(tableAuflistung);
+
+            doc.Add(new Paragraph("Aktueller Gesamtkontostand: "+sum.ToString() + " €"));
+
+            doc.Close();
+        }
     }
 }

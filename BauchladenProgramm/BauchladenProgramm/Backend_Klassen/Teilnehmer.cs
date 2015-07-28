@@ -9,13 +9,21 @@ namespace BauchladenProgramm.Backend_Klassen
     {
         private int id;    
         private string vorName;      
-        private string nachName;       
+        private string nachName;
+        private bool inaktiv;
 
-        public Teilnehmer(int id, string vorName, string nachName)
+        public Teilnehmer(int id, string vorName, string nachName,bool inaktiv)
         {
             this.id = id;
             this.vorName = vorName;
             this.nachName = nachName;
+            this.inaktiv = inaktiv;
+        }
+
+        public bool Inaktiv
+        {
+            get { return inaktiv; }
+            set { inaktiv = value; }
         }
 
         public int Id
