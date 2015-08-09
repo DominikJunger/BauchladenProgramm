@@ -259,6 +259,12 @@ namespace BauchladenProgramm
                     if (selectedRowCount == 1)
                     {
                         this.dataGridViewTeilnehmer.Enabled = false;
+                        foreach (TabPage tab in this.tabControl1.TabPages)
+                        {
+                            tab.Enabled = false;
+                        }
+                        (this.tabControl1.TabPages[0] as TabPage).Enabled = true;
+
                         this.produktVerwaltung.Add(new Produkt(dataGridViewProdukt.SelectedRows[0].Cells[0].Value.ToString(),
                             dataGridViewProdukt.SelectedRows[0].Cells[1].Value.ToString(),
                             dataGridViewProdukt.SelectedRows[0].Cells[2].Value.ToString(),
@@ -282,6 +288,12 @@ namespace BauchladenProgramm
                     if (selectedRowCount == 1)
                     {
                         this.dataGridViewTeilnehmerB.Enabled = false;
+                        foreach (TabPage tab in this.tabControl1.TabPages)
+                        {
+                            tab.Enabled = false;
+                        }
+                        (this.tabControl1.TabPages[1] as TabPage).Enabled = true;
+
                         this.produktVerwaltungB.Add(new Produkt(dataGridViewProduktB.SelectedRows[0].Cells[0].Value.ToString(),
                             dataGridViewProduktB.SelectedRows[0].Cells[1].Value.ToString(),
                             dataGridViewProduktB.SelectedRows[0].Cells[2].Value.ToString(),
@@ -508,6 +520,10 @@ namespace BauchladenProgramm
                     this.dataGridViewEinkauf.Rows.Clear();
                     this.produktVerwaltung.Clear();
                     this.dataGridViewTeilnehmer.Enabled = true;
+                    foreach (TabPage tab in this.tabControl1.TabPages)
+                    {
+                        tab.Enabled = true;
+                    }
                 }
                 else
                 {
@@ -529,6 +545,10 @@ namespace BauchladenProgramm
                     this.dataGridViewEinkaufB.Rows.Clear();
                     this.produktVerwaltungB.Clear();
                     this.dataGridViewTeilnehmerB.Enabled = true;
+                    foreach (TabPage tab in this.tabControl1.TabPages)
+                    {
+                        tab.Enabled = true;
+                    }
                 }
                 else
                 {
@@ -604,12 +624,20 @@ namespace BauchladenProgramm
                 this.produktVerwaltung.Clear();
                 this.einkaufslistesumme.Text = "0.00";
                 this.dataGridViewTeilnehmer.Enabled = true;
+                foreach (TabPage tab in this.tabControl1.TabPages)
+                {
+                    tab.Enabled = true;
+                }
             } if (sender == this.löschenB)
             {
                 this.dataGridViewEinkaufB.Rows.Clear();
                 this.produktVerwaltungB.Clear();
                 this.einkaufslistesummeB.Text = "0.00";
                 this.dataGridViewTeilnehmerB.Enabled = true;
+                foreach (TabPage tab in this.tabControl1.TabPages)
+                {
+                    tab.Enabled = true;
+                }
             }
         }
 
