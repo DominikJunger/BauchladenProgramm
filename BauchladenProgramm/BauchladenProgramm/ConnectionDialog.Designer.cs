@@ -59,6 +59,7 @@
             this.ipAdresse.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.ipAdresse.FormattingEnabled = true;
             this.ipAdresse.Items.AddRange(new object[] {
+            "192.168.178.32",
             "192.168.2.100"});
             this.ipAdresse.Location = new System.Drawing.Point(15, 33);
             this.ipAdresse.Name = "ipAdresse";
@@ -74,7 +75,7 @@
             this.Controls.Add(this.ipAdresse);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.connect);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = new System.Drawing.Icon("Icons//BU_Logo_K-web.ico");
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnectionDialog";
