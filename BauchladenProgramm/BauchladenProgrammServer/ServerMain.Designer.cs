@@ -49,7 +49,6 @@
             this.TnEinzahlen = new System.Windows.Forms.Button();
             this.TnAuszahlen = new System.Windows.Forms.Button();
             this.TnInaktiv = new System.Windows.Forms.Button();
-            this.TnLöschen = new System.Windows.Forms.Button();
             this.TnHinzufügen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,6 +63,7 @@
             this.inaktiv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.checkBüchertisch = new System.Windows.Forms.CheckBox();
             this.PPreis = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.PName = new System.Windows.Forms.TextBox();
@@ -72,13 +72,14 @@
             this.PLöschen = new System.Windows.Forms.Button();
             this.PHinzugügen = new System.Windows.Forms.Button();
             this.dataGridViewProdukt = new System.Windows.Forms.DataGridView();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Produkt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Preis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.verfügbarkeit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BücherTisch = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.statistik = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlState)).BeginInit();
@@ -105,6 +106,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.statistik);
             this.tabPage3.Controls.Add(this.CsvEinlesen);
             this.tabPage3.Controls.Add(this.stückelung);
             this.tabPage3.Controls.Add(this.alleAuszahlen);
@@ -164,7 +166,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(612, 111);
+            this.label5.Location = new System.Drawing.Point(612, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(151, 13);
             this.label5.TabIndex = 2;
@@ -174,7 +176,7 @@
             // 
             this.sqlState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sqlState.BackColor = System.Drawing.Color.Red;
-            this.sqlState.Location = new System.Drawing.Point(665, 138);
+            this.sqlState.Location = new System.Drawing.Point(665, 161);
             this.sqlState.Name = "sqlState";
             this.sqlState.Size = new System.Drawing.Size(44, 28);
             this.sqlState.TabIndex = 1;
@@ -213,7 +215,6 @@
             this.panel2.Controls.Add(this.TnEinzahlen);
             this.panel2.Controls.Add(this.TnAuszahlen);
             this.panel2.Controls.Add(this.TnInaktiv);
-            this.panel2.Controls.Add(this.TnLöschen);
             this.panel2.Controls.Add(this.TnHinzufügen);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(586, 3);
@@ -258,7 +259,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(144, 252);
+            this.label4.Location = new System.Drawing.Point(144, 209);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(13, 13);
             this.label4.TabIndex = 12;
@@ -267,7 +268,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 230);
+            this.label3.Location = new System.Drawing.Point(9, 187);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 13);
             this.label3.TabIndex = 11;
@@ -275,7 +276,7 @@
             // 
             // einzahlung
             // 
-            this.einzahlung.Location = new System.Drawing.Point(9, 249);
+            this.einzahlung.Location = new System.Drawing.Point(9, 206);
             this.einzahlung.Name = "einzahlung";
             this.einzahlung.Size = new System.Drawing.Size(129, 20);
             this.einzahlung.TabIndex = 10;
@@ -283,7 +284,7 @@
             // 
             // TnEinzahlen
             // 
-            this.TnEinzahlen.Location = new System.Drawing.Point(9, 275);
+            this.TnEinzahlen.Location = new System.Drawing.Point(9, 232);
             this.TnEinzahlen.Name = "TnEinzahlen";
             this.TnEinzahlen.Size = new System.Drawing.Size(188, 23);
             this.TnEinzahlen.TabIndex = 9;
@@ -293,7 +294,7 @@
             // 
             // TnAuszahlen
             // 
-            this.TnAuszahlen.Location = new System.Drawing.Point(9, 191);
+            this.TnAuszahlen.Location = new System.Drawing.Point(9, 141);
             this.TnAuszahlen.Name = "TnAuszahlen";
             this.TnAuszahlen.Size = new System.Drawing.Size(188, 23);
             this.TnAuszahlen.TabIndex = 8;
@@ -303,23 +304,14 @@
             // 
             // TnInaktiv
             // 
-            this.TnInaktiv.Location = new System.Drawing.Point(9, 142);
+            this.TnInaktiv.BackColor = System.Drawing.Color.Red;
+            this.TnInaktiv.Location = new System.Drawing.Point(9, 285);
             this.TnInaktiv.Name = "TnInaktiv";
             this.TnInaktiv.Size = new System.Drawing.Size(188, 43);
             this.TnInaktiv.TabIndex = 7;
             this.TnInaktiv.Text = "Ändern der Inaktivität des ausgewählten TN";
-            this.TnInaktiv.UseVisualStyleBackColor = true;
+            this.TnInaktiv.UseVisualStyleBackColor = false;
             this.TnInaktiv.Click += new System.EventHandler(this.TnInaktiv_Click);
-            // 
-            // TnLöschen
-            // 
-            this.TnLöschen.Location = new System.Drawing.Point(9, 112);
-            this.TnLöschen.Name = "TnLöschen";
-            this.TnLöschen.Size = new System.Drawing.Size(188, 23);
-            this.TnLöschen.TabIndex = 6;
-            this.TnLöschen.Text = "Ausgewählten Teilnehmer löschen";
-            this.TnLöschen.UseVisualStyleBackColor = true;
-            this.TnLöschen.Click += new System.EventHandler(this.TnLöschen_Click);
             // 
             // TnHinzufügen
             // 
@@ -461,6 +453,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.checkBüchertisch);
             this.panel4.Controls.Add(this.PPreis);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.PName);
@@ -473,6 +466,16 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(288, 429);
             this.panel4.TabIndex = 2;
+            // 
+            // checkBüchertisch
+            // 
+            this.checkBüchertisch.AutoSize = true;
+            this.checkBüchertisch.Location = new System.Drawing.Point(9, 104);
+            this.checkBüchertisch.Name = "checkBüchertisch";
+            this.checkBüchertisch.Size = new System.Drawing.Size(82, 17);
+            this.checkBüchertisch.TabIndex = 15;
+            this.checkBüchertisch.Text = "Büchertisch";
+            this.checkBüchertisch.UseVisualStyleBackColor = true;
             // 
             // PPreis
             // 
@@ -510,17 +513,17 @@
             // 
             // PInaktiv
             // 
-            this.PInaktiv.Location = new System.Drawing.Point(9, 176);
+            this.PInaktiv.Location = new System.Drawing.Point(9, 197);
             this.PInaktiv.Name = "PInaktiv";
             this.PInaktiv.Size = new System.Drawing.Size(273, 23);
             this.PInaktiv.TabIndex = 10;
-            this.PInaktiv.Text = "Ändern der Verfügbarkeit des ausgewähltem Produkts";
+            this.PInaktiv.Text = "Ändern der Verfügbarkeit des ausgewählten Produkts";
             this.PInaktiv.UseVisualStyleBackColor = true;
             this.PInaktiv.Click += new System.EventHandler(this.PInaktiv_Click);
             // 
             // PLöschen
             // 
-            this.PLöschen.Location = new System.Drawing.Point(9, 146);
+            this.PLöschen.Location = new System.Drawing.Point(9, 167);
             this.PLöschen.Name = "PLöschen";
             this.PLöschen.Size = new System.Drawing.Size(273, 23);
             this.PLöschen.TabIndex = 9;
@@ -530,7 +533,7 @@
             // 
             // PHinzugügen
             // 
-            this.PHinzugügen.Location = new System.Drawing.Point(9, 115);
+            this.PHinzugügen.Location = new System.Drawing.Point(9, 136);
             this.PHinzugügen.Name = "PHinzugügen";
             this.PHinzugügen.Size = new System.Drawing.Size(273, 23);
             this.PHinzugügen.TabIndex = 8;
@@ -563,16 +566,6 @@
             this.dataGridViewProdukt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProdukt.Size = new System.Drawing.Size(497, 429);
             this.dataGridViewProdukt.TabIndex = 1;
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.Filter = "\"CSV-Dateien\"| *.csv";
             // 
             // Id
             // 
@@ -612,6 +605,26 @@
             this.BücherTisch.MinimumWidth = 30;
             this.BücherTisch.Name = "BücherTisch";
             this.BücherTisch.ReadOnly = true;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "\"CSV-Dateien\"| *.csv";
+            // 
+            // statistik
+            // 
+            this.statistik.Location = new System.Drawing.Point(542, 6);
+            this.statistik.Name = "statistik";
+            this.statistik.Size = new System.Drawing.Size(128, 88);
+            this.statistik.TabIndex = 8;
+            this.statistik.Text = "Aktuelle Statistik von verkauften Produkten";
+            this.statistik.UseVisualStyleBackColor = true;
+            this.statistik.Click += new System.EventHandler(this.statistik_Click);
             // 
             // Mainwindow
             // 
@@ -660,7 +673,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button TnLöschen;
         private System.Windows.Forms.Button TnHinzufügen;
         private System.Windows.Forms.Button TnInaktiv;
         private System.Windows.Forms.Label label4;
@@ -695,6 +707,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Preis;
         private System.Windows.Forms.DataGridViewTextBoxColumn verfügbarkeit;
         private System.Windows.Forms.DataGridViewTextBoxColumn BücherTisch;
+        private System.Windows.Forms.CheckBox checkBüchertisch;
+        private System.Windows.Forms.Button statistik;
     }
 }
 

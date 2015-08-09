@@ -112,7 +112,7 @@ namespace BauchladenProgrammServer.Connector
             this.sendMessageToClient(t.Kontostand.ToString());
             this.sendMessageToClient(Syntax.END + Syntax.COLON_CHAR + msgCount);
             msgCount++;
-            this.gui.logNachricht("Ausgehend: Kontostand versendet");
+            this.gui.logNachricht("Ausgehend: Kontostand versendet:" +t.Kontostand);
         }
         
         // Methoden zum Senden von ProduktListe

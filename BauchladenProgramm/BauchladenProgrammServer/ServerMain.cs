@@ -19,12 +19,14 @@ namespace BauchladenProgrammServer
     {
         private SQL_Connector con;
         private Server ser;
+        private Log logFile;
       
         public Mainwindow()
         {
             InitializeComponent();
             // Startet den Serverprozess und wartet auf Anfragen
             ser=new Server(new IPEndPoint(IPAddress.Any, 3000), this);
+            logFile = new Log(@"D:\Jula\Abrechnungen\Log\" + "Logfile" + DateTime.Now.ToShortDateString() + ".txt");
 
             openSQLConnection();
             init_Server();
@@ -41,6 +43,7 @@ namespace BauchladenProgrammServer
             {
                 con.closeConnection();
             }
+            logFile.close();
             Environment.Exit(0);
         }
         private async void openSQLConnection()
@@ -221,6 +224,7 @@ namespace BauchladenProgrammServer
             {
                 this.log.Items.Add(nachricht);
             });
+            logFile.write(nachricht);
         }
 
         private void dataGridViewTeilnehmer_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -242,21 +246,6 @@ namespace BauchladenProgrammServer
             {
                 this.ser.TnAnAlle(tn);
             }
-        }
-
-        private void TnLöschen_Click(object sender, EventArgs e)
-        {
-            con.deleteTn(int.Parse(dataGridViewTeilnehmer.CurrentRow.Cells[0].Value.ToString()));
-            Thread.Sleep(500);
-            List<Teilnehmer> tn = con.selectTeilnehmerAll(false);
-            addTeilnehmer(tn);
-            if (ser.isConnected())
-            {
-                this.ser.TnAnAlle(tn);
-            }
-            Thread.Sleep(200);
-            this.dataGridViewTeilnehmer_CellClick(null, null);
-            
         }
 
         private void TnInaktiv_Click(object sender, EventArgs e)
@@ -288,27 +277,39 @@ namespace BauchladenProgrammServer
 
         private void PHinzugügen_Click(object sender, EventArgs e)
         {
-            con.addProdukt(new Produkt(this.PName.Text,Decimal.Parse(this.PPreis.Text)));
-            this.PName.Text = "";
-            this.PPreis.Text = "";
-            Thread.Sleep(500);
-            List<Produkt> pr = con.selectProduktAll();
-            this.addProdukte(pr);
-            if (ser.isConnected())
+            if (this.PName.Text != "" && this.PPreis.Text != "")
             {
-                this.ser.PrAnAlle(pr);
+                con.addProdukt(new Produkt(this.PName.Text, Decimal.Parse(this.PPreis.Text), this.checkBüchertisch.Checked));
+                this.PName.Text = "";
+                this.PPreis.Text = "";
+                this.checkBüchertisch.Checked = false;
+                Thread.Sleep(500);
+                List<Produkt> pr = con.selectProduktAll();
+                this.addProdukte(pr);
+                if (ser.isConnected())
+                {
+                    this.ser.PrAnAlle(pr);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bitte Name und Preis des Produkts ausfüllen");
             }
         }
 
         private void PLöschen_Click(object sender, EventArgs e)
         {
-            con.deletePr(int.Parse(dataGridViewProdukt.CurrentRow.Cells[0].Value.ToString()));
-            Thread.Sleep(500);
-            List<Produkt> pr = con.selectProduktAll();
-            this.addProdukte(pr);
-            if (ser.isConnected())
+            DialogResult result = MessageBox.Show("Wollen Sie wirklich das ausgewählte Produkt löschen? Dies hat zur Folge das die Abrechnung bei den TN nicht mehr korrekt ist. \n Deshalb nur wenn alle abgerechnet sind ausführen","Sicherheitsabfrage",MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                this.ser.PrAnAlle(pr);
+                con.deletePr(int.Parse(dataGridViewProdukt.CurrentRow.Cells[0].Value.ToString()));
+                Thread.Sleep(500);
+                List<Produkt> pr = con.selectProduktAll();
+                this.addProdukte(pr);
+                if (ser.isConnected())
+                {
+                    this.ser.PrAnAlle(pr);
+                }
             }
         }
 
@@ -425,12 +426,28 @@ namespace BauchladenProgrammServer
                 PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\" +"Aktuelle_Stückelung_"+ DateTime.Today.ToShortDateString() + ".pdf");
                 pdfc.createStückelung(con.selectTeilnehmerAll(true));
                 System.Diagnostics.Process.Start(@"D:\Jula\Abrechnungen\" + "Aktuelle_Stückelung_" + DateTime.Today.ToShortDateString() + ".pdf");
-                MessageBox.Show("Pdf für die Stückelung wurden erfolgreich erstellt");
+                MessageBox.Show("Pdf für die Stückelung wurde erfolgreich erstellt");
                 this.logNachricht("Stückelung erfolgreich erstellt");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Fehler bei der Stückelung: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void statistik_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PDFCreator pdfc = new PDFCreator(@"D:\Jula\Abrechnungen\" + "StatistikProdukte_" + DateTime.Today.ToShortDateString() + ".pdf");
+                pdfc.createStatistik(con.getStatistik());
+                System.Diagnostics.Process.Start((@"D:\Jula\Abrechnungen\" + "StatistikProdukte_" + DateTime.Today.ToShortDateString() + ".pdf"));
+                MessageBox.Show("Statistik von verkauften Produkten wurde erfolgreich erstellt");
+                this.logNachricht("Statistik von verkauften Produkten wurde erfolgreich erstellt");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fehler bei der Statistik von verkauften Produkten: " + ex.Message, "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -471,5 +471,32 @@ namespace BauchladenProgrammServer.Klassen
 
             doc.Close();
         }
+        public void createStatistik(List<PDF_Produkt> p)
+        {
+            doc.Open();
+
+            doc.Add(new Paragraph("Statistik der verkauften Produkte vom: " + DateTime.Now.Date.ToShortDateString() + "\n\n"));
+
+            PdfPTable tableAuflistung = new PdfPTable(3);
+            tableAuflistung.HorizontalAlignment = 0; // 0 = Links, 1 = Mitte, 2 = Rechts
+
+            // Neue Zellen hinzufügen
+            tableAuflistung.AddCell(new Phrase("Produkt"));
+            tableAuflistung.AddCell(new Phrase("Einzelpreis"));
+            tableAuflistung.AddCell(new Phrase("Anzahl verkauft"));
+
+            decimal sum = 0;
+            foreach (PDF_Produkt pdf in p)
+            {
+                tableAuflistung.AddCell(pdf.Name);
+                tableAuflistung.AddCell(pdf.Preis.ToString());
+                tableAuflistung.AddCell(pdf.Anzahl.ToString());
+            }
+
+            doc.Add(tableAuflistung);
+
+            doc.Close();
+
+        }
     }
 }

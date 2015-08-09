@@ -339,13 +339,15 @@ namespace BauchladenProgrammServer.Klassen
              {
 
                  SqlCommand cmd = con.CreateCommand();
-                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit,bücherTisch) values(@Name,@Preis,1,0)";
+                 cmd.CommandText = "insert into Produkt(name,preis,verfügbarkeit,bücherTisch) values(@Name,@Preis,1,@bücher)";
                  cmd.CommandType = CommandType.Text;
 
                  cmd.Parameters.Add(new SqlParameter("@Name", SqlDbType.VarChar));
                  cmd.Parameters.Add(new SqlParameter("@Preis", SqlDbType.Decimal));
                  cmd.Parameters["@Name"].Value = produkt.Name;
                  cmd.Parameters["@Preis"].Value = produkt.Preis;
+                 cmd.Parameters.Add(new SqlParameter("@bücher", SqlDbType.Bit));
+                 cmd.Parameters["@bücher"].Value = produkt.BücherT;
 
                  try
                  {
@@ -396,6 +398,26 @@ namespace BauchladenProgrammServer.Klassen
                 reader.Close();
                 cmd.ExecuteNonQuery();
              }
+         }
+
+         public List<PDF_Produkt> getStatistik()
+         {
+             List<PDF_Produkt> tmp = new List<PDF_Produkt>();
+             SqlCommand cmd = con.CreateCommand();
+             SqlDataReader reader;
+
+             cmd.CommandText = "select p.name, p.preis,count(*) from ProduktEinkauf pe join Produkt p on pe.produkt=p.id group by p.id,p.name,p.preis";
+             cmd.CommandType = CommandType.Text;
+
+             reader = cmd.ExecuteReader();
+             if (reader.HasRows)
+             {
+                 while (reader.Read())
+                 {
+                     tmp.Add(new PDF_Produkt(reader.GetString(0),reader.GetDecimal(1),reader.GetInt32(2)));
+                 }
+             }
+             return tmp;
          }
 
 //Set Methoden Datenbank

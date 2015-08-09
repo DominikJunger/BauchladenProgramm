@@ -11,6 +11,22 @@
     <AssemblyName>BauchladenProgrammServer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\Jula\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +46,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>E02C6D8A89AA65F7F7D136728DA44D32BA20B8E8</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>BauchladenProgrammServer_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="iTextSharp">
@@ -51,6 +79,7 @@
     <Compile Include="Backend_Klassen\EinkaufListe.cs" />
     <Compile Include="Backend_Klassen\Kontostand.cs" />
     <Compile Include="Backend_Klassen\PDFAuszahlung.cs" />
+    <Compile Include="Backend_Klassen\PDF_Produkt.cs" />
     <Compile Include="Backend_Klassen\Produkt.cs" />
     <Compile Include="Backend_Klassen\Teilnehmer.cs" />
     <Compile Include="Connector\Buffer.cs" />
@@ -60,6 +89,7 @@
     <Compile Include="Connector\Sender.cs" />
     <Compile Include="Connector\Syntax.cs" />
     <Compile Include="Klassen\CSVReader.cs" />
+    <Compile Include="Klassen\Log.cs" />
     <Compile Include="Klassen\PDFCreator.cs" />
     <Compile Include="Klassen\SQL_Connector.cs" />
     <Compile Include="Server.cs" />
@@ -83,6 +113,7 @@
     <EmbeddedResource Include="ServerMain.resx">
       <DependentUpon>ServerMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="BauchladenProgrammServer_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,6 +133,23 @@
       <Project>{4535e68a-6dd9-44d0-9729-445728711a6d}</Project>
       <Name>BauchladenProgramm</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

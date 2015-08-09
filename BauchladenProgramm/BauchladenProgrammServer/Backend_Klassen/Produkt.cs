@@ -20,6 +20,13 @@ namespace BauchladenProgrammServer.Backend_Klassen
             this.preis = preis;
         }
 
+        public Produkt(string name, decimal preis,bool bücherT)
+        {
+            this.name = name;
+            this.preis = preis;
+            this.bücherT = bücherT;
+        }
+
         public Produkt(string id, string name, decimal preis)
         {
             this.id = id;
